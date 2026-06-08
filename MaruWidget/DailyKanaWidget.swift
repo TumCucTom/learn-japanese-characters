@@ -2,7 +2,7 @@ import WidgetKit
 import SwiftUI
 
 struct DailyKanaWidget: Widget {
-    kind: String = "DailyKanaWidget"
+    var kind: String = "DailyKanaWidget"
 
     var body: some WidgetConfiguration {
         AppIntentConfiguration(

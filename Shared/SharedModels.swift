@@ -52,3 +52,13 @@ struct DailyKanaSelection: Codable {
         case flashcard
     }
 }
+
+// MARK: - Mascot Expression
+
+enum MascotExpression: String, CaseIterable {
+    case happy
+    case thinking
+    case celebrating
+    case neutral
+    case sad
+}

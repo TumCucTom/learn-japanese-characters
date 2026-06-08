@@ -26,14 +26,7 @@ final class PracticeViewModel: ObservableObject {
         case spelling = "Spelling"
     }
 
-    enum MascotExpression {
-        case happy
-        case thinking
-        case celebrating
-        case sad
-    }
-
-    @Published var mascotExpression: MascotExpression = .neutral
+    @Published var mascotExpression: MascotExpression = .thinking
 
     init() {}
 

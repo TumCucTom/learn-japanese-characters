@@ -222,16 +222,6 @@ private struct StarShape: Shape {
     }
 }
 
-// MARK: - MascotExpression
-
-enum MascotExpression: String, CaseIterable {
-    case happy
-    case thinking
-    case celebrating
-    case neutral
-    case sad
-}
-
 // MARK: - Color Extension
 
 extension Color {

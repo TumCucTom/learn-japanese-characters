@@ -230,8 +230,9 @@ final class SharedDatabase {
         guard let db = db else { return nil }
 
         let calendar = Calendar.current
-        let startOfDay = calendar.startOfDay(for: date).timeIntervalSince1970
-        let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!.timeIntervalSince1970
+        let startOfDayDate = calendar.startOfDay(for: date)
+        let startOfDay = startOfDayDate.timeIntervalSince1970
+        let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDayDate)!.timeIntervalSince1970
 
         let query = dailySelectionTable
             .filter(dailyDate >= startOfDay && dailyDate < endOfDay)

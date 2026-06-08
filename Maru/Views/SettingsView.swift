@@ -6,8 +6,9 @@ struct SettingsView: View {
     @AppStorage("hapticFeedback") private var hapticFeedback = true
     @AppStorage("soundEffects") private var soundEffects = true
     @AppStorage("dailyReminder") private var dailyReminder = false
-    @AppStorage("reminderTime") private var reminderTime = Date()
+    @AppStorage("reminderTime") private var reminderTimeInterval: TimeInterval = 32400 // Default 9 AM
     @State private var showResetAlert = false
+    @State private var reminderDate: Date = Calendar.current.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
 
     private let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
     private let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
@@ -55,11 +56,17 @@ struct SettingsView: View {
                     if dailyReminder {
                         DatePicker(
                             "Reminder Time",
-                            selection: $reminderTime,
+                            selection: $reminderDate,
                             displayedComponents: .hourAndMinute
                         )
                         .datePickerStyle(.compact)
                         .padding(.leading, 44)
+                        .onChange(of: reminderDate) { _, newValue in
+                            reminderTimeInterval = newValue.timeIntervalSince1970
+                        }
+                        .onAppear {
+                            reminderDate = Date(timeIntervalSince1970: reminderTimeInterval)
+                        }
                     }
                 } header: {
                     Text("Notifications")
@@ -130,7 +137,8 @@ struct SettingsView: View {
         hapticFeedback = true
         soundEffects = true
         dailyReminder = false
-        reminderTime = Date()
+        reminderTimeInterval = 32400
+        reminderDate = Calendar.current.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
 
         // TODO: Reset database progress
         // This would typically call a method on SharedDatabase to clear progress

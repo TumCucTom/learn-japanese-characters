@@ -1,4 +1,5 @@
 import WidgetKit
+import AppIntents
 import Foundation
 
 // MARK: - Widget Timeline Entry

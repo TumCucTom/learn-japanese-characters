@@ -7,9 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0121ADAAAA8F71D19D399215 /* KanaRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6B0893323BF170ADDF9C97 /* KanaRepository.swift */; };
+		088B2AC17DC5AF8A5AA45879 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6452243DAE1D1A14C1C3559 /* HomeViewModel.swift */; };
+		0EF50522028C317B4B8AD4B7 /* FlashcardWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06AE7EE4D43B70A4B48A499 /* FlashcardWidget.swift */; };
+		14510916C3719DE92830E8C4 /* PracticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF59B93EF534D6DCA048E0A /* PracticeViewModel.swift */; };
+		1B696E2E9361373B5B86DFA4 /* DailyKanaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0251B35D885A332726BE49 /* DailyKanaService.swift */; };
+		2CC05D4ED3F37962C11E9210 /* kana_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 765556EE66B8A7B83FD0BAA5 /* kana_data.json */; };
 		350891EAA93502ABE5594318 /* MaruWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 545179A9C4DAB281F5377C3A /* MaruWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		3D560E2C6F9D774ECE794B63 /* SQLite.swift in Frameworks */ = {isa = PBXBuildFile; productRef = E1217F81A43793D4F1B08461 /* SQLite.swift */; };
-		B0580F83480B2488E94E46FD /* SQLite.swift in Frameworks */ = {isa = PBXBuildFile; productRef = 841B55930A31AE7B75937964 /* SQLite.swift */; };
+		3D560E2C6F9D774ECE794B63 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = E1190526E025E19DB5BEB141 /* SQLite */; };
+		43C43FD69CEA993EED47BD30 /* SharedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD36033CB704F49C327FD69 /* SharedModels.swift */; };
+		4420E19AD6F486167A0BE95E /* LockScreenWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4852398EB3A666C312D39E78 /* LockScreenWidget.swift */; };
+		446AFCDA5243FB771FD494FF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C521F89FD6416FB61846C583 /* SettingsView.swift */; };
+		4C7E11C8CDD7906A367C07AF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9196DF7F25C35AB5B63D2AE /* ContentView.swift */; };
+		56BB7CC96A4B38135E375C3D /* words_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 440613EA36663C0D4C756E06 /* words_data.json */; };
+		71EB22A34DBF64884BB737C4 /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8609ABC732E9DC196BB038 /* PracticeView.swift */; };
+		7262C31E74ECFFBDB43F1242 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7CB7CEAC8612317C100185 /* Constants.swift */; };
+		758F1350E295CDD95CF4B537 /* DailyKanaWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FF19E643D587E54A2AFC22 /* DailyKanaWidget.swift */; };
+		781B9AD574B86F0F7A1286CE /* KanaCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC839A8B58C5B648464CEC38 /* KanaCard.swift */; };
+		846709DC2461D354A2685C26 /* WordCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3735DC709926ABC2B1764EE0 /* WordCloud.swift */; };
+		86926E0137DA699B8E43988D /* WidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87CF0EA16C13B6E70105218 /* WidgetProvider.swift */; };
+		A389C8358907ECD393086876 /* MaruMascot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C730957966D24B0F85A3CF0A /* MaruMascot.swift */; };
+		A5137C9E5878A7A3392915C5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1909931E501BF46E7FF731 /* HomeView.swift */; };
+		AD7BB9A609D8DAD2BF93393A /* MaruApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF8AEACE7F0D80F7E2A64B /* MaruApp.swift */; };
+		B0580F83480B2488E94E46FD /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = CB5456DF9F15272C50076F81 /* SQLite */; };
+		B2E601523570435D06B1262F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7CB7CEAC8612317C100185 /* Constants.swift */; };
+		B68D771D4375CAA2E1E7C1A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6B19CB146B4BE77BBDFEE28 /* Assets.xcassets */; };
+		B7461CD9C1DF1904625F1146 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275012408ADBE402573968C9 /* AudioService.swift */; };
+		BD7366E3F0B04EBEFCB786E7 /* MaruWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A33CB6F2F20856AC8FC73C0 /* MaruWidget.swift */; };
+		DCAE339854D0A4DD1BEEDF5C /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847985F6667288AA00890FD /* ProgressRing.swift */; };
+		DE4BF058DFCBD0D2C902AB53 /* KanaChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EF3AC8D316993B91701DA /* KanaChartView.swift */; };
+		E43F1936198854B208463594 /* KanaChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D71B611F26D7A3DB6217C4B /* KanaChartViewModel.swift */; };
+		EB0BEFE9524E8D9751C789AF /* SharedDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5443C2B7B4407C2A4C74AC28 /* SharedDatabase.swift */; };
+		F712DE7B0EC406B85A761CBB /* SharedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD36033CB704F49C327FD69 /* SharedModels.swift */; };
+		FAC21E195749BC950B50A146 /* SharedDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5443C2B7B4407C2A4C74AC28 /* SharedDatabase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,12 +67,39 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0847985F6667288AA00890FD /* ProgressRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRing.swift; sourceTree = "<group>"; };
+		12FF19E643D587E54A2AFC22 /* DailyKanaWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyKanaWidget.swift; sourceTree = "<group>"; };
+		1A1909931E501BF46E7FF731 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		1AEF8AEACE7F0D80F7E2A64B /* MaruApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaruApp.swift; sourceTree = "<group>"; };
 		259FAB74FBDD4BB3A01B58A6 /* MaruWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MaruWidget.entitlements; sourceTree = "<group>"; };
+		275012408ADBE402573968C9 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
+		3735DC709926ABC2B1764EE0 /* WordCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCloud.swift; sourceTree = "<group>"; };
+		440613EA36663C0D4C756E06 /* words_data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words_data.json; sourceTree = "<group>"; };
+		4852398EB3A666C312D39E78 /* LockScreenWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenWidget.swift; sourceTree = "<group>"; };
+		4A33CB6F2F20856AC8FC73C0 /* MaruWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaruWidget.swift; sourceTree = "<group>"; };
+		4C0EF3AC8D316993B91701DA /* KanaChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanaChartView.swift; sourceTree = "<group>"; };
+		5443C2B7B4407C2A4C74AC28 /* SharedDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDatabase.swift; sourceTree = "<group>"; };
 		545179A9C4DAB281F5377C3A /* MaruWidgetExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = MaruWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B3F16B1E0B68E0C4F9A2A60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		69521D5A78564C0E5C20F1AB /* Maru.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Maru.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		765556EE66B8A7B83FD0BAA5 /* kana_data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = kana_data.json; sourceTree = "<group>"; };
+		8D71B611F26D7A3DB6217C4B /* KanaChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanaChartViewModel.swift; sourceTree = "<group>"; };
+		9CD36033CB704F49C327FD69 /* SharedModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedModels.swift; sourceTree = "<group>"; };
+		9D0251B35D885A332726BE49 /* DailyKanaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyKanaService.swift; sourceTree = "<group>"; };
+		A9196DF7F25C35AB5B63D2AE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B6452243DAE1D1A14C1C3559 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		BBF59B93EF534D6DCA048E0A /* PracticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewModel.swift; sourceTree = "<group>"; };
+		C521F89FD6416FB61846C583 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C730957966D24B0F85A3CF0A /* MaruMascot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaruMascot.swift; sourceTree = "<group>"; };
+		CD7CB7CEAC8612317C100185 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D87CF0EA16C13B6E70105218 /* WidgetProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetProvider.swift; sourceTree = "<group>"; };
+		E6B19CB146B4BE77BBDFEE28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EAC13A5DAF65B0F477D46AC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EB6B0893323BF170ADDF9C97 /* KanaRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanaRepository.swift; sourceTree = "<group>"; };
+		EC839A8B58C5B648464CEC38 /* KanaCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanaCard.swift; sourceTree = "<group>"; };
+		F06AE7EE4D43B70A4B48A499 /* FlashcardWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardWidget.swift; sourceTree = "<group>"; };
 		F8D2560154E29DE0F550F041 /* Maru.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Maru.entitlements; sourceTree = "<group>"; };
+		FF8609ABC732E9DC196BB038 /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0580F83480B2488E94E46FD /* SQLite.swift in Frameworks */,
+				B0580F83480B2488E94E46FD /* SQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,25 +115,52 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D560E2C6F9D774ECE794B63 /* SQLite.swift in Frameworks */,
+				3D560E2C6F9D774ECE794B63 /* SQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		403D5489EF3AF1E4C6A53F6A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E6B19CB146B4BE77BBDFEE28 /* Assets.xcassets */,
+				765556EE66B8A7B83FD0BAA5 /* kana_data.json */,
+				440613EA36663C0D4C756E06 /* words_data.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		531B1669E2F686CA658E5B54 /* Maru */ = {
 			isa = PBXGroup;
 			children = (
 				EAC13A5DAF65B0F477D46AC3 /* Info.plist */,
 				F8D2560154E29DE0F550F041 /* Maru.entitlements */,
+				66D5705B7232B930F31F64FB /* App */,
+				CD026053CFD8B15F57198DBF /* Database */,
+				403D5489EF3AF1E4C6A53F6A /* Resources */,
+				B4F3FFF23C92769A23341FA7 /* Services */,
+				AAAC06D8CD2DFE40E0819B9E /* ViewModels */,
+				D22719629D9E73656C35CE89 /* Views */,
 			);
 			path = Maru;
+			sourceTree = "<group>";
+		};
+		66D5705B7232B930F31F64FB /* App */ = {
+			isa = PBXGroup;
+			children = (
+				1AEF8AEACE7F0D80F7E2A64B /* MaruApp.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 		6B2E2B223D7C930E982B0DEC /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				CD7CB7CEAC8612317C100185 /* Constants.swift */,
+				5443C2B7B4407C2A4C74AC28 /* SharedDatabase.swift */,
+				9CD36033CB704F49C327FD69 /* SharedModels.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -94,10 +178,66 @@
 		A083A45F94F4A086AF4062E8 /* MaruWidget */ = {
 			isa = PBXGroup;
 			children = (
+				12FF19E643D587E54A2AFC22 /* DailyKanaWidget.swift */,
+				F06AE7EE4D43B70A4B48A499 /* FlashcardWidget.swift */,
 				5B3F16B1E0B68E0C4F9A2A60 /* Info.plist */,
+				4852398EB3A666C312D39E78 /* LockScreenWidget.swift */,
 				259FAB74FBDD4BB3A01B58A6 /* MaruWidget.entitlements */,
+				4A33CB6F2F20856AC8FC73C0 /* MaruWidget.swift */,
+				D87CF0EA16C13B6E70105218 /* WidgetProvider.swift */,
 			);
 			path = MaruWidget;
+			sourceTree = "<group>";
+		};
+		A08CFA8D0EC2112E7B867BFE /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				EC839A8B58C5B648464CEC38 /* KanaCard.swift */,
+				C730957966D24B0F85A3CF0A /* MaruMascot.swift */,
+				0847985F6667288AA00890FD /* ProgressRing.swift */,
+				3735DC709926ABC2B1764EE0 /* WordCloud.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		AAAC06D8CD2DFE40E0819B9E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				B6452243DAE1D1A14C1C3559 /* HomeViewModel.swift */,
+				8D71B611F26D7A3DB6217C4B /* KanaChartViewModel.swift */,
+				BBF59B93EF534D6DCA048E0A /* PracticeViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		B4F3FFF23C92769A23341FA7 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				275012408ADBE402573968C9 /* AudioService.swift */,
+				9D0251B35D885A332726BE49 /* DailyKanaService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		CD026053CFD8B15F57198DBF /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				EB6B0893323BF170ADDF9C97 /* KanaRepository.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		D22719629D9E73656C35CE89 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A9196DF7F25C35AB5B63D2AE /* ContentView.swift */,
+				1A1909931E501BF46E7FF731 /* HomeView.swift */,
+				4C0EF3AC8D316993B91701DA /* KanaChartView.swift */,
+				FF8609ABC732E9DC196BB038 /* PracticeView.swift */,
+				C521F89FD6416FB61846C583 /* SettingsView.swift */,
+				A08CFA8D0EC2112E7B867BFE /* Components */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		FBFE65A0C7FB1B9AB04BB9C4 /* Products */ = {
@@ -109,13 +249,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		"TEMP_71454827-DA79-4525-A8FB-5A4260201AB7" /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -124,6 +257,7 @@
 			buildConfigurationList = EB7DCC0B3F0F291B2D6D8B81 /* Build configuration list for PBXNativeTarget "Maru" */;
 			buildPhases = (
 				8AFEFAB346DF7B662A38E8A5 /* Sources */,
+				EE861D1337EE670689F9075C /* Resources */,
 				ED164B61571F7D452CC837DE /* Frameworks */,
 				2586C090F1B52B3C12EAF814 /* Embed Foundation Extensions */,
 			);
@@ -134,7 +268,7 @@
 			);
 			name = Maru;
 			packageProductDependencies = (
-				E1217F81A43793D4F1B08461 /* SQLite.swift */,
+				E1190526E025E19DB5BEB141 /* SQLite */,
 			);
 			productName = Maru;
 			productReference = 69521D5A78564C0E5C20F1AB /* Maru.app */;
@@ -153,7 +287,7 @@
 			);
 			name = MaruWidgetExtension;
 			packageProductDependencies = (
-				841B55930A31AE7B75937964 /* SQLite.swift */,
+				CB5456DF9F15272C50076F81 /* SQLite */,
 			);
 			productName = MaruWidgetExtension;
 			productReference = 545179A9C4DAB281F5377C3A /* MaruWidgetExtension.appex */;
@@ -201,11 +335,32 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		EE861D1337EE670689F9075C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B68D771D4375CAA2E1E7C1A0 /* Assets.xcassets in Resources */,
+				2CC05D4ED3F37962C11E9210 /* kana_data.json in Resources */,
+				56BB7CC96A4B38135E375C3D /* words_data.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		70A375E6EE6713ACFFA9A071 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7262C31E74ECFFBDB43F1242 /* Constants.swift in Sources */,
+				758F1350E295CDD95CF4B537 /* DailyKanaWidget.swift in Sources */,
+				0EF50522028C317B4B8AD4B7 /* FlashcardWidget.swift in Sources */,
+				4420E19AD6F486167A0BE95E /* LockScreenWidget.swift in Sources */,
+				BD7366E3F0B04EBEFCB786E7 /* MaruWidget.swift in Sources */,
+				EB0BEFE9524E8D9751C789AF /* SharedDatabase.swift in Sources */,
+				43C43FD69CEA993EED47BD30 /* SharedModels.swift in Sources */,
+				86926E0137DA699B8E43988D /* WidgetProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +368,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7461CD9C1DF1904625F1146 /* AudioService.swift in Sources */,
+				B2E601523570435D06B1262F /* Constants.swift in Sources */,
+				4C7E11C8CDD7906A367C07AF /* ContentView.swift in Sources */,
+				1B696E2E9361373B5B86DFA4 /* DailyKanaService.swift in Sources */,
+				A5137C9E5878A7A3392915C5 /* HomeView.swift in Sources */,
+				088B2AC17DC5AF8A5AA45879 /* HomeViewModel.swift in Sources */,
+				781B9AD574B86F0F7A1286CE /* KanaCard.swift in Sources */,
+				DE4BF058DFCBD0D2C902AB53 /* KanaChartView.swift in Sources */,
+				E43F1936198854B208463594 /* KanaChartViewModel.swift in Sources */,
+				0121ADAAAA8F71D19D399215 /* KanaRepository.swift in Sources */,
+				AD7BB9A609D8DAD2BF93393A /* MaruApp.swift in Sources */,
+				A389C8358907ECD393086876 /* MaruMascot.swift in Sources */,
+				71EB22A34DBF64884BB737C4 /* PracticeView.swift in Sources */,
+				14510916C3719DE92830E8C4 /* PracticeViewModel.swift in Sources */,
+				DCAE339854D0A4DD1BEEDF5C /* ProgressRing.swift in Sources */,
+				446AFCDA5243FB771FD494FF /* SettingsView.swift in Sources */,
+				FAC21E195749BC950B50A146 /* SharedDatabase.swift in Sources */,
+				F712DE7B0EC406B85A761CBB /* SharedModels.swift in Sources */,
+				846709DC2461D354A2685C26 /* WordCloud.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,15 +638,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		841B55930A31AE7B75937964 /* SQLite.swift */ = {
+		CB5456DF9F15272C50076F81 /* SQLite */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 665F39661E84E69D165EB0A7 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
-			productName = SQLite.swift;
+			productName = SQLite;
 		};
-		E1217F81A43793D4F1B08461 /* SQLite.swift */ = {
+		E1190526E025E19DB5BEB141 /* SQLite */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 665F39661E84E69D165EB0A7 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
-			productName = SQLite.swift;
+			productName = SQLite;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

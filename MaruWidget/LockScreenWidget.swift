@@ -2,7 +2,7 @@ import WidgetKit
 import SwiftUI
 
 struct LockScreenWidget: Widget {
-    kind: String = "LockScreenWidget"
+    var kind: String = "LockScreenWidget"
 
     var body: some WidgetConfiguration {
         AppIntentConfiguration(

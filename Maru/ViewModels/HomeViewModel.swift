@@ -12,13 +12,6 @@ final class HomeViewModel: ObservableObject {
     private let repository = KanaRepository.shared
     private let audioService = AudioService.shared
 
-    enum MascotExpression {
-        case happy
-        case thinking
-        case celebrating
-        case neutral
-    }
-
     init() {
         loadWordCloud()
         updateDateTime()

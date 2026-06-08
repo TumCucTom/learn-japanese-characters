@@ -65,18 +65,22 @@ final class KanaRepository {
         return Array(shuffled.prefix(limit))
     }
 
-    func getWeakKana(limit: Int = 10) -> [SharedKana] {
-        // This method would need progress data from SharedDatabase
-        // For now, return random kana as a fallback
-        // In full implementation, this would cross-reference with progress data
-        let shuffled = kanaData.filter { kana in
-            guard let progress = try? SharedDatabase.shared.getProgress(forKanaId: kana.id) else {
-                return false
+       func getWeakKana(limit: Int = 10) -> [SharedKana] {
+        // Get kana with progress that indicates weakness (low accuracy, enough attempts)
+        var weakKana: [(kana: SharedKana, progress: SharedProgress)] = []
+        
+        for kana in kanaData {
+            if let progress = try? SharedDatabase.shared.getProgress(forKanaId: kana.id) {
+                if progress.accuracy < 0.7 && progress.totalAttempts >= 3 {
+                    weakKana.append((kana, progress))
+                }
             }
-            return progress.accuracy < 0.7 && progress.totalAttempts >= 3
-        }.sorted { ($0.accuracy) < ($1.accuracy) }
-
-        return Array(shuffled.prefix(limit))
+        }
+        
+        // Sort by accuracy (lowest first)
+        weakKana.sort { $0.progress.accuracy < $1.progress.accuracy }
+        
+        return weakKana.prefix(limit).map { $0.kana }
     }
 
     // MARK: - Words Access Methods

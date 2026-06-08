@@ -32,6 +32,7 @@ targets:
     dependencies:
       - target: MaruWidgetExtension
       - package: SQLite.swift
+        product: SQLite
     postCompileScripts: []
 
   MaruWidgetExtension:
@@ -52,6 +53,7 @@ targets:
         ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME: WidgetBackground
     dependencies:
       - package: SQLite.swift
+        product: SQLite
 
 packages:
   SQLite.swift:

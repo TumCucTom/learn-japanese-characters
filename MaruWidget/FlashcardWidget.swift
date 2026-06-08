@@ -2,7 +2,7 @@ import WidgetKit
 import SwiftUI
 
 struct FlashcardWidget: Widget {
-    kind: String = "FlashcardWidget"
+    var kind: String = "FlashcardWidget"
 
     var body: some WidgetConfiguration {
         AppIntentConfiguration(
