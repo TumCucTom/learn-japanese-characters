@@ -18,6 +18,31 @@ struct SharedKana: Codable, Identifiable, Hashable {
         self.strokeOrder = strokeOrder
         self.audioFileName = audioFileName
     }
+
+    // Custom decoder to infer kanaType from ID prefix (h_ = hiragana, k_ = katakana)
+    enum CodingKeys: String, CodingKey {
+        case id, character, romaji, category
+ }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(String.self, forKey: .id)
+        character = try container.decode(String.self, forKey: .character)
+        romaji = try container.decode(String.self, forKey: .romaji)
+        category = try container.decode(String.self, forKey: .category)
+
+        // Infer kanaType from ID prefix
+        if id.hasPrefix("h_") {
+            kanaType = .hiragana
+        } else if id.hasPrefix("k_") {
+            kanaType = .katakana
+        } else {
+            kanaType = .hiragana // default fallback
+        }
+
+        strokeOrder = [] // JSON doesn't include stroke order
+        audioFileName = nil // JSON doesn't include audio file
+    }
 }
 
 struct SharedProgress: Codable, Identifiable {

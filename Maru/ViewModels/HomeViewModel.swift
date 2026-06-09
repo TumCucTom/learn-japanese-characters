@@ -33,7 +33,16 @@ final class HomeViewModel: ObservableObject {
     }
 
     func playWord(_ word: SharedWord) {
+        // Show thinking expression while audio plays
+        setExpression(.thinking)
+
+        // Play audio
         audioService.playWord(word)
+
+        // Return to happy after a short delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { [weak self] in
+            self?.setExpression(.happy)
+        }
     }
 
     func setExpression(_ expression: MascotExpression) {

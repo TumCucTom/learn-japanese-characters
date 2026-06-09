@@ -21,6 +21,9 @@ final class KanaRepository {
             let decoder = JSONDecoder()
             kanaData = try decoder.decode([SharedKana].self, from: data)
             print("Loaded \(kanaData.count) kana entries")
+
+            // Seed shared database for widgets
+            try SharedDatabase.shared.seedKanaIfNeeded(from: kanaData)
         } catch {
             print("Failed to load kana data: \(error)")
         }

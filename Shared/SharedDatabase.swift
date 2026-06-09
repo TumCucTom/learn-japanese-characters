@@ -256,4 +256,31 @@ final class SharedDatabase {
             dailyWidgetType <- selection.widgetType.rawValue
         ))
     }
+
+    // MARK: - Seeding
+
+    func seedKanaIfNeeded(from kanaList: [SharedKana]) throws {
+        guard let db = db else { return }
+
+        // Check if already seeded
+        let count = try db.scalar(kanaTable.count)
+        guard count == 0 else { return }
+
+        // Seed all kana
+        for kana in kanaList {
+            let strokeOrderJson = try JSONEncoder().encode(kana.strokeOrder)
+            let strokeOrderString = String(data: strokeOrderJson, encoding: .utf8) ?? "[]"
+
+            try db.run(kanaTable.insert(
+                kanaId <- kana.id,
+                kanaCharacter <- kana.character,
+                kanaRomaji <- kana.romaji,
+                kanaType <- kana.kanaType.rawValue,
+                kanaCategory <- kana.category,
+                kanaStrokeOrder <- strokeOrderString,
+                kanaAudioFile <- kana.audioFileName
+            ))
+        }
+        print("Seeded \(kanaList.count) kana into shared database")
+    }
 }
