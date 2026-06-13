@@ -20,12 +20,14 @@ final class PracticeViewModel: ObservableObject {
     private let repository = KanaRepository.shared
     private let audioService = AudioService.shared
     private let database = SharedDatabase.shared
+    private var fixedExerciseType: ExerciseType?
 
     enum ExerciseType: String, CaseIterable {
         case multipleChoice = "Choose"
         case listening = "Listening"
         case reading = "Reading"
         case spelling = "Typing"
+        case writing = "Writing"
     }
 
     struct PracticeChoice: Identifiable, Hashable {
@@ -40,7 +42,12 @@ final class PracticeViewModel: ObservableObject {
 
     init() {}
 
-    func startPracticeSession(kanaType: AppConstants.KanaType? = nil, focusOnWeak: Bool = false) {
+    func startPracticeSession(
+        kanaType: AppConstants.KanaType? = nil,
+        focusOnWeak: Bool = false,
+        exerciseType: ExerciseType? = nil
+    ) {
+        fixedExerciseType = exerciseType
         let kanaList: [SharedKana]
 
         if focusOnWeak {
@@ -62,6 +69,18 @@ final class PracticeViewModel: ObservableObject {
         loadCurrentQuestion()
     }
 
+    func startPracticeSession(kana: [SharedKana], exerciseType: ExerciseType? = nil) {
+        fixedExerciseType = exerciseType
+        practiceSession = kana.shuffled()
+        currentIndex = 0
+        score = 0
+        totalQuestions = 0
+        mistakeCount = 0
+        isSessionComplete = false
+
+        loadCurrentQuestion()
+    }
+
     func loadCurrentQuestion() {
         guard currentIndex < practiceSession.count else {
             isSessionComplete = true
@@ -69,7 +88,7 @@ final class PracticeViewModel: ObservableObject {
         }
 
         currentKana = practiceSession[currentIndex]
-        exerciseType = ExerciseType.allCases[currentIndex % ExerciseType.allCases.count]
+        exerciseType = fixedExerciseType ?? ExerciseType.allCases[currentIndex % ExerciseType.allCases.count]
         generateOptions()
         selectedAnswer = nil
         isCorrect = nil
@@ -120,7 +139,7 @@ final class PracticeViewModel: ObservableObject {
                     usesSpeakerIcon: false
                 )
             }
-        case .spelling:
+        case .spelling, .writing:
             choices = []
         }
 
@@ -149,6 +168,11 @@ final class PracticeViewModel: ObservableObject {
 
     func submitTypedAnswer() {
         selectAnswer(typedAnswer.trimmingCharacters(in: .whitespacesAndNewlines).lowercased())
+    }
+
+    func completeWritingPractice() {
+        guard let currentKana else { return }
+        selectAnswer(currentKana.romaji)
     }
 
     private func updateProgress(for kana: SharedKana, correct: Bool) {
@@ -191,6 +215,10 @@ final class PracticeViewModel: ObservableObject {
     }
 
     func restartSession() {
-        startPracticeSession()
+        if !practiceSession.isEmpty {
+            startPracticeSession(kana: practiceSession, exerciseType: fixedExerciseType)
+        } else {
+            startPracticeSession()
+        }
     }
 }

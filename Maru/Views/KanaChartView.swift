@@ -6,6 +6,7 @@ struct KanaChartView: View {
     @StateObject private var viewModel = KanaChartViewModel()
     @State private var showDetail = false
     @State private var showPractice = false
+    @State private var selectedPracticeKana: [SharedKana] = []
 
     private let columns = [
         GridItem(.adaptive(minimum: 70, maximum: 90), spacing: 12)
@@ -40,7 +41,7 @@ struct KanaChartView: View {
                 }
             }
             .navigationDestination(isPresented: $showPractice) {
-                PracticeView()
+                PracticeView(initialKana: selectedPracticeKana, initialExerciseType: .multipleChoice)
             }
             .onAppear {
                 viewModel.loadProgress()
@@ -90,6 +91,7 @@ struct KanaChartView: View {
                         showDetail = true
                     },
                     onDrill: {
+                        selectedPracticeKana = row.kana
                         showPractice = true
                     }
                 )

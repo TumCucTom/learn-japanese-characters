@@ -10,6 +10,7 @@
 		0121ADAAAA8F71D19D399215 /* KanaRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6B0893323BF170ADDF9C97 /* KanaRepository.swift */; };
 		088B2AC17DC5AF8A5AA45879 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6452243DAE1D1A14C1C3559 /* HomeViewModel.swift */; };
 		0EF50522028C317B4B8AD4B7 /* FlashcardWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06AE7EE4D43B70A4B48A499 /* FlashcardWidget.swift */; };
+		1053AA617AA58AB6F4EE789D /* WordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA32D0B4EF05DCC916E6E672 /* WordsView.swift */; };
 		14510916C3719DE92830E8C4 /* PracticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF59B93EF534D6DCA048E0A /* PracticeViewModel.swift */; };
 		1B696E2E9361373B5B86DFA4 /* DailyKanaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0251B35D885A332726BE49 /* DailyKanaService.swift */; };
 		2CC05D4ED3F37962C11E9210 /* kana_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 765556EE66B8A7B83FD0BAA5 /* kana_data.json */; };
@@ -29,6 +30,7 @@
 		828458C6A1AFB68F2E73E894 /* KanaLearningPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089DAAB3FCE7F81319B4F6FC /* KanaLearningPathTests.swift */; };
 		846709DC2461D354A2685C26 /* WordCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3735DC709926ABC2B1764EE0 /* WordCloud.swift */; };
 		86926E0137DA699B8E43988D /* WidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87CF0EA16C13B6E70105218 /* WidgetProvider.swift */; };
+		A294555F8E9C108F2D9271D0 /* WordsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8F0A643D763FFAD5D64FB3 /* WordsViewModel.swift */; };
 		A389C8358907ECD393086876 /* MaruMascot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C730957966D24B0F85A3CF0A /* MaruMascot.swift */; };
 		A5137C9E5878A7A3392915C5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1909931E501BF46E7FF731 /* HomeView.swift */; };
 		AD7BB9A609D8DAD2BF93393A /* MaruApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF8AEACE7F0D80F7E2A64B /* MaruApp.swift */; };
@@ -37,6 +39,7 @@
 		B68D771D4375CAA2E1E7C1A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6B19CB146B4BE77BBDFEE28 /* Assets.xcassets */; };
 		B7461CD9C1DF1904625F1146 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275012408ADBE402573968C9 /* AudioService.swift */; };
 		BD7366E3F0B04EBEFCB786E7 /* MaruWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A33CB6F2F20856AC8FC73C0 /* MaruWidget.swift */; };
+		D7C52D53F43CE7A152C7C242 /* PracticeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF591E78C0A3D62DA5AD38F3 /* PracticeViewModelTests.swift */; };
 		DCAE339854D0A4DD1BEEDF5C /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847985F6667288AA00890FD /* ProgressRing.swift */; };
 		DE4BF058DFCBD0D2C902AB53 /* KanaChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EF3AC8D316993B91701DA /* KanaChartView.swift */; };
 		E077FE3F463491EAE4BD21A3 /* KanaLearningPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B717432341FA5D6B6927DB /* KanaLearningPath.swift */; };
@@ -103,11 +106,14 @@
 		B3B717432341FA5D6B6927DB /* KanaLearningPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanaLearningPath.swift; sourceTree = "<group>"; };
 		B6452243DAE1D1A14C1C3559 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		BBF59B93EF534D6DCA048E0A /* PracticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewModel.swift; sourceTree = "<group>"; };
+		BF591E78C0A3D62DA5AD38F3 /* PracticeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewModelTests.swift; sourceTree = "<group>"; };
 		C1EC109CAB17C48603560EA0 /* MaruTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MaruTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C521F89FD6416FB61846C583 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C730957966D24B0F85A3CF0A /* MaruMascot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaruMascot.swift; sourceTree = "<group>"; };
 		CD7CB7CEAC8612317C100185 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D87CF0EA16C13B6E70105218 /* WidgetProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetProvider.swift; sourceTree = "<group>"; };
+		DA32D0B4EF05DCC916E6E672 /* WordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsView.swift; sourceTree = "<group>"; };
+		DD8F0A643D763FFAD5D64FB3 /* WordsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsViewModel.swift; sourceTree = "<group>"; };
 		E6B19CB146B4BE77BBDFEE28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EAC13A5DAF65B0F477D46AC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EB6B0893323BF170ADDF9C97 /* KanaRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanaRepository.swift; sourceTree = "<group>"; };
@@ -224,6 +230,7 @@
 				B6452243DAE1D1A14C1C3559 /* HomeViewModel.swift */,
 				8D71B611F26D7A3DB6217C4B /* KanaChartViewModel.swift */,
 				BBF59B93EF534D6DCA048E0A /* PracticeViewModel.swift */,
+				DD8F0A643D763FFAD5D64FB3 /* WordsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -241,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				089DAAB3FCE7F81319B4F6FC /* KanaLearningPathTests.swift */,
+				BF591E78C0A3D62DA5AD38F3 /* PracticeViewModelTests.swift */,
 			);
 			path = MaruTests;
 			sourceTree = "<group>";
@@ -261,6 +269,7 @@
 				4C0EF3AC8D316993B91701DA /* KanaChartView.swift */,
 				FF8609ABC732E9DC196BB038 /* PracticeView.swift */,
 				C521F89FD6416FB61846C583 /* SettingsView.swift */,
+				DA32D0B4EF05DCC916E6E672 /* WordsView.swift */,
 				A08CFA8D0EC2112E7B867BFE /* Components */,
 			);
 			path = Views;
@@ -404,6 +413,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				828458C6A1AFB68F2E73E894 /* KanaLearningPathTests.swift in Sources */,
+				D7C52D53F43CE7A152C7C242 /* PracticeViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +458,8 @@
 				FAC21E195749BC950B50A146 /* SharedDatabase.swift in Sources */,
 				F712DE7B0EC406B85A761CBB /* SharedModels.swift in Sources */,
 				846709DC2461D354A2685C26 /* WordCloud.swift in Sources */,
+				1053AA617AA58AB6F4EE789D /* WordsView.swift in Sources */,
+				A294555F8E9C108F2D9271D0 /* WordsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,7 @@ struct ContentView: View {
     enum Tab: String, CaseIterable {
         case home
         case practice
+        case words
         case chart
         case settings
 
@@ -19,6 +20,7 @@ struct ContentView: View {
             switch self {
             case .home: return "house.fill"
             case .practice: return "pencil"
+            case .words: return "book.closed.fill"
             case .chart: return "square.grid.2x2"
             case .settings: return "gearshape"
             }
@@ -38,6 +40,12 @@ struct ContentView: View {
                     Label(Tab.practice.title, systemImage: Tab.practice.icon)
                 }
                 .tag(Tab.practice)
+
+            WordsView()
+                .tabItem {
+                    Label(Tab.words.title, systemImage: Tab.words.icon)
+                }
+                .tag(Tab.words)
 
             KanaChartView()
                 .tabItem {

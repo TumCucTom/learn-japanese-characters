@@ -5,8 +5,18 @@ import SwiftUI
 struct PracticeView: View {
     @StateObject private var viewModel = PracticeViewModel()
     @State private var selectedKanaType: AppConstants.KanaType? = .hiragana
+    @State private var selectedExerciseType: PracticeViewModel.ExerciseType?
     @State private var focusOnWeak = false
     @State private var hasStarted = false
+    private let initialKana: [SharedKana]?
+    private let initialExerciseType: PracticeViewModel.ExerciseType?
+
+    init(initialKana: [SharedKana]? = nil, initialExerciseType: PracticeViewModel.ExerciseType? = nil) {
+        self.initialKana = initialKana
+        self.initialExerciseType = initialExerciseType
+        _hasStarted = State(initialValue: initialKana != nil)
+        _selectedKanaType = State(initialValue: initialKana?.first?.kanaType ?? .hiragana)
+    }
 
     var body: some View {
         NavigationStack {
@@ -21,11 +31,13 @@ struct PracticeView: View {
                 } else {
                     StartPracticeView(
                         selectedKanaType: $selectedKanaType,
+                        selectedExerciseType: $selectedExerciseType,
                         focusOnWeak: $focusOnWeak,
                         onStart: {
                             viewModel.startPracticeSession(
                                 kanaType: selectedKanaType,
-                                focusOnWeak: focusOnWeak
+                                focusOnWeak: focusOnWeak,
+                                exerciseType: selectedExerciseType
                             )
                             hasStarted = true
                         }
@@ -35,6 +47,10 @@ struct PracticeView: View {
             .background(LearningTheme.cream.ignoresSafeArea())
             .navigationTitle("Drill")
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                guard let initialKana, viewModel.practiceSession.isEmpty else { return }
+                viewModel.startPracticeSession(kana: initialKana, exerciseType: initialExerciseType)
+            }
         }
     }
 }
@@ -43,6 +59,7 @@ struct PracticeView: View {
 
 struct StartPracticeView: View {
     @Binding var selectedKanaType: AppConstants.KanaType?
+    @Binding var selectedExerciseType: PracticeViewModel.ExerciseType?
     @Binding var focusOnWeak: Bool
     let onStart: () -> Void
 
@@ -83,6 +100,33 @@ struct StartPracticeView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
 
+                VStack(alignment: .leading, spacing: 14) {
+                    Text("Exercise")
+                        .font(.system(size: 15, weight: .black, design: .rounded))
+                        .foregroundColor(LearningTheme.mutedInk)
+
+                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                        ModeButton(
+                            title: "Mix",
+                            icon: "shuffle",
+                            isSelected: selectedExerciseType == nil
+                        ) {
+                            selectedExerciseType = nil
+                        }
+
+                        ForEach(PracticeViewModel.ExerciseType.allCases, id: \.self) { mode in
+                            ModeButton(
+                                title: mode.rawValue,
+                                icon: iconName(for: mode),
+                                isSelected: selectedExerciseType == mode
+                            ) {
+                                selectedExerciseType = mode
+                            }
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+
                 Toggle(isOn: $focusOnWeak) {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Weak spots")
@@ -116,6 +160,21 @@ struct StartPracticeView: View {
             .padding(.bottom, 128)
         }
     }
+
+    private func iconName(for mode: PracticeViewModel.ExerciseType) -> String {
+        switch mode {
+        case .multipleChoice:
+            return "checklist"
+        case .listening:
+            return "speaker.wave.2.fill"
+        case .reading:
+            return "textformat"
+        case .spelling:
+            return "keyboard"
+        case .writing:
+            return "hand.draw"
+        }
+    }
 }
 
 // MARK: - TypeButton
@@ -132,6 +191,36 @@ private struct TypeButton: View {
                 .foregroundColor(isSelected ? .white : LearningTheme.ink)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 12)
+        }
+        .buttonStyle(
+            LearningOutlinedButtonStyle(
+                fill: isSelected ? LearningTheme.red : .white,
+                pressedFill: isSelected ? LearningTheme.redDark : LearningTheme.yellowSoft
+            )
+        )
+    }
+}
+
+private struct ModeButton: View {
+    let title: String
+    let icon: String
+    let isSelected: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 8) {
+                Image(systemName: icon)
+                    .font(.system(size: 15, weight: .black))
+
+                Text(title)
+                    .font(.system(size: 14, weight: .black, design: .rounded))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+            }
+            .foregroundColor(isSelected ? .white : LearningTheme.ink)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 12)
         }
         .buttonStyle(
             LearningOutlinedButtonStyle(
@@ -160,6 +249,8 @@ struct PracticeContentView: View {
 
             if viewModel.exerciseType == .spelling {
                 typingPanel
+            } else if viewModel.exerciseType == .writing {
+                writingPanel
             } else {
                 choiceGrid
             }
@@ -242,6 +333,14 @@ struct PracticeContentView: View {
                     .foregroundColor(LearningTheme.ink)
 
                 Text("Type the sound")
+                    .font(.system(size: 18, weight: .black, design: .rounded))
+                    .foregroundColor(LearningTheme.mutedInk)
+            case .writing:
+                Text(kana.character)
+                    .font(.system(size: 108, weight: .black, design: .rounded))
+                    .foregroundColor(LearningTheme.ink)
+
+                Text("Trace the kana")
                     .font(.system(size: 18, weight: .black, design: .rounded))
                     .foregroundColor(LearningTheme.mutedInk)
             case .reading:
@@ -330,6 +429,26 @@ struct PracticeContentView: View {
         }
     }
 
+    private var writingPanel: some View {
+        VStack(spacing: 14) {
+            if let kana = viewModel.currentKana {
+                KanaTracePad(kana: kana)
+            }
+
+            Button {
+                viewModel.completeWritingPractice()
+            } label: {
+                Text(viewModel.selectedAnswer == nil ? "I traced it" : "Traced")
+                    .font(.system(size: 19, weight: .black, design: .rounded))
+                    .foregroundColor(LearningTheme.ink)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 14)
+            }
+            .buttonStyle(LearningOutlinedButtonStyle(fill: LearningTheme.yellow))
+            .disabled(viewModel.selectedAnswer != nil)
+        }
+    }
+
     private var nextButton: some View {
         Button {
             viewModel.nextQuestion()
@@ -412,6 +531,96 @@ private struct ChoiceTile: View {
 
     private var iconColor: Color {
         iconName == "checkmark.circle.fill" ? LearningTheme.green : LearningTheme.red
+    }
+}
+
+// MARK: - KanaTracePad
+
+private struct KanaTracePad: View {
+    let kana: SharedKana
+    @State private var strokes: [[CGPoint]] = []
+    @State private var currentStroke: [CGPoint] = []
+
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .fill(.white)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 22, style: .continuous)
+                        .stroke(LearningTheme.line, lineWidth: LearningTheme.heavyLine)
+                )
+
+            Text(kana.character)
+                .font(.system(size: 138, weight: .black, design: .rounded))
+                .foregroundColor(LearningTheme.locked.opacity(0.65))
+
+            TraceGuide()
+                .stroke(LearningTheme.locked, style: StrokeStyle(lineWidth: 2, dash: [8, 8]))
+                .padding(16)
+
+            Canvas { context, _ in
+                var path = Path()
+                for stroke in strokes {
+                    append(stroke: stroke, to: &path)
+                }
+                append(stroke: currentStroke, to: &path)
+                context.stroke(path, with: .color(LearningTheme.red), style: StrokeStyle(lineWidth: 9, lineCap: .round, lineJoin: .round))
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+
+            VStack {
+                HStack {
+                    Text("Trace here")
+                        .font(.system(size: 13, weight: .black, design: .rounded))
+                        .foregroundColor(LearningTheme.mutedInk)
+                    Spacer()
+                    Button {
+                        strokes.removeAll()
+                        currentStroke.removeAll()
+                    } label: {
+                        Image(systemName: "arrow.counterclockwise")
+                            .font(.system(size: 15, weight: .black))
+                            .foregroundColor(LearningTheme.ink)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("Clear tracing")
+                }
+                Spacer()
+            }
+            .padding(16)
+        }
+        .frame(height: 210)
+        .gesture(
+            DragGesture(minimumDistance: 0)
+                .onChanged { value in
+                    currentStroke.append(value.location)
+                }
+                .onEnded { _ in
+                    if !currentStroke.isEmpty {
+                        strokes.append(currentStroke)
+                    }
+                    currentStroke.removeAll()
+                }
+        )
+    }
+
+    private func append(stroke: [CGPoint], to path: inout Path) {
+        guard let first = stroke.first else { return }
+        path.move(to: first)
+        for point in stroke.dropFirst() {
+            path.addLine(to: point)
+        }
+    }
+}
+
+private struct TraceGuide: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
+        path.move(to: CGPoint(x: rect.minX, y: rect.midY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
+        return path
     }
 }
 
