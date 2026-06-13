@@ -1,14 +1,16 @@
 import AVFoundation
 import SwiftUI
 
-final class AudioService: ObservableObject {
+final class AudioService: NSObject, ObservableObject {
     static let shared = AudioService()
 
     @Published var isPlaying = false
 
-    private var audioPlayer: AVAudioPlayer?
+    private let synthesizer = AVSpeechSynthesizer()
 
-    private init() {
+    private override init() {
+        super.init()
+        synthesizer.delegate = self
         setupAudioSession()
     }
 
@@ -22,15 +24,12 @@ final class AudioService: ObservableObject {
     }
 
     func playKana(_ kana: SharedKana) {
-        // For now, use text-to-speech as placeholder
-        // In production, would play actual audio files
         let utterance = AVSpeechUtterance(string: kana.character)
         utterance.voice = AVSpeechSynthesisVoice(language: "ja-JP")
         utterance.rate = 0.4
         utterance.pitchMultiplier = 1.0
 
-        let synthesizer = AVSpeechSynthesizer()
-        synthesizer.speak(utterance)
+        speak(utterance)
     }
 
     func playWord(_ word: SharedWord) {
@@ -38,8 +37,7 @@ final class AudioService: ObservableObject {
         utterance.voice = AVSpeechSynthesisVoice(language: "ja-JP")
         utterance.rate = 0.4
 
-        let synthesizer = AVSpeechSynthesizer()
-        synthesizer.speak(utterance)
+        speak(utterance)
     }
 
     func playRomaji(_ romaji: String) {
@@ -47,7 +45,34 @@ final class AudioService: ObservableObject {
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = 0.5
 
-        let synthesizer = AVSpeechSynthesizer()
+        speak(utterance)
+    }
+
+    func stop() {
+        if synthesizer.isSpeaking {
+            synthesizer.stopSpeaking(at: .immediate)
+        }
+        isPlaying = false
+    }
+
+    private func speak(_ utterance: AVSpeechUtterance) {
+        setupAudioSession()
+
+        if synthesizer.isSpeaking {
+            synthesizer.stopSpeaking(at: .immediate)
+        }
+
+        isPlaying = true
         synthesizer.speak(utterance)
+    }
+}
+
+extension AudioService: AVSpeechSynthesizerDelegate {
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        isPlaying = false
+    }
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
+        isPlaying = false
     }
 }

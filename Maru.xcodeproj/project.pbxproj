@@ -15,6 +15,7 @@
 		1B696E2E9361373B5B86DFA4 /* DailyKanaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0251B35D885A332726BE49 /* DailyKanaService.swift */; };
 		2CC05D4ED3F37962C11E9210 /* kana_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 765556EE66B8A7B83FD0BAA5 /* kana_data.json */; };
 		350891EAA93502ABE5594318 /* MaruWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 545179A9C4DAB281F5377C3A /* MaruWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		36A1C3F27F236DCCB946F2AD /* AudioServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDCF4385043DFC26E2A260F /* AudioServiceTests.swift */; };
 		3D560E2C6F9D774ECE794B63 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = E1190526E025E19DB5BEB141 /* SQLite */; };
 		43C43FD69CEA993EED47BD30 /* SharedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD36033CB704F49C327FD69 /* SharedModels.swift */; };
 		4420E19AD6F486167A0BE95E /* LockScreenWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4852398EB3A666C312D39E78 /* LockScreenWidget.swift */; };
@@ -120,6 +121,7 @@
 		EC839A8B58C5B648464CEC38 /* KanaCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanaCard.swift; sourceTree = "<group>"; };
 		F06AE7EE4D43B70A4B48A499 /* FlashcardWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardWidget.swift; sourceTree = "<group>"; };
 		F8D2560154E29DE0F550F041 /* Maru.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Maru.entitlements; sourceTree = "<group>"; };
+		FCDCF4385043DFC26E2A260F /* AudioServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioServiceTests.swift; sourceTree = "<group>"; };
 		FF8609ABC732E9DC196BB038 /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -247,6 +249,7 @@
 		BA5ED3C6C26D1A2CA251122B /* MaruTests */ = {
 			isa = PBXGroup;
 			children = (
+				FCDCF4385043DFC26E2A260F /* AudioServiceTests.swift */,
 				089DAAB3FCE7F81319B4F6FC /* KanaLearningPathTests.swift */,
 				BF591E78C0A3D62DA5AD38F3 /* PracticeViewModelTests.swift */,
 			);
@@ -412,6 +415,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36A1C3F27F236DCCB946F2AD /* AudioServiceTests.swift in Sources */,
 				828458C6A1AFB68F2E73E894 /* KanaLearningPathTests.swift in Sources */,
 				D7C52D53F43CE7A152C7C242 /* PracticeViewModelTests.swift in Sources */,
 			);
