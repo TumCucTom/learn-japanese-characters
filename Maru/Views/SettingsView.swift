@@ -8,11 +8,20 @@ struct SettingsView: View {
     @AppStorage(UserPreferences.dailyReminderKey) private var dailyReminder = false
     @AppStorage(UserPreferences.reminderTimeKey) private var reminderTimeInterval: TimeInterval = 32400 // Default 9 AM
     @State private var showResetAlert = false
+    @State private var showAudioCredits = false
     @State private var resetErrorMessage: String?
     @State private var reminderDate: Date = Calendar.current.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
 
     private let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
     private let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+    private var audioCredits: String {
+        guard let url = Bundle.main.url(forResource: "AudioLicenses", withExtension: "txt"),
+              let text = try? String(contentsOf: url, encoding: .utf8) else {
+            return "Native audio credits are unavailable."
+        }
+
+        return text
+    }
 
     var body: some View {
         NavigationStack {
@@ -111,6 +120,22 @@ struct SettingsView: View {
                             .font(.system(size: 14, weight: .regular))
                             .foregroundColor(Color(hex: "8c867d"))
                     }
+
+                    Button {
+                        showAudioCredits = true
+                    } label: {
+                        HStack {
+                            SettingsRow(
+                                icon: "waveform",
+                                title: "Native Audio Credits",
+                                color: Color(hex: "00A6A6")
+                            )
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(Color(hex: "8c867d"))
+                        }
+                    }
                 } header: {
                     Text("About")
                 }
@@ -120,6 +145,27 @@ struct SettingsView: View {
             .background(Color(hex: "f7f5f1"))
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.large)
+            .sheet(isPresented: $showAudioCredits) {
+                NavigationStack {
+                    ScrollView {
+                        Text(audioCredits)
+                            .font(.system(size: 13, weight: .regular, design: .monospaced))
+                            .foregroundColor(Color(hex: "22211F"))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(20)
+                    }
+                    .background(Color(hex: "f7f5f1"))
+                    .navigationTitle("Audio Credits")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button("Done") {
+                                showAudioCredits = false
+                            }
+                        }
+                    }
+                }
+            }
             .alert("Reset Progress", isPresented: $showResetAlert) {
                 Button("Cancel", role: .cancel) {}
                 Button("Reset", role: .destructive) {

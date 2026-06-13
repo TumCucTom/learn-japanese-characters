@@ -1,0 +1,719 @@
+{
+  "generatedAt": "2026-06-13T17:59:18.475Z",
+  "assets": [
+    {
+      "asset": "kana_native_a.mp3",
+      "source": "Wikimedia Commons public domain (File:Ja-A.oga)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ed/Ja-A.oga/Ja-A.oga.mp3",
+      "bytes": 22873,
+      "sha256": "1eda422b93d92182c1c75cbe25bde3c5219bf0994266ec20af40d9a118d712bb"
+    },
+    {
+      "asset": "kana_native_ba.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ba.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/4d/Japanese_ba.ogg/Japanese_ba.ogg.mp3",
+      "bytes": 33612,
+      "sha256": "3f3d290ad0e52a8360174f9b68438e96d0da8e2242bb8825336cd68a083f6b02"
+    },
+    {
+      "asset": "kana_native_be.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese be.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/28/Japanese_be.ogg/Japanese_be.ogg.mp3",
+      "bytes": 32264,
+      "sha256": "2019c045341a186ffea8bdab8f4b1124344a443c1aabfc01649910bde24c1e07"
+    },
+    {
+      "asset": "kana_native_bi.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese bi.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c3/Japanese_bi.ogg/Japanese_bi.ogg.mp3",
+      "bytes": 29021,
+      "sha256": "1c39e3e3bcc810907812888d362f31130cd7e7e6e6272d4ec7555efe277b2ea3"
+    },
+    {
+      "asset": "kana_native_bo.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese bo.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/89/Japanese_bo.ogg/Japanese_bo.ogg.mp3",
+      "bytes": 26516,
+      "sha256": "f98604abe5fbd735fe855413de7334d3fe3520644b7a5c67ca723e07a062d056"
+    },
+    {
+      "asset": "kana_native_bu.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese bu.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ad/Japanese_bu.ogg/Japanese_bu.ogg.mp3",
+      "bytes": 27946,
+      "sha256": "a65faab82860e1fbafbd035510903487528cc6de727d81d7cc8f547a72316cbc"
+    },
+    {
+      "asset": "kana_native_bya.mp3",
+      "source": "Just Gojuon MIT (yoon/bya.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/bya.mp3",
+      "bytes": 4517,
+      "sha256": "8fa675d6e8e403c53b21305e096481157751f071d403867e52b99d21ece74e2b"
+    },
+    {
+      "asset": "kana_native_byo.mp3",
+      "source": "Just Gojuon MIT (yoon/byo.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/byo.mp3",
+      "bytes": 5144,
+      "sha256": "89ae8e39e718e8fa7b71c1ee3f8d82fcbcdcb62a2843350f06a8939f496ea3c8"
+    },
+    {
+      "asset": "kana_native_byu.mp3",
+      "source": "Just Gojuon MIT (yoon/byu.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/byu.mp3",
+      "bytes": 4203,
+      "sha256": "d96733dd54b88d46d84c42d0d16c7834fcc4d1a970c5e7a2c732484fbc77f4f2"
+    },
+    {
+      "asset": "kana_native_chi.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ti.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ec/Japanese_ti.ogg/Japanese_ti.ogg.mp3",
+      "bytes": 32410,
+      "sha256": "35d30f9e60a98643a34836a9fa13e162811ebb44e540713d6d15c1492eaa6054"
+    },
+    {
+      "asset": "kana_native_cya.mp3",
+      "source": "Just Gojuon MIT (yoon/cya.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/cya.mp3",
+      "bytes": 5614,
+      "sha256": "d5f70dcd1efe963a0b4b5024335943053191806d6a2a277fcd153ea8670517f6"
+    },
+    {
+      "asset": "kana_native_cyo.mp3",
+      "source": "Just Gojuon MIT (yoon/cyo.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/cyo.mp3",
+      "bytes": 5614,
+      "sha256": "22fdef08eb6c3b48a15a45eac40248de8499b413fd461d769f6c929ccaaf48c4"
+    },
+    {
+      "asset": "kana_native_cyu.mp3",
+      "source": "Just Gojuon MIT (yoon/cyu.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/cyu.mp3",
+      "bytes": 5457,
+      "sha256": "647ac06f30531f6e7b44686052ea05f2c9f417bb9728a2fec2ee638bc3cfc13f"
+    },
+    {
+      "asset": "kana_native_da.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese da.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a8/Japanese_da.ogg/Japanese_da.ogg.mp3",
+      "bytes": 29616,
+      "sha256": "e84e6244115130257fecab782a12fe46ad5723a1bc719ad95a38840575b9f8ee"
+    },
+    {
+      "asset": "kana_native_de.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese de.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/39/Japanese_de.ogg/Japanese_de.ogg.mp3",
+      "bytes": 29546,
+      "sha256": "bf3a33a761984e77c8ffa7127332cea338dca7cf52f5881ed60eb76d503e8724"
+    },
+    {
+      "asset": "kana_native_do.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese do.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/54/Japanese_do.ogg/Japanese_do.ogg.mp3",
+      "bytes": 29228,
+      "sha256": "56695dbe7ecc7cec1d9ec2f990eed2b15f6f46640721714a913a22e2e4613b3c"
+    },
+    {
+      "asset": "kana_native_e.mp3",
+      "source": "Wikimedia Commons public domain (File:Ja-E.oga)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/86/Ja-E.oga/Ja-E.oga.mp3",
+      "bytes": 22739,
+      "sha256": "16c05eb69437811919830d2f948b4d7929bddb5c9832225a8425f75ac1982ab1"
+    },
+    {
+      "asset": "kana_native_fu.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese hu.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c3/Japanese_hu.ogg/Japanese_hu.ogg.mp3",
+      "bytes": 34864,
+      "sha256": "eeb3dd4e0d5fb32fdd364a77b44d45d6838aaca3bdd0a22e341682efc348f2bf"
+    },
+    {
+      "asset": "kana_native_ga.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ga.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a1/Japanese_ga.ogg/Japanese_ga.ogg.mp3",
+      "bytes": 27769,
+      "sha256": "ce7badc6aeb94668dc4fc7ce054e851c7a00694f21e6c9afbcd10b3746c6ccb7"
+    },
+    {
+      "asset": "kana_native_ge.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ge.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/be/Japanese_ge.ogg/Japanese_ge.ogg.mp3",
+      "bytes": 32440,
+      "sha256": "dc999385c853f3a854a655a81eaa1594465fb6a055e79ba218d8881f78366226"
+    },
+    {
+      "asset": "kana_native_gi.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese gi.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7c/Japanese_gi.ogg/Japanese_gi.ogg.mp3",
+      "bytes": 27170,
+      "sha256": "f2954f02293e5107f0e16f1aff0822c530fc73d947df22ee0c6cfa78a407d8fe"
+    },
+    {
+      "asset": "kana_native_go.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese go.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/bb/Japanese_go.ogg/Japanese_go.ogg.mp3",
+      "bytes": 23913,
+      "sha256": "e70097e3c93c62e674166a9ca556b819ac35ea840c08487cffdfc2ac860a7ee0"
+    },
+    {
+      "asset": "kana_native_gu.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese gu.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b8/Japanese_gu.ogg/Japanese_gu.ogg.mp3",
+      "bytes": 29282,
+      "sha256": "127af9ba4736e1c83d51de7c906a9f79d629c9f26584737c679061c751f1c8f0"
+    },
+    {
+      "asset": "kana_native_gya.mp3",
+      "source": "Just Gojuon MIT (yoon/gya.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/gya.mp3",
+      "bytes": 4673,
+      "sha256": "e069a3d3419238f729da647a88a508a29fcb9c72c2f4c3e5def4885a888c990c"
+    },
+    {
+      "asset": "kana_native_gyo.mp3",
+      "source": "Just Gojuon MIT (yoon/gyo.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/gyo.mp3",
+      "bytes": 4517,
+      "sha256": "2c4a5b161b38257dde62fda5993dd6541880eb14ef1c2f133515b5d414be5e7d"
+    },
+    {
+      "asset": "kana_native_gyu.mp3",
+      "source": "Just Gojuon MIT (yoon/gyu.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/gyu.mp3",
+      "bytes": 5144,
+      "sha256": "b75880088bb4a3149275e371309fed29b0521a03a09194bfa43fe608d517e4aa"
+    },
+    {
+      "asset": "kana_native_ha.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ha.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/55/Japanese_ha.ogg/Japanese_ha.ogg.mp3",
+      "bytes": 36166,
+      "sha256": "dfba356ec9f550fdb0852adc89c1b8859ff3e0f279fad09589fb90a456a708ca"
+    },
+    {
+      "asset": "kana_native_he.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese he.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/64/Japanese_he.ogg/Japanese_he.ogg.mp3",
+      "bytes": 33404,
+      "sha256": "5ab02766f08f76d9d6cdb198e8cc4c61944e32dc00a9f9de385e2e913d6ae0d1"
+    },
+    {
+      "asset": "kana_native_hi.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese hi.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/22/Japanese_hi.ogg/Japanese_hi.ogg.mp3",
+      "bytes": 34818,
+      "sha256": "1a3e856155b6547238a6a5854594e4845ab1413a37074e003410d1708778ede2"
+    },
+    {
+      "asset": "kana_native_ho.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ho.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/75/Japanese_ho.ogg/Japanese_ho.ogg.mp3",
+      "bytes": 29004,
+      "sha256": "7caadca8a0053bf9803f6601f6dd653961fc2101bc3bf02c38941addbef12a09"
+    },
+    {
+      "asset": "kana_native_hya.mp3",
+      "source": "Just Gojuon MIT (yoon/hya.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/hya.mp3",
+      "bytes": 6241,
+      "sha256": "a60791dea1d86e5e0be9f8fa15394452e88a47176d508e4a7e24aeffe37fdbd9"
+    },
+    {
+      "asset": "kana_native_hyo.mp3",
+      "source": "Just Gojuon MIT (yoon/hyo.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/hyo.mp3",
+      "bytes": 4987,
+      "sha256": "34b90d0c0ed730274c303eb6d09856fad49c4713734e17e38872918dc8db745b"
+    },
+    {
+      "asset": "kana_native_hyu.mp3",
+      "source": "Just Gojuon MIT (yoon/hyu.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/hyu.mp3",
+      "bytes": 5927,
+      "sha256": "574098f85031b7274163c6204bc4115f6f63d5c01390c338ef91a691ad3b187a"
+    },
+    {
+      "asset": "kana_native_i.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese I.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ac/Japanese_I.ogg/Japanese_I.ogg.mp3",
+      "bytes": 21511,
+      "sha256": "aa4fffc21af54d0823969c5618986ca550221e0c2197e482392883fa23a1ea6b"
+    },
+    {
+      "asset": "kana_native_ji.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese zi.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/cc/Japanese_zi.ogg/Japanese_zi.ogg.mp3",
+      "bytes": 30478,
+      "sha256": "d00958c6af4b0591659eb435ca0cb3b873db7770fde14465e0e7c39dbcf8eea7"
+    },
+    {
+      "asset": "kana_native_ka.mp3",
+      "source": "Wikimedia Commons public domain (File:Ja-Ka.oga)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ec/Ja-Ka.oga/Ja-Ka.oga.mp3",
+      "bytes": 33044,
+      "sha256": "b5acc9ce3cebfec3704d5d524bd20f425d862d8f6929e2815fbd2915b7c32cf3"
+    },
+    {
+      "asset": "kana_native_ke.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ke.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2f/Japanese_ke.ogg/Japanese_ke.ogg.mp3",
+      "bytes": 33543,
+      "sha256": "cb4a835bdc6d64e7571736f6481a80f0d7c964c02d6b5d4de4a1429243b5e93a"
+    },
+    {
+      "asset": "kana_native_ki.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ki.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/65/Japanese_ki.ogg/Japanese_ki.ogg.mp3",
+      "bytes": 30017,
+      "sha256": "d7437109c680a54af037a3ecc8f942c32a4c0a7ecc5d9c49ab115189a120949c"
+    },
+    {
+      "asset": "kana_native_ko.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ko.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/48/Japanese_ko.ogg/Japanese_ko.ogg.mp3",
+      "bytes": 36793,
+      "sha256": "87e0f7705ba457e5dadd02876d1342be4eed50dfa8dee7d0f556773d2f13e2a1"
+    },
+    {
+      "asset": "kana_native_ku.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ku.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/72/Japanese_ku.ogg/Japanese_ku.ogg.mp3",
+      "bytes": 28145,
+      "sha256": "50cb286418d33c233b7938312c7b4876aba8126c296d1ec4a8f075afe4dcdd62"
+    },
+    {
+      "asset": "kana_native_kya.mp3",
+      "source": "Just Gojuon MIT (yoon/kya.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/kya.mp3",
+      "bytes": 4987,
+      "sha256": "096b495739f0c7210c82614fa21ead60277395b85a43220f780acc185aaaba03"
+    },
+    {
+      "asset": "kana_native_kyo.mp3",
+      "source": "Just Gojuon MIT (yoon/kyo.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/kyo.mp3",
+      "bytes": 4987,
+      "sha256": "1b4c27c883fca4def697a40b76a2e70b3ff6f52d251fd413f7cbc39f2e951452"
+    },
+    {
+      "asset": "kana_native_kyu.mp3",
+      "source": "Just Gojuon MIT (yoon/kyu.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/kyu.mp3",
+      "bytes": 5144,
+      "sha256": "bb48983c482a76217825957e5d4b18f4c35979991811773168c2dc210549a2cb"
+    },
+    {
+      "asset": "kana_native_ma.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ma.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/5c/Japanese_ma.ogg/Japanese_ma.ogg.mp3",
+      "bytes": 30225,
+      "sha256": "99b85b217650523e37c7c9b0770566befe5264f74d5940567eaeec7fcd48b5b8"
+    },
+    {
+      "asset": "kana_native_me.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese me.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/36/Japanese_me.ogg/Japanese_me.ogg.mp3",
+      "bytes": 31375,
+      "sha256": "0b955d925df969e185ab1f28812486024cc9a0243f6248313079b1fea7906534"
+    },
+    {
+      "asset": "kana_native_mi.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese mi.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/58/Japanese_mi.ogg/Japanese_mi.ogg.mp3",
+      "bytes": 29599,
+      "sha256": "b3dc85dc9812299625eb872b2813337865524fc7196c982b54b9ea0d3d5ba03c"
+    },
+    {
+      "asset": "kana_native_mo.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese mo.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/41/Japanese_mo.ogg/Japanese_mo.ogg.mp3",
+      "bytes": 31312,
+      "sha256": "5e77ef54ae961f84a56688f054e1bcbcbecdd73f04897d983a84d26f18363d6b"
+    },
+    {
+      "asset": "kana_native_mu.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese mu.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e6/Japanese_mu.ogg/Japanese_mu.ogg.mp3",
+      "bytes": 30587,
+      "sha256": "7e50eeb952a56786559fbe3e4da15c5619113d50493e90e669565019d152d9eb"
+    },
+    {
+      "asset": "kana_native_mya.mp3",
+      "source": "Just Gojuon MIT (yoon/mya.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/mya.mp3",
+      "bytes": 5457,
+      "sha256": "37771191665115708431faf5125548064e55947b085c432dc707e73efa4e4467"
+    },
+    {
+      "asset": "kana_native_myo.mp3",
+      "source": "Just Gojuon MIT (yoon/myo.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/myo.mp3",
+      "bytes": 4987,
+      "sha256": "1572ef01847ba24d533fb94abb5e31dad94ca9e1ad639f982bd917713e437a6b"
+    },
+    {
+      "asset": "kana_native_myu.mp3",
+      "source": "Just Gojuon MIT (yoon/myu.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/myu.mp3",
+      "bytes": 5457,
+      "sha256": "d31de25854a0a934ce0194cb3a7b431a4b43afe4c509a57cf5e4d55e31a58be2"
+    },
+    {
+      "asset": "kana_native_n.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese N.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/f/fd/Japanese_N.ogg/Japanese_N.ogg.mp3",
+      "bytes": 26823,
+      "sha256": "116be110337bc348839042ff9ac035a39e2a6ca3b78a9a7436657beb3af32dda"
+    },
+    {
+      "asset": "kana_native_na.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese na.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/11/Japanese_na.ogg/Japanese_na.ogg.mp3",
+      "bytes": 33561,
+      "sha256": "9b4e9043456bde7acb27ffbb6e011a39f7e73705472a18bbb0f3a708869d1ec0"
+    },
+    {
+      "asset": "kana_native_ne.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ne.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/93/Japanese_ne.ogg/Japanese_ne.ogg.mp3",
+      "bytes": 34553,
+      "sha256": "7c8e809bf6b942e141942ff3ccbe7b8130bc0dc9915cb4b22ec404bc455adea4"
+    },
+    {
+      "asset": "kana_native_ni.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ni.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/db/Japanese_ni.ogg/Japanese_ni.ogg.mp3",
+      "bytes": 31529,
+      "sha256": "ca926e479cab0fd00838cc4dbd943aec7f93f92fefa17bc1b7f6ad8237388b7d"
+    },
+    {
+      "asset": "kana_native_no.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese no.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9b/Japanese_no.ogg/Japanese_no.ogg.mp3",
+      "bytes": 31320,
+      "sha256": "76c4913ea99ad1a0e932beb96880864fec4497ddf62f61ec412f9720bd21a9a1"
+    },
+    {
+      "asset": "kana_native_nu.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese nu.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6c/Japanese_nu.ogg/Japanese_nu.ogg.mp3",
+      "bytes": 32360,
+      "sha256": "de55758ae220ce88108c88432ce6b36871ea6c843cf08b3a9ba07585688d7bd8"
+    },
+    {
+      "asset": "kana_native_nya.mp3",
+      "source": "Just Gojuon MIT (yoon/nya.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/nya.mp3",
+      "bytes": 5300,
+      "sha256": "03ba41d583c6d4aafecc93cc1bdcb3da62070a8856018c43779e3c993a50d408"
+    },
+    {
+      "asset": "kana_native_nyo.mp3",
+      "source": "Just Gojuon MIT (yoon/nyo.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/nyo.mp3",
+      "bytes": 4517,
+      "sha256": "e3d018038e5c2153868b1772e93cac6eedceab5338cf29252b5489e81d33d544"
+    },
+    {
+      "asset": "kana_native_nyu.mp3",
+      "source": "Just Gojuon MIT (yoon/nyu.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/nyu.mp3",
+      "bytes": 5300,
+      "sha256": "13c0cce85a958726aff8829af4038ee8a0e4cdbeb6d2ecef8a41e1303d04da77"
+    },
+    {
+      "asset": "kana_native_o.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese O.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3b/Japanese_O.ogg/Japanese_O.ogg.mp3",
+      "bytes": 20238,
+      "sha256": "18da569b93f086b3f41f3a63f391748c8645fa8b06167c4d187ed50a66012ec5"
+    },
+    {
+      "asset": "kana_native_pa.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese pa.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b0/Japanese_pa.ogg/Japanese_pa.ogg.mp3",
+      "bytes": 31212,
+      "sha256": "5d6afd7ad888e0a14ca491ab7f8b2ec35023d04cfc2fc622c886c35f00911924"
+    },
+    {
+      "asset": "kana_native_pe.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese pe.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/55/Japanese_pe.ogg/Japanese_pe.ogg.mp3",
+      "bytes": 31158,
+      "sha256": "0ace256e86987857fd2d5dc997e20736d23a8ae88c4f738b42f4aff245be26ae"
+    },
+    {
+      "asset": "kana_native_pi.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese pi.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/12/Japanese_pi.ogg/Japanese_pi.ogg.mp3",
+      "bytes": 27041,
+      "sha256": "2832d77645271a98905f36b90998add3dea60e2ba8a5fc39ff0bfb06f3c4c986"
+    },
+    {
+      "asset": "kana_native_po.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese po.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/63/Japanese_po.ogg/Japanese_po.ogg.mp3",
+      "bytes": 27820,
+      "sha256": "877a81aa3b5c72dea60f103907f0dfd6b47804b2b8efee85e77c07b829d72f68"
+    },
+    {
+      "asset": "kana_native_pu.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese pu.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/27/Japanese_pu.ogg/Japanese_pu.ogg.mp3",
+      "bytes": 26151,
+      "sha256": "9fcc0edd1865712b900f89c7cffe7fc9a2c88e58638874532409d28b34c758a5"
+    },
+    {
+      "asset": "kana_native_pya.mp3",
+      "source": "Just Gojuon MIT (yoon/pya.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/pya.mp3",
+      "bytes": 4830,
+      "sha256": "ab12ed4e42348db00459bad252c644a31539706e432f1b4325765b113db735a9"
+    },
+    {
+      "asset": "kana_native_pyo.mp3",
+      "source": "Just Gojuon MIT (yoon/pyo.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/pyo.mp3",
+      "bytes": 4830,
+      "sha256": "6c402ad540a48776dddb86b3012db769a0f5544af9484c536b5a8fae4858f796"
+    },
+    {
+      "asset": "kana_native_pyu.mp3",
+      "source": "Just Gojuon MIT (yoon/pyu.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/pyu.mp3",
+      "bytes": 5300,
+      "sha256": "20b9fe5b5c0904768e20459aa17323ab856075d7b24465f811c20793598a8e24"
+    },
+    {
+      "asset": "kana_native_ra.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ra.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/34/Japanese_ra.ogg/Japanese_ra.ogg.mp3",
+      "bytes": 30069,
+      "sha256": "4676f70cffb2d6f959627cd06aa500740c8618df449443be88000d1fc7829c50"
+    },
+    {
+      "asset": "kana_native_re.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese re.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e3/Japanese_re.ogg/Japanese_re.ogg.mp3",
+      "bytes": 29338,
+      "sha256": "b1891ce9839cfebcb41c0ee1c02ff9d40c2ee3b373eff7a117486615490c6e80"
+    },
+    {
+      "asset": "kana_native_ri.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ri.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/36/Japanese_ri.ogg/Japanese_ri.ogg.mp3",
+      "bytes": 28111,
+      "sha256": "776071a33d89c796f547ae66f554e5de5d3a8553aae8751eee9f76bb7b6fe6e5"
+    },
+    {
+      "asset": "kana_native_ro.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ro.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/bd/Japanese_ro.ogg/Japanese_ro.ogg.mp3",
+      "bytes": 26959,
+      "sha256": "c62729b83f33d1fa2e310cac3b8bd6a69a3f438b35bba3e5b88ff34f62bd9eac"
+    },
+    {
+      "asset": "kana_native_ru.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ru.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/33/Japanese_ru.ogg/Japanese_ru.ogg.mp3",
+      "bytes": 29854,
+      "sha256": "7210b6b9150ea4e1cf46b24bec3010e5b506334d93f735c88a8b0f4a3595e0bb"
+    },
+    {
+      "asset": "kana_native_rya.mp3",
+      "source": "Just Gojuon MIT (yoon/rya.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/rya.mp3",
+      "bytes": 4360,
+      "sha256": "e845ed8ab9f6d8c75a63875d950140e532cb13d4a5a1084d1a4e54c9df4f0f59"
+    },
+    {
+      "asset": "kana_native_ryo.mp3",
+      "source": "Just Gojuon MIT (yoon/ryo.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/ryo.mp3",
+      "bytes": 4517,
+      "sha256": "1fc1fb7c823570ccfe703c7a6b588376a40146c701c0ce55f82365e565317b42"
+    },
+    {
+      "asset": "kana_native_ryu.mp3",
+      "source": "Just Gojuon MIT (yoon/ryu.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/ryu.mp3",
+      "bytes": 4673,
+      "sha256": "c02357bb7734a5bb1d7bcfbfa1cda0759b3a5ce4ca07f444d99099f74e38923d"
+    },
+    {
+      "asset": "kana_native_sa.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese sa.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/46/Japanese_sa.ogg/Japanese_sa.ogg.mp3",
+      "bytes": 36272,
+      "sha256": "79d149b5e212deb9361c9b834b5b63acca01bec9a935ae3ddc3a34b95954ce71"
+    },
+    {
+      "asset": "kana_native_se.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese se.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/4d/Japanese_se.ogg/Japanese_se.ogg.mp3",
+      "bytes": 36796,
+      "sha256": "0d3860df07770748f8a3f1475f19482c963b22e15b9977f573744cae8d63518a"
+    },
+    {
+      "asset": "kana_native_shi.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese shi.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/89/Japanese_shi.ogg/Japanese_shi.ogg.mp3",
+      "bytes": 32805,
+      "sha256": "830e3c1fda885699dda8c8d4eb7c491318f09742e7b52c68c8ca1f8ad5923452"
+    },
+    {
+      "asset": "kana_native_so.mp3",
+      "source": "Wikimedia Commons public domain (File:Ja-So.oga)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/73/Ja-So.oga/Ja-So.oga.mp3",
+      "bytes": 34187,
+      "sha256": "612b37e3ef7869d83c3ec4cee08d89f46a59f0ab4956967bc85cc95380911b75"
+    },
+    {
+      "asset": "kana_native_su.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese su.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/35/Japanese_su.ogg/Japanese_su.ogg.mp3",
+      "bytes": 32200,
+      "sha256": "2d357d375d168b2f84f97f8ee3376ed7dba19ec3379cbea658868220cb4d6b1f"
+    },
+    {
+      "asset": "kana_native_sya.mp3",
+      "source": "Just Gojuon MIT (yoon/sya.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/sya.mp3",
+      "bytes": 4830,
+      "sha256": "5dac5d0e4af43456dc5bce9695c670dc485fac6d5d81f20bc4ee17ce8b536d0b"
+    },
+    {
+      "asset": "kana_native_syo.mp3",
+      "source": "Just Gojuon MIT (yoon/syo.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/syo.mp3",
+      "bytes": 6868,
+      "sha256": "5a56dbbf5af21aa9349848dea6dd330cbc382e34fbc92111d42acfc5c2422af5"
+    },
+    {
+      "asset": "kana_native_syu.mp3",
+      "source": "Just Gojuon MIT (yoon/syu.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/syu.mp3",
+      "bytes": 5927,
+      "sha256": "8b3bf9fc64d79f59c3d4224f1d93cc0382ae6c53149c81f3d8fea3166ea5c75f"
+    },
+    {
+      "asset": "kana_native_ta.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ta.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/41/Japanese_ta.ogg/Japanese_ta.ogg.mp3",
+      "bytes": 30245,
+      "sha256": "52ce06aec0eec7e0493d280422902df82a221adcce87e7b30c063563e236f1ee"
+    },
+    {
+      "asset": "kana_native_te.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese te.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b4/Japanese_te.ogg/Japanese_te.ogg.mp3",
+      "bytes": 30530,
+      "sha256": "c2b29cf37c5d1b861687dac1533222de0985a3d4d51c95575df96682abfaaf1d"
+    },
+    {
+      "asset": "kana_native_to.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese to.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/5b/Japanese_to.ogg/Japanese_to.ogg.mp3",
+      "bytes": 29462,
+      "sha256": "7855596ce1b348f568e6f79becd05ecc61e1114fd93b0b3b5cfd88174eed727e"
+    },
+    {
+      "asset": "kana_native_tsu.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese tsu.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/59/Japanese_tsu.ogg/Japanese_tsu.ogg.mp3",
+      "bytes": 32753,
+      "sha256": "b6ac5f323290405764331fc23155c8421f619aac3aabb88ad4eddb3a58fc2518"
+    },
+    {
+      "asset": "kana_native_u.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese U.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c9/Japanese_U.ogg/Japanese_U.ogg.mp3",
+      "bytes": 18954,
+      "sha256": "cb7d3c13ec9665a2bbc75fe1425b711ba3d35aa2ea90f5d09f7200a4c803f8a9"
+    },
+    {
+      "asset": "kana_native_wa.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese wa.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3c/Japanese_wa.ogg/Japanese_wa.ogg.mp3",
+      "bytes": 29963,
+      "sha256": "bc9ce96d108e2cd6ad51ae59f4e3f51f86d48edea2188cca34babf884cafaab3"
+    },
+    {
+      "asset": "kana_native_wo.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese wo.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/41/Japanese_wo.ogg/Japanese_wo.ogg.mp3",
+      "bytes": 24954,
+      "sha256": "cab51b220ceb8c7692f0015e2a3b7f16f37e65f63772f1f44a186d07aa11f4f9"
+    },
+    {
+      "asset": "kana_native_ya.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ya.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/f/f9/Japanese_ya.ogg/Japanese_ya.ogg.mp3",
+      "bytes": 29858,
+      "sha256": "5ef6a139b0d729bb10f8dc80d9c44eb391bbfc3eaee505f7fc9e60a2d623e171"
+    },
+    {
+      "asset": "kana_native_yo.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese yo.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9c/Japanese_yo.ogg/Japanese_yo.ogg.mp3",
+      "bytes": 28335,
+      "sha256": "2bda68ae92c811bacac760ef0797e37359d8126b0ea84d4194a210d8b349dbc6"
+    },
+    {
+      "asset": "kana_native_yu.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese yu.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d0/Japanese_yu.ogg/Japanese_yu.ogg.mp3",
+      "bytes": 27713,
+      "sha256": "99d464afa385bc3fdc1a890fda19050952202d90176f69868ea02a87edee7551"
+    },
+    {
+      "asset": "kana_native_za.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese za.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2e/Japanese_za.ogg/Japanese_za.ogg.mp3",
+      "bytes": 30273,
+      "sha256": "561114df85c33701d16532581307f49a4d68d5d5c4f7af0b94cf54a8e3c661cd"
+    },
+    {
+      "asset": "kana_native_ze.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese ze.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b2/Japanese_ze.ogg/Japanese_ze.ogg.mp3",
+      "bytes": 31060,
+      "sha256": "43ad1c7fbabe0312d70f61501acc997ff78a2aa0d2293deab26c2ef4d4b2fa43"
+    },
+    {
+      "asset": "kana_native_zo.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese zo.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/29/Japanese_zo.ogg/Japanese_zo.ogg.mp3",
+      "bytes": 30896,
+      "sha256": "0d2e4e5b274b49a025383d7f0c395f63475f1992cfbbe08e0f29f68fc950c6b6"
+    },
+    {
+      "asset": "kana_native_zu.mp3",
+      "source": "Wikimedia Commons public domain (File:Japanese zu.ogg)",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9e/Japanese_zu.ogg/Japanese_zu.ogg.mp3",
+      "bytes": 31729,
+      "sha256": "6097e14b15b4a7372f0ee111ef024d01ab9a6e936587f07baccbb5ac313ec2bf"
+    },
+    {
+      "asset": "kana_native_zya.mp3",
+      "source": "Just Gojuon MIT (yoon/zya.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/zya.mp3",
+      "bytes": 4673,
+      "sha256": "f25466547de6b202cf1a5182a4c8fc3454c6ba950cc976617764d36d48797c3c"
+    },
+    {
+      "asset": "kana_native_zyo.mp3",
+      "source": "Just Gojuon MIT (yoon/zyo.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/zyo.mp3",
+      "bytes": 4673,
+      "sha256": "847557316e03d0fce8827ed6e3e4bcffb0ff858bce05ab1debadb44738ef30b2"
+    },
+    {
+      "asset": "kana_native_zyu.mp3",
+      "source": "Just Gojuon MIT (yoon/zyu.mp3)",
+      "url": "https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/yoon/zyu.mp3",
+      "bytes": 4517,
+      "sha256": "5e153189281d637d3b5593cd450b4147ac22aae4ed0a2e7e62f9b33a876b2ca8"
+    }
+  ]
+}
