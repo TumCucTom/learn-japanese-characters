@@ -21,16 +21,22 @@
 		4420E19AD6F486167A0BE95E /* LockScreenWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4852398EB3A666C312D39E78 /* LockScreenWidget.swift */; };
 		446AFCDA5243FB771FD494FF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C521F89FD6416FB61846C583 /* SettingsView.swift */; };
 		4C7E11C8CDD7906A367C07AF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9196DF7F25C35AB5B63D2AE /* ContentView.swift */; };
+		554D392C4B2FB06F12CA5ACF /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AD6401F23AB6A19BE70B6 /* UserPreferences.swift */; };
 		56BB7CC96A4B38135E375C3D /* words_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 440613EA36663C0D4C756E06 /* words_data.json */; };
+		5C9B1BC837FB4D51494795EC /* WidgetLearningSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = F234F1C74274C742B1556BE5 /* WidgetLearningSupport.swift */; };
 		635E45AA297FF6BA56AD97AB /* LearningTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445E14370D96EDAD869FD7B5 /* LearningTheme.swift */; };
 		71EB22A34DBF64884BB737C4 /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8609ABC732E9DC196BB038 /* PracticeView.swift */; };
 		7262C31E74ECFFBDB43F1242 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7CB7CEAC8612317C100185 /* Constants.swift */; };
 		758F1350E295CDD95CF4B537 /* DailyKanaWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FF19E643D587E54A2AFC22 /* DailyKanaWidget.swift */; };
 		781B9AD574B86F0F7A1286CE /* KanaCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC839A8B58C5B648464CEC38 /* KanaCard.swift */; };
 		7B2678640283C8EBD3F1FAF5 /* KanaLearningPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B717432341FA5D6B6927DB /* KanaLearningPath.swift */; };
+		8273115B5F66F52511E1969B /* WidgetLearningSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = F234F1C74274C742B1556BE5 /* WidgetLearningSupport.swift */; };
 		828458C6A1AFB68F2E73E894 /* KanaLearningPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089DAAB3FCE7F81319B4F6FC /* KanaLearningPathTests.swift */; };
 		846709DC2461D354A2685C26 /* WordCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3735DC709926ABC2B1764EE0 /* WordCloud.swift */; };
+		85A768021696ADCFF44D349A /* HapticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEFC309C1ED55F3F116E201 /* HapticService.swift */; };
 		86926E0137DA699B8E43988D /* WidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87CF0EA16C13B6E70105218 /* WidgetProvider.swift */; };
+		9A3B3C495DE13E37B02BAE6E /* SharedDatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EED84EE8FE4E2376FB41F7E /* SharedDatabaseTests.swift */; };
+		A231ABEC678C9C225F3E5AAC /* WidgetScheduleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138076E630F2ECBB8BF5B00E /* WidgetScheduleTests.swift */; };
 		A294555F8E9C108F2D9271D0 /* WordsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8F0A643D763FFAD5D64FB3 /* WordsViewModel.swift */; };
 		A389C8358907ECD393086876 /* MaruMascot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C730957966D24B0F85A3CF0A /* MaruMascot.swift */; };
 		A5137C9E5878A7A3392915C5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1909931E501BF46E7FF731 /* HomeView.swift */; };
@@ -48,6 +54,7 @@
 		EB0BEFE9524E8D9751C789AF /* SharedDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5443C2B7B4407C2A4C74AC28 /* SharedDatabase.swift */; };
 		F712DE7B0EC406B85A761CBB /* SharedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD36033CB704F49C327FD69 /* SharedModels.swift */; };
 		FAC21E195749BC950B50A146 /* SharedDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5443C2B7B4407C2A4C74AC28 /* SharedDatabase.swift */; };
+		FD4F0592F0C6288753BE86A2 /* KanaDataCompletenessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686D5BCA66E3DA9382EA0BD8 /* KanaDataCompletenessTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +92,7 @@
 		0847985F6667288AA00890FD /* ProgressRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRing.swift; sourceTree = "<group>"; };
 		089DAAB3FCE7F81319B4F6FC /* KanaLearningPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanaLearningPathTests.swift; sourceTree = "<group>"; };
 		12FF19E643D587E54A2AFC22 /* DailyKanaWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyKanaWidget.swift; sourceTree = "<group>"; };
+		138076E630F2ECBB8BF5B00E /* WidgetScheduleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetScheduleTests.swift; sourceTree = "<group>"; };
 		1A1909931E501BF46E7FF731 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		1AEF8AEACE7F0D80F7E2A64B /* MaruApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaruApp.swift; sourceTree = "<group>"; };
 		259FAB74FBDD4BB3A01B58A6 /* MaruWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MaruWidget.entitlements; sourceTree = "<group>"; };
@@ -98,9 +106,13 @@
 		5443C2B7B4407C2A4C74AC28 /* SharedDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDatabase.swift; sourceTree = "<group>"; };
 		545179A9C4DAB281F5377C3A /* MaruWidgetExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = MaruWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B3F16B1E0B68E0C4F9A2A60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5EEFC309C1ED55F3F116E201 /* HapticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticService.swift; sourceTree = "<group>"; };
+		686D5BCA66E3DA9382EA0BD8 /* KanaDataCompletenessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanaDataCompletenessTests.swift; sourceTree = "<group>"; };
 		69521D5A78564C0E5C20F1AB /* Maru.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Maru.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EED84EE8FE4E2376FB41F7E /* SharedDatabaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDatabaseTests.swift; sourceTree = "<group>"; };
 		765556EE66B8A7B83FD0BAA5 /* kana_data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = kana_data.json; sourceTree = "<group>"; };
 		8D71B611F26D7A3DB6217C4B /* KanaChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanaChartViewModel.swift; sourceTree = "<group>"; };
+		922AD6401F23AB6A19BE70B6 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		9CD36033CB704F49C327FD69 /* SharedModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedModels.swift; sourceTree = "<group>"; };
 		9D0251B35D885A332726BE49 /* DailyKanaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyKanaService.swift; sourceTree = "<group>"; };
 		A9196DF7F25C35AB5B63D2AE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -120,6 +132,7 @@
 		EB6B0893323BF170ADDF9C97 /* KanaRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanaRepository.swift; sourceTree = "<group>"; };
 		EC839A8B58C5B648464CEC38 /* KanaCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanaCard.swift; sourceTree = "<group>"; };
 		F06AE7EE4D43B70A4B48A499 /* FlashcardWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardWidget.swift; sourceTree = "<group>"; };
+		F234F1C74274C742B1556BE5 /* WidgetLearningSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetLearningSupport.swift; sourceTree = "<group>"; };
 		F8D2560154E29DE0F550F041 /* Maru.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Maru.entitlements; sourceTree = "<group>"; };
 		FCDCF4385043DFC26E2A260F /* AudioServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioServiceTests.swift; sourceTree = "<group>"; };
 		FF8609ABC732E9DC196BB038 /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
@@ -185,6 +198,7 @@
 				B3B717432341FA5D6B6927DB /* KanaLearningPath.swift */,
 				5443C2B7B4407C2A4C74AC28 /* SharedDatabase.swift */,
 				9CD36033CB704F49C327FD69 /* SharedModels.swift */,
+				F234F1C74274C742B1556BE5 /* WidgetLearningSupport.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -242,6 +256,8 @@
 			children = (
 				275012408ADBE402573968C9 /* AudioService.swift */,
 				9D0251B35D885A332726BE49 /* DailyKanaService.swift */,
+				5EEFC309C1ED55F3F116E201 /* HapticService.swift */,
+				922AD6401F23AB6A19BE70B6 /* UserPreferences.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -250,8 +266,11 @@
 			isa = PBXGroup;
 			children = (
 				FCDCF4385043DFC26E2A260F /* AudioServiceTests.swift */,
+				686D5BCA66E3DA9382EA0BD8 /* KanaDataCompletenessTests.swift */,
 				089DAAB3FCE7F81319B4F6FC /* KanaLearningPathTests.swift */,
 				BF591E78C0A3D62DA5AD38F3 /* PracticeViewModelTests.swift */,
+				6EED84EE8FE4E2376FB41F7E /* SharedDatabaseTests.swift */,
+				138076E630F2ECBB8BF5B00E /* WidgetScheduleTests.swift */,
 			);
 			path = MaruTests;
 			sourceTree = "<group>";
@@ -416,8 +435,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				36A1C3F27F236DCCB946F2AD /* AudioServiceTests.swift in Sources */,
+				FD4F0592F0C6288753BE86A2 /* KanaDataCompletenessTests.swift in Sources */,
 				828458C6A1AFB68F2E73E894 /* KanaLearningPathTests.swift in Sources */,
 				D7C52D53F43CE7A152C7C242 /* PracticeViewModelTests.swift in Sources */,
+				9A3B3C495DE13E37B02BAE6E /* SharedDatabaseTests.swift in Sources */,
+				A231ABEC678C9C225F3E5AAC /* WidgetScheduleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +455,7 @@
 				BD7366E3F0B04EBEFCB786E7 /* MaruWidget.swift in Sources */,
 				EB0BEFE9524E8D9751C789AF /* SharedDatabase.swift in Sources */,
 				43C43FD69CEA993EED47BD30 /* SharedModels.swift in Sources */,
+				5C9B1BC837FB4D51494795EC /* WidgetLearningSupport.swift in Sources */,
 				86926E0137DA699B8E43988D /* WidgetProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -445,6 +468,7 @@
 				B2E601523570435D06B1262F /* Constants.swift in Sources */,
 				4C7E11C8CDD7906A367C07AF /* ContentView.swift in Sources */,
 				1B696E2E9361373B5B86DFA4 /* DailyKanaService.swift in Sources */,
+				85A768021696ADCFF44D349A /* HapticService.swift in Sources */,
 				A5137C9E5878A7A3392915C5 /* HomeView.swift in Sources */,
 				088B2AC17DC5AF8A5AA45879 /* HomeViewModel.swift in Sources */,
 				781B9AD574B86F0F7A1286CE /* KanaCard.swift in Sources */,
@@ -461,6 +485,8 @@
 				446AFCDA5243FB771FD494FF /* SettingsView.swift in Sources */,
 				FAC21E195749BC950B50A146 /* SharedDatabase.swift in Sources */,
 				F712DE7B0EC406B85A761CBB /* SharedModels.swift in Sources */,
+				554D392C4B2FB06F12CA5ACF /* UserPreferences.swift in Sources */,
+				8273115B5F66F52511E1969B /* WidgetLearningSupport.swift in Sources */,
 				846709DC2461D354A2685C26 /* WordCloud.swift in Sources */,
 				1053AA617AA58AB6F4EE789D /* WordsView.swift in Sources */,
 				A294555F8E9C108F2D9271D0 /* WordsViewModel.swift in Sources */,

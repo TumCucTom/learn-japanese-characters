@@ -23,8 +23,8 @@ struct DailyKanaWidget: Widget {
                     WidgetStyle.cream
                 }
         }
-        .configurationDisplayName("Daily Kana")
-        .description("Learn a new kana character every day.")
+        .configurationDisplayName("Kana Now")
+        .description("Learn a kana character throughout the day.")
         .supportedFamilies([.systemSmall])
     }
 }
@@ -53,9 +53,13 @@ struct DailyKanaWidgetView: View {
                     .font(.system(size: 20, weight: .black, design: .rounded))
                     .foregroundStyle(WidgetStyle.ink)
 
-                Circle()
-                    .fill(WidgetStyle.red)
-                    .frame(width: 9, height: 9)
+                Text("now")
+                    .font(.system(size: 10, weight: .black, design: .rounded))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 7)
+                    .padding(.vertical, 3)
+                    .background(WidgetStyle.red)
+                    .clipShape(Capsule())
             }
         }
         .padding(10)

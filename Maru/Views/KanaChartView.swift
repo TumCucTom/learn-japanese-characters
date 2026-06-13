@@ -91,6 +91,7 @@ struct KanaChartView: View {
                         showDetail = true
                     },
                     onDrill: {
+                        HapticService.shared.selection()
                         selectedPracticeKana = row.kana
                         showPractice = true
                     }

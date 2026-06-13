@@ -16,4 +16,21 @@ final class PracticeViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.exerciseType, .listening)
         XCTAssertNotNil(viewModel.currentKana)
     }
+
+    func testCorrectAnswerUpdatesFeedbackOnce() {
+        let kana = [
+            SharedKana(id: "h_basic_1", character: "あ", romaji: "a", kanaType: .hiragana, category: "basic")
+        ]
+        let viewModel = PracticeViewModel()
+
+        viewModel.startPracticeSession(kana: kana, exerciseType: .spelling)
+        viewModel.typedAnswer = "a"
+        viewModel.submitTypedAnswer()
+        viewModel.submitTypedAnswer()
+
+        XCTAssertEqual(viewModel.score, 1)
+        XCTAssertEqual(viewModel.totalQuestions, 1)
+        XCTAssertEqual(viewModel.mascotExpression, .celebrating)
+        XCTAssertTrue(viewModel.answerFeedbackID > 0)
+    }
 }

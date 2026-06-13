@@ -9,17 +9,22 @@ final class WordsViewModel: ObservableObject {
 
     private let repository = KanaRepository.shared
     private let audioService = AudioService.shared
+    private let hapticService = HapticService.shared
 
     init() {
         loadWords()
     }
 
-    func loadWords() {
+    func loadWords(includeHaptic: Bool = false) {
+        if includeHaptic {
+            hapticService.selection()
+        }
         words = repository.getRandomWords(limit: 40)
         featuredWord = words.first
     }
 
     func playWord(_ word: SharedWord) {
+        hapticService.impact(.light)
         featuredWord = word
         withAnimation(.easeInOut(duration: 0.2)) {
             mascotExpression = .thinking

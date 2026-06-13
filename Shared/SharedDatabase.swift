@@ -211,8 +211,13 @@ final class SharedDatabase {
         return progressList
     }
 
+    func deleteAllProgress() throws {
+        guard let db = db else { return }
+        try db.run(progressTable.delete())
+    }
+
     func getWeakKana(limit: Int = 10) throws -> [SharedKana] {
-        guard let db = db else { return [] }
+        guard db != nil else { return [] }
 
         let progressList = try getAllProgress()
         let weakIds = progressList
@@ -262,16 +267,14 @@ final class SharedDatabase {
     func seedKanaIfNeeded(from kanaList: [SharedKana]) throws {
         guard let db = db else { return }
 
-        // Check if already seeded
         let count = try db.scalar(kanaTable.count)
-        guard count == 0 else { return }
+        guard count != kanaList.count else { return }
 
-        // Seed all kana
         for kana in kanaList {
             let strokeOrderJson = try JSONEncoder().encode(kana.strokeOrder)
             let strokeOrderString = String(data: strokeOrderJson, encoding: .utf8) ?? "[]"
 
-            try db.run(kanaTable.insert(
+            try db.run(kanaTable.insert(or: .replace,
                 kanaId <- kana.id,
                 kanaCharacter <- kana.character,
                 kanaRomaji <- kana.romaji,

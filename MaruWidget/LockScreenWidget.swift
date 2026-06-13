@@ -14,7 +14,7 @@ struct LockScreenWidget: Widget {
                 .containerBackground(.fill.tertiary, for: .widget)
         }
         .configurationDisplayName("Maru Kana")
-        .description("Quick kana reference on your lock screen.")
+        .description("Rotating kana reference on your lock screen.")
         .supportedFamilies([.accessoryCircular, .accessoryRectangular])
     }
 }

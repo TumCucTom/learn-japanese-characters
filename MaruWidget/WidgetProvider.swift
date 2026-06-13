@@ -42,6 +42,15 @@ struct ConfigurationAppIntent: WidgetConfigurationIntent {
             .hiragana: "Hiragana",
             .katakana: "Katakana"
         ]
+
+        var appKanaType: AppConstants.KanaType {
+            switch self {
+            case .hiragana:
+                return .hiragana
+            case .katakana:
+                return .katakana
+            }
+        }
     }
 }
 
@@ -54,75 +63,51 @@ final class WidgetDailyKanaService {
 
     private init() {}
 
-    func getDailyCharacter() -> SharedKana {
-        let today = Date()
-
-        // Check if we already have a selection for today
-        if let existing = try? database.getDailySelection(for: today, widgetType: .dailyCharacter),
-           let kana = try? database.getKana(byId: existing.kanaId) {
-            return kana
-        }
-
-        // Select a new character from available kana
+    func getDailyCharacter(kanaType: AppConstants.KanaType, date: Date = Date()) -> SharedKana {
         guard let allKana = try? database.getAllKana(), !allKana.isEmpty else {
-            // Return a fallback kana if database is empty
-            return SharedKana(
-                id: "hiragana_a",
-                character: "あ",
-                romaji: "a",
-                kanaType: .hiragana,
-                category: "basic",
-                strokeOrder: [],
-                audioFileName: nil
-            )
+            return fallbackKana(for: kanaType)
         }
 
-        let selectedKana = allKana.randomElement()!
-
-        // Save selection
-        let selection = DailyKanaSelection(
-            kanaId: selectedKana.id,
-            date: today,
-            widgetType: .dailyCharacter
-        )
-        try? database.saveDailySelection(selection)
-
-        return selectedKana
+        return WidgetKanaSelector.select(
+            from: allKana,
+            type: kanaType,
+            date: date,
+            salt: "daily-character"
+        ) ?? fallbackKana(for: kanaType)
     }
 
-    func getFlashcardKana() -> SharedKana {
-        let today = Date()
-
-        // Check if we already have a selection for today
-        if let existing = try? database.getDailySelection(for: today, widgetType: .flashcard),
-           let kana = try? database.getKana(byId: existing.kanaId) {
-            return kana
+    func getFlashcardKana(kanaType: AppConstants.KanaType, date: Date = Date()) -> SharedKana {
+        guard let allKana = try? database.getAllKana(), !allKana.isEmpty else {
+            return fallbackKana(for: kanaType)
         }
 
-        // Get a random character for flashcard
-        guard let allKana = try? database.getAllKana(), !allKana.isEmpty else {
+        return WidgetKanaSelector.select(
+            from: allKana,
+            type: kanaType,
+            date: date,
+            salt: "flashcard"
+        ) ?? fallbackKana(for: kanaType)
+    }
+
+    private func fallbackKana(for type: AppConstants.KanaType) -> SharedKana {
+        switch type {
+        case .hiragana:
             return SharedKana(
-                id: "hiragana_a",
+                id: "h_basic_1",
                 character: "あ",
                 romaji: "a",
                 kanaType: .hiragana,
-                category: "basic",
-                strokeOrder: [],
-                audioFileName: nil
+                category: "basic"
+            )
+        case .katakana:
+            return SharedKana(
+                id: "k_basic_1",
+                character: "ア",
+                romaji: "a",
+                kanaType: .katakana,
+                category: "basic"
             )
         }
-
-        let selectedKana = allKana.randomElement()!
-
-        // Save selection
-        let selection = DailyKanaSelection(
-            kanaId: selectedKana.id,
-            date: today,
-            widgetType: .flashcard
-        )
-        try? database.saveDailySelection(selection)
-
-        return selectedKana
     }
 }
 
@@ -149,19 +134,16 @@ struct DailyKanaProvider: AppIntentTimelineProvider {
     }
 
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> KanaWidgetEntry {
-        let kana = WidgetDailyKanaService.shared.getDailyCharacter()
+        let kana = WidgetDailyKanaService.shared.getDailyCharacter(kanaType: configuration.kanaType.appKanaType)
         return KanaWidgetEntry(date: Date(), kana: kana, configuration: configuration)
     }
 
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<KanaWidgetEntry> {
-        let kana = WidgetDailyKanaService.shared.getDailyCharacter()
+        let date = Date()
+        let kana = WidgetDailyKanaService.shared.getDailyCharacter(kanaType: configuration.kanaType.appKanaType, date: date)
 
-        // Update at midnight
-        let calendar = Calendar.current
-        let tomorrow = calendar.startOfDay(for: calendar.date(byAdding: .day, value: 1, to: Date())!)
-
-        let entry = KanaWidgetEntry(date: Date(), kana: kana, configuration: configuration)
-        return Timeline(entries: [entry], policy: .after(tomorrow))
+        let entry = KanaWidgetEntry(date: date, kana: kana, configuration: configuration)
+        return Timeline(entries: [entry], policy: .after(WidgetTimelineSchedule.nextRefresh(after: date)))
     }
 }
 
@@ -187,19 +169,16 @@ struct FlashcardProvider: AppIntentTimelineProvider {
     }
 
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> FlashcardWidgetEntry {
-        let kana = WidgetDailyKanaService.shared.getFlashcardKana()
+        let kana = WidgetDailyKanaService.shared.getFlashcardKana(kanaType: configuration.kanaType.appKanaType)
         return FlashcardWidgetEntry(date: Date(), kana: kana, hint: kana.romaji, configuration: configuration)
     }
 
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<FlashcardWidgetEntry> {
-        let kana = WidgetDailyKanaService.shared.getFlashcardKana()
+        let date = Date()
+        let kana = WidgetDailyKanaService.shared.getFlashcardKana(kanaType: configuration.kanaType.appKanaType, date: date)
 
-        // Update at midnight
-        let calendar = Calendar.current
-        let tomorrow = calendar.startOfDay(for: calendar.date(byAdding: .day, value: 1, to: Date())!)
-
-        let entry = FlashcardWidgetEntry(date: Date(), kana: kana, hint: kana.romaji, configuration: configuration)
-        return Timeline(entries: [entry], policy: .after(tomorrow))
+        let entry = FlashcardWidgetEntry(date: date, kana: kana, hint: kana.romaji, configuration: configuration)
+        return Timeline(entries: [entry], policy: .after(WidgetTimelineSchedule.nextRefresh(after: date)))
     }
 }
 
@@ -224,18 +203,15 @@ struct LockScreenProvider: AppIntentTimelineProvider {
     }
 
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> LockScreenWidgetEntry {
-        let kana = WidgetDailyKanaService.shared.getDailyCharacter()
+        let kana = WidgetDailyKanaService.shared.getDailyCharacter(kanaType: configuration.kanaType.appKanaType)
         return LockScreenWidgetEntry(date: Date(), kana: kana, configuration: configuration)
     }
 
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<LockScreenWidgetEntry> {
-        let kana = WidgetDailyKanaService.shared.getDailyCharacter()
+        let date = Date()
+        let kana = WidgetDailyKanaService.shared.getDailyCharacter(kanaType: configuration.kanaType.appKanaType, date: date)
 
-        // Update at midnight
-        let calendar = Calendar.current
-        let tomorrow = calendar.startOfDay(for: calendar.date(byAdding: .day, value: 1, to: Date())!)
-
-        let entry = LockScreenWidgetEntry(date: Date(), kana: kana, configuration: configuration)
-        return Timeline(entries: [entry], policy: .after(tomorrow))
+        let entry = LockScreenWidgetEntry(date: date, kana: kana, configuration: configuration)
+        return Timeline(entries: [entry], policy: .after(WidgetTimelineSchedule.nextRefresh(after: date)))
     }
 }

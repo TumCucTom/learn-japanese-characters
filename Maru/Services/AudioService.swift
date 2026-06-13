@@ -11,7 +11,6 @@ final class AudioService: NSObject, ObservableObject {
     private override init() {
         super.init()
         synthesizer.delegate = self
-        setupAudioSession()
     }
 
     private func setupAudioSession() {
@@ -53,9 +52,21 @@ final class AudioService: NSObject, ObservableObject {
             synthesizer.stopSpeaking(at: .immediate)
         }
         isPlaying = false
+        deactivateAudioSession()
+    }
+
+    func applyCurrentPreferences() {
+        if !UserPreferences.soundEffectsEnabled {
+            stop()
+        }
     }
 
     private func speak(_ utterance: AVSpeechUtterance) {
+        guard UserPreferences.soundEffectsEnabled else {
+            stop()
+            return
+        }
+
         setupAudioSession()
 
         if synthesizer.isSpeaking {
@@ -65,14 +76,24 @@ final class AudioService: NSObject, ObservableObject {
         isPlaying = true
         synthesizer.speak(utterance)
     }
+
+    private func deactivateAudioSession() {
+        do {
+            try AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+        } catch {
+            print("Audio session deactivate error: \(error)")
+        }
+    }
 }
 
 extension AudioService: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         isPlaying = false
+        deactivateAudioSession()
     }
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
         isPlaying = false
+        deactivateAudioSession()
     }
 }

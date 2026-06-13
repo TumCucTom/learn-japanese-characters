@@ -16,7 +16,7 @@ struct FlashcardWidget: Widget {
                 }
         }
         .configurationDisplayName("Kana Flashcard")
-        .description("Practice your kana with a daily flashcard.")
+        .description("Practice rotating kana flashcards throughout the day.")
         .supportedFamilies([.systemMedium])
     }
 }
@@ -45,7 +45,7 @@ struct FlashcardWidgetView: View {
             )
 
             VStack(alignment: .leading, spacing: 10) {
-                Text("Today")
+                Text("Now")
                     .font(.system(size: 14, weight: .black, design: .rounded))
                     .foregroundStyle(WidgetStyle.ink.opacity(0.68))
 

@@ -146,6 +146,7 @@ struct HomeView: View {
 
     private var practiceButton: some View {
         Button {
+            HapticService.shared.selection()
             showPractice = true
         } label: {
             HStack(spacing: 12) {

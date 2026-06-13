@@ -3,11 +3,12 @@ import SwiftUI
 // MARK: - SettingsView
 
 struct SettingsView: View {
-    @AppStorage("hapticFeedback") private var hapticFeedback = true
-    @AppStorage("soundEffects") private var soundEffects = true
-    @AppStorage("dailyReminder") private var dailyReminder = false
-    @AppStorage("reminderTime") private var reminderTimeInterval: TimeInterval = 32400 // Default 9 AM
+    @AppStorage(UserPreferences.hapticFeedbackKey) private var hapticFeedback = true
+    @AppStorage(UserPreferences.soundEffectsKey) private var soundEffects = true
+    @AppStorage(UserPreferences.dailyReminderKey) private var dailyReminder = false
+    @AppStorage(UserPreferences.reminderTimeKey) private var reminderTimeInterval: TimeInterval = 32400 // Default 9 AM
     @State private var showResetAlert = false
+    @State private var resetErrorMessage: String?
     @State private var reminderDate: Date = Calendar.current.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
 
     private let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
@@ -40,6 +41,10 @@ struct SettingsView: View {
                         )
                     }
                     .toggleStyle(SwitchToggleStyle(tint: Color(hex: "8B5CF6")))
+                    .onChange(of: soundEffects) { _, _ in
+                        HapticService.shared.selection()
+                        AudioService.shared.applyCurrentPreferences()
+                    }
                 }
 
                 // Daily reminder toggle with time picker
@@ -123,25 +128,32 @@ struct SettingsView: View {
             } message: {
                 Text("Are you sure you want to reset all your learning progress? This action cannot be undone.")
             }
+            .alert(
+                "Reset Failed",
+                isPresented: Binding(
+                    get: { resetErrorMessage != nil },
+                    set: { isPresented in
+                        if !isPresented {
+                            resetErrorMessage = nil
+                        }
+                    }
+                )
+            ) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text(resetErrorMessage ?? "Progress could not be reset.")
+            }
         }
     }
 
     private func resetProgress() {
-        // Reset UserDefaults
-        UserDefaults.standard.removeObject(forKey: "hapticFeedback")
-        UserDefaults.standard.removeObject(forKey: "soundEffects")
-        UserDefaults.standard.removeObject(forKey: "dailyReminder")
-        UserDefaults.standard.removeObject(forKey: "reminderTime")
-
-        // Reset to defaults
-        hapticFeedback = true
-        soundEffects = true
-        dailyReminder = false
-        reminderTimeInterval = 32400
-        reminderDate = Calendar.current.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
-
-        // TODO: Reset database progress
-        // This would typically call a method on SharedDatabase to clear progress
+        do {
+            try SharedDatabase.shared.deleteAllProgress()
+            HapticService.shared.success()
+        } catch {
+            HapticService.shared.error()
+            resetErrorMessage = "Progress could not be reset. Please try again."
+        }
     }
 }
 

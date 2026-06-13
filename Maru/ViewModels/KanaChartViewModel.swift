@@ -13,6 +13,7 @@ final class KanaChartViewModel: ObservableObject {
 
     private let repository = KanaRepository.shared
     private let audioService = AudioService.shared
+    private let hapticService = HapticService.shared
     private let database = SharedDatabase.shared
 
     let categories = ["basic", "dakuten", "combination"]
@@ -38,16 +39,19 @@ final class KanaChartViewModel: ObservableObject {
     }
 
     func selectType(_ type: AppConstants.KanaType) {
+        hapticService.selection()
         selectedType = type
         loadKanaGrid()
     }
 
     func selectCategory(_ category: String) {
+        hapticService.selection()
         selectedCategory = category
         loadKanaGrid()
     }
 
     func selectKana(_ kana: SharedKana) {
+        hapticService.impact(.light)
         selectedKana = kana
         audioService.playKana(kana)
     }

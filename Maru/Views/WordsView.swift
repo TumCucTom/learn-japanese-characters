@@ -25,7 +25,9 @@ struct WordsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: viewModel.loadWords) {
+                    Button {
+                        viewModel.loadWords(includeHaptic: true)
+                    } label: {
                         Image(systemName: "arrow.clockwise")
                             .font(.system(size: 16, weight: .black))
                             .foregroundColor(LearningTheme.ink)

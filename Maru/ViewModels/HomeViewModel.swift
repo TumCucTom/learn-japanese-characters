@@ -15,6 +15,7 @@ final class HomeViewModel: ObservableObject {
 
     private let repository = KanaRepository.shared
     private let audioService = AudioService.shared
+    private let hapticService = HapticService.shared
     private let database = SharedDatabase.shared
 
     init() {
@@ -39,6 +40,7 @@ final class HomeViewModel: ObservableObject {
     }
 
     func playWord(_ word: SharedWord) {
+        hapticService.impact(.light)
         // Show thinking expression while audio plays
         setExpression(.thinking)
 
@@ -58,6 +60,7 @@ final class HomeViewModel: ObservableObject {
     }
 
     func refreshWordCloud() {
+        hapticService.selection()
         loadWordCloud()
         loadLearningProgress()
         setExpression(.happy)

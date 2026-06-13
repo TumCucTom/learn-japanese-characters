@@ -34,6 +34,7 @@ struct PracticeView: View {
                         selectedExerciseType: $selectedExerciseType,
                         focusOnWeak: $focusOnWeak,
                         onStart: {
+                            HapticService.shared.selection()
                             viewModel.startPracticeSession(
                                 kanaType: selectedKanaType,
                                 focusOnWeak: focusOnWeak,
@@ -88,12 +89,15 @@ struct StartPracticeView: View {
 
                     HStack(spacing: 10) {
                         TypeButton(title: "All", isSelected: selectedKanaType == nil) {
+                            HapticService.shared.selection()
                             selectedKanaType = nil
                         }
                         TypeButton(title: "Hiragana", isSelected: selectedKanaType == .hiragana) {
+                            HapticService.shared.selection()
                             selectedKanaType = .hiragana
                         }
                         TypeButton(title: "Katakana", isSelected: selectedKanaType == .katakana) {
+                            HapticService.shared.selection()
                             selectedKanaType = .katakana
                         }
                     }
@@ -111,6 +115,7 @@ struct StartPracticeView: View {
                             icon: "shuffle",
                             isSelected: selectedExerciseType == nil
                         ) {
+                            HapticService.shared.selection()
                             selectedExerciseType = nil
                         }
 
@@ -120,6 +125,7 @@ struct StartPracticeView: View {
                                 icon: iconName(for: mode),
                                 isSelected: selectedExerciseType == mode
                             ) {
+                                HapticService.shared.selection()
                                 selectedExerciseType = mode
                             }
                         }
@@ -139,6 +145,9 @@ struct StartPracticeView: View {
                     }
                 }
                 .toggleStyle(SwitchToggleStyle(tint: LearningTheme.red))
+                .onChange(of: focusOnWeak) { _, _ in
+                    HapticService.shared.selection()
+                }
                 .padding(16)
                 .background(.white)
                 .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
@@ -241,6 +250,9 @@ struct PracticeContentView: View {
             progressHeader
 
             MaruMascot(expression: viewModel.mascotExpression, size: 86)
+                .scaleEffect(viewModel.mascotExpression == .celebrating ? 1.08 : 1)
+                .rotationEffect(.degrees(viewModel.mascotExpression == .sad ? -3 : 0))
+                .animation(.spring(response: 0.28, dampingFraction: 0.58), value: viewModel.mascotExpression)
                 .padding(.top, 4)
 
             if let kana = viewModel.currentKana {
@@ -257,6 +269,7 @@ struct PracticeContentView: View {
 
             if viewModel.selectedAnswer != nil {
                 nextButton
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
             }
 
             Spacer(minLength: 10)
@@ -269,12 +282,14 @@ struct PracticeContentView: View {
                 .overlay(LearningPattern().opacity(0.25))
                 .ignoresSafeArea()
         )
+        .animation(.spring(response: 0.28, dampingFraction: 0.74), value: viewModel.answerFeedbackID)
     }
 
     private var progressHeader: some View {
         VStack(spacing: 10) {
             HStack {
                 Button {
+                    HapticService.shared.selection()
                     viewModel.restartSession()
                 } label: {
                     Image(systemName: "xmark")
@@ -389,6 +404,7 @@ struct PracticeContentView: View {
                 }
             }
         }
+        .animation(.spring(response: 0.24, dampingFraction: 0.72), value: viewModel.answerFeedbackID)
     }
 
     private var typingPanel: some View {
@@ -425,6 +441,8 @@ struct PracticeContentView: View {
                 Text(selectedAnswer == correctAnswer ? "Correct" : "Answer: \(correctAnswer)")
                     .font(.system(size: 18, weight: .black, design: .rounded))
                     .foregroundColor(selectedAnswer == correctAnswer ? LearningTheme.green : LearningTheme.red)
+                    .id(viewModel.answerFeedbackID)
+                    .transition(.scale(scale: 0.88).combined(with: .opacity))
             }
         }
     }
@@ -446,6 +464,7 @@ struct PracticeContentView: View {
             }
             .buttonStyle(LearningOutlinedButtonStyle(fill: LearningTheme.yellow))
             .disabled(viewModel.selectedAnswer != nil)
+            .scaleEffect(viewModel.selectedAnswer != nil ? 0.98 : 1)
         }
     }
 
@@ -575,6 +594,7 @@ private struct KanaTracePad: View {
                         .foregroundColor(LearningTheme.mutedInk)
                     Spacer()
                     Button {
+                        HapticService.shared.selection()
                         strokes.removeAll()
                         currentStroke.removeAll()
                     } label: {
@@ -660,7 +680,10 @@ struct SessionCompleteView: View {
 
             Spacer()
 
-            Button(action: onRestart) {
+            Button {
+                HapticService.shared.selection()
+                onRestart()
+            } label: {
                 Text("Practice Again")
                     .font(.system(size: 22, weight: .black, design: .rounded))
                     .foregroundColor(.white)

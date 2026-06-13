@@ -16,9 +16,11 @@ final class PracticeViewModel: ObservableObject {
     @Published var isSessionComplete: Bool = false
     @Published var exerciseType: ExerciseType = .multipleChoice
     @Published var typedAnswer: String = ""
+    @Published var answerFeedbackID: Int = 0
 
     private let repository = KanaRepository.shared
     private let audioService = AudioService.shared
+    private let hapticService = HapticService.shared
     private let database = SharedDatabase.shared
     private var fixedExerciseType: ExerciseType?
 
@@ -93,7 +95,9 @@ final class PracticeViewModel: ObservableObject {
         selectedAnswer = nil
         isCorrect = nil
         typedAnswer = ""
-        mascotExpression = .neutral
+        withAnimation(.spring(response: 0.28, dampingFraction: 0.74)) {
+            mascotExpression = .neutral
+        }
 
         if exerciseType == .listening {
             playCurrentKana()
@@ -150,18 +154,27 @@ final class PracticeViewModel: ObservableObject {
         guard let current = currentKana else { return }
         guard selectedAnswer == nil else { return }
 
-        selectedAnswer = answer
-        totalQuestions += 1
+        withAnimation(.spring(response: 0.26, dampingFraction: 0.72)) {
+            selectedAnswer = answer
+            totalQuestions += 1
+            answerFeedbackID += 1
+        }
 
         if answer == current.romaji {
-            isCorrect = true
+            hapticService.success()
             score += 1
-            mascotExpression = .celebrating
+            withAnimation(.spring(response: 0.32, dampingFraction: 0.66)) {
+                isCorrect = true
+                mascotExpression = .celebrating
+            }
             updateProgress(for: current, correct: true)
         } else {
-            isCorrect = false
+            hapticService.error()
             mistakeCount += 1
-            mascotExpression = .sad
+            withAnimation(.spring(response: 0.32, dampingFraction: 0.66)) {
+                isCorrect = false
+                mascotExpression = .sad
+            }
             updateProgress(for: current, correct: false)
         }
     }
@@ -205,12 +218,14 @@ final class PracticeViewModel: ObservableObject {
     }
 
     func nextQuestion() {
+        hapticService.selection()
         currentIndex += 1
         loadCurrentQuestion()
     }
 
     func playCurrentKana() {
         guard let kana = currentKana else { return }
+        hapticService.impact(.light)
         audioService.playKana(kana)
     }
 
