@@ -20,10 +20,13 @@
 		446AFCDA5243FB771FD494FF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C521F89FD6416FB61846C583 /* SettingsView.swift */; };
 		4C7E11C8CDD7906A367C07AF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9196DF7F25C35AB5B63D2AE /* ContentView.swift */; };
 		56BB7CC96A4B38135E375C3D /* words_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 440613EA36663C0D4C756E06 /* words_data.json */; };
+		635E45AA297FF6BA56AD97AB /* LearningTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445E14370D96EDAD869FD7B5 /* LearningTheme.swift */; };
 		71EB22A34DBF64884BB737C4 /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8609ABC732E9DC196BB038 /* PracticeView.swift */; };
 		7262C31E74ECFFBDB43F1242 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7CB7CEAC8612317C100185 /* Constants.swift */; };
 		758F1350E295CDD95CF4B537 /* DailyKanaWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FF19E643D587E54A2AFC22 /* DailyKanaWidget.swift */; };
 		781B9AD574B86F0F7A1286CE /* KanaCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC839A8B58C5B648464CEC38 /* KanaCard.swift */; };
+		7B2678640283C8EBD3F1FAF5 /* KanaLearningPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B717432341FA5D6B6927DB /* KanaLearningPath.swift */; };
+		828458C6A1AFB68F2E73E894 /* KanaLearningPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089DAAB3FCE7F81319B4F6FC /* KanaLearningPathTests.swift */; };
 		846709DC2461D354A2685C26 /* WordCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3735DC709926ABC2B1764EE0 /* WordCloud.swift */; };
 		86926E0137DA699B8E43988D /* WidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87CF0EA16C13B6E70105218 /* WidgetProvider.swift */; };
 		A389C8358907ECD393086876 /* MaruMascot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C730957966D24B0F85A3CF0A /* MaruMascot.swift */; };
@@ -36,6 +39,7 @@
 		BD7366E3F0B04EBEFCB786E7 /* MaruWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A33CB6F2F20856AC8FC73C0 /* MaruWidget.swift */; };
 		DCAE339854D0A4DD1BEEDF5C /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847985F6667288AA00890FD /* ProgressRing.swift */; };
 		DE4BF058DFCBD0D2C902AB53 /* KanaChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0EF3AC8D316993B91701DA /* KanaChartView.swift */; };
+		E077FE3F463491EAE4BD21A3 /* KanaLearningPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B717432341FA5D6B6927DB /* KanaLearningPath.swift */; };
 		E43F1936198854B208463594 /* KanaChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D71B611F26D7A3DB6217C4B /* KanaChartViewModel.swift */; };
 		EB0BEFE9524E8D9751C789AF /* SharedDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5443C2B7B4407C2A4C74AC28 /* SharedDatabase.swift */; };
 		F712DE7B0EC406B85A761CBB /* SharedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD36033CB704F49C327FD69 /* SharedModels.swift */; };
@@ -43,6 +47,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C60CD61C48562D0967355E7A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7F07115FAEFC965DF15DAC8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7009F49C86146152ABEF7363;
+			remoteInfo = Maru;
+		};
 		FC47358BBAF8966DCE89AEBA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C7F07115FAEFC965DF15DAC8 /* Project object */;
@@ -68,6 +79,7 @@
 
 /* Begin PBXFileReference section */
 		0847985F6667288AA00890FD /* ProgressRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRing.swift; sourceTree = "<group>"; };
+		089DAAB3FCE7F81319B4F6FC /* KanaLearningPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanaLearningPathTests.swift; sourceTree = "<group>"; };
 		12FF19E643D587E54A2AFC22 /* DailyKanaWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyKanaWidget.swift; sourceTree = "<group>"; };
 		1A1909931E501BF46E7FF731 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		1AEF8AEACE7F0D80F7E2A64B /* MaruApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaruApp.swift; sourceTree = "<group>"; };
@@ -75,6 +87,7 @@
 		275012408ADBE402573968C9 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		3735DC709926ABC2B1764EE0 /* WordCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCloud.swift; sourceTree = "<group>"; };
 		440613EA36663C0D4C756E06 /* words_data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words_data.json; sourceTree = "<group>"; };
+		445E14370D96EDAD869FD7B5 /* LearningTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningTheme.swift; sourceTree = "<group>"; };
 		4852398EB3A666C312D39E78 /* LockScreenWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenWidget.swift; sourceTree = "<group>"; };
 		4A33CB6F2F20856AC8FC73C0 /* MaruWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaruWidget.swift; sourceTree = "<group>"; };
 		4C0EF3AC8D316993B91701DA /* KanaChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanaChartView.swift; sourceTree = "<group>"; };
@@ -87,8 +100,10 @@
 		9CD36033CB704F49C327FD69 /* SharedModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedModels.swift; sourceTree = "<group>"; };
 		9D0251B35D885A332726BE49 /* DailyKanaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyKanaService.swift; sourceTree = "<group>"; };
 		A9196DF7F25C35AB5B63D2AE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B3B717432341FA5D6B6927DB /* KanaLearningPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanaLearningPath.swift; sourceTree = "<group>"; };
 		B6452243DAE1D1A14C1C3559 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		BBF59B93EF534D6DCA048E0A /* PracticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewModel.swift; sourceTree = "<group>"; };
+		C1EC109CAB17C48603560EA0 /* MaruTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MaruTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C521F89FD6416FB61846C583 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C730957966D24B0F85A3CF0A /* MaruMascot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaruMascot.swift; sourceTree = "<group>"; };
 		CD7CB7CEAC8612317C100185 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -159,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				CD7CB7CEAC8612317C100185 /* Constants.swift */,
+				B3B717432341FA5D6B6927DB /* KanaLearningPath.swift */,
 				5443C2B7B4407C2A4C74AC28 /* SharedDatabase.swift */,
 				9CD36033CB704F49C327FD69 /* SharedModels.swift */,
 			);
@@ -169,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				531B1669E2F686CA658E5B54 /* Maru */,
+				BA5ED3C6C26D1A2CA251122B /* MaruTests */,
 				A083A45F94F4A086AF4062E8 /* MaruWidget */,
 				6B2E2B223D7C930E982B0DEC /* Shared */,
 				FBFE65A0C7FB1B9AB04BB9C4 /* Products */,
@@ -193,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				EC839A8B58C5B648464CEC38 /* KanaCard.swift */,
+				445E14370D96EDAD869FD7B5 /* LearningTheme.swift */,
 				C730957966D24B0F85A3CF0A /* MaruMascot.swift */,
 				0847985F6667288AA00890FD /* ProgressRing.swift */,
 				3735DC709926ABC2B1764EE0 /* WordCloud.swift */,
@@ -217,6 +235,14 @@
 				9D0251B35D885A332726BE49 /* DailyKanaService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		BA5ED3C6C26D1A2CA251122B /* MaruTests */ = {
+			isa = PBXGroup;
+			children = (
+				089DAAB3FCE7F81319B4F6FC /* KanaLearningPathTests.swift */,
+			);
+			path = MaruTests;
 			sourceTree = "<group>";
 		};
 		CD026053CFD8B15F57198DBF /* Database */ = {
@@ -244,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				69521D5A78564C0E5C20F1AB /* Maru.app */,
+				C1EC109CAB17C48603560EA0 /* MaruTests.xctest */,
 				545179A9C4DAB281F5377C3A /* MaruWidgetExtension.appex */,
 			);
 			name = Products;
@@ -293,6 +320,24 @@
 			productReference = 545179A9C4DAB281F5377C3A /* MaruWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		B2B28D2BB5E241C44A0550BB /* MaruTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AFD73F753E158DE1E7D9F6CC /* Build configuration list for PBXNativeTarget "MaruTests" */;
+			buildPhases = (
+				50FD19510F012FD4A70D77B5 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				310406C2B66109D40E042E70 /* PBXTargetDependency */,
+			);
+			name = MaruTests;
+			packageProductDependencies = (
+			);
+			productName = MaruTests;
+			productReference = C1EC109CAB17C48603560EA0 /* MaruTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -307,6 +352,10 @@
 						ProvisioningStyle = Automatic;
 					};
 					8F96C0E1D3829E9EB3E159BE = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					B2B28D2BB5E241C44A0550BB = {
 						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
@@ -330,6 +379,7 @@
 			projectRoot = "";
 			targets = (
 				7009F49C86146152ABEF7363 /* Maru */,
+				B2B28D2BB5E241C44A0550BB /* MaruTests */,
 				8F96C0E1D3829E9EB3E159BE /* MaruWidgetExtension */,
 			);
 		};
@@ -349,6 +399,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		50FD19510F012FD4A70D77B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				828458C6A1AFB68F2E73E894 /* KanaLearningPathTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		70A375E6EE6713ACFFA9A071 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -356,6 +414,7 @@
 				7262C31E74ECFFBDB43F1242 /* Constants.swift in Sources */,
 				758F1350E295CDD95CF4B537 /* DailyKanaWidget.swift in Sources */,
 				0EF50522028C317B4B8AD4B7 /* FlashcardWidget.swift in Sources */,
+				E077FE3F463491EAE4BD21A3 /* KanaLearningPath.swift in Sources */,
 				4420E19AD6F486167A0BE95E /* LockScreenWidget.swift in Sources */,
 				BD7366E3F0B04EBEFCB786E7 /* MaruWidget.swift in Sources */,
 				EB0BEFE9524E8D9751C789AF /* SharedDatabase.swift in Sources */,
@@ -377,7 +436,9 @@
 				781B9AD574B86F0F7A1286CE /* KanaCard.swift in Sources */,
 				DE4BF058DFCBD0D2C902AB53 /* KanaChartView.swift in Sources */,
 				E43F1936198854B208463594 /* KanaChartViewModel.swift in Sources */,
+				7B2678640283C8EBD3F1FAF5 /* KanaLearningPath.swift in Sources */,
 				0121ADAAAA8F71D19D399215 /* KanaRepository.swift in Sources */,
+				635E45AA297FF6BA56AD97AB /* LearningTheme.swift in Sources */,
 				AD7BB9A609D8DAD2BF93393A /* MaruApp.swift in Sources */,
 				A389C8358907ECD393086876 /* MaruMascot.swift in Sources */,
 				71EB22A34DBF64884BB737C4 /* PracticeView.swift in Sources */,
@@ -393,6 +454,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		310406C2B66109D40E042E70 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7009F49C86146152ABEF7363 /* Maru */;
+			targetProxy = C60CD61C48562D0967355E7A /* PBXContainerItemProxy */;
+		};
 		CD7ACF5B9BD30FF4D46063CB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8F96C0E1D3829E9EB3E159BE /* MaruWidgetExtension */;
@@ -471,6 +537,23 @@
 			};
 			name = Debug;
 		};
+		8B5C4CD512DEBA60E268F1B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.maru.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Maru.app/Maru";
+			};
+			name = Debug;
+		};
 		9B9BD7890745F39EEE68CA98 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -535,6 +618,23 @@
 				SWIFT_VERSION = 5.9;
 			};
 			name = Debug;
+		};
+		D364F2EDEEDCC0CFCB94EC60 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.maru.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Maru.app/Maru";
+			};
+			name = Release;
 		};
 		E5EFBCBBBBAB9848108807E7 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -611,6 +711,15 @@
 			buildConfigurations = (
 				46BD3D94A3091FCD95BF8F86 /* Debug */,
 				36B14D9DA79B03AB7D4698B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		AFD73F753E158DE1E7D9F6CC /* Build configuration list for PBXNativeTarget "MaruTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B5C4CD512DEBA60E268F1B3 /* Debug */,
+				D364F2EDEEDCC0CFCB94EC60 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

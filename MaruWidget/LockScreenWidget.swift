@@ -39,23 +39,25 @@ struct LockScreenWidgetView: View {
             AccessoryWidgetBackground()
             VStack(spacing: 0) {
                 Text(entry.kana.character)
-                    .font(.system(size: 28, weight: .bold, design: .serif))
+                    .font(.system(size: 29, weight: .black, design: .rounded))
+                    .widgetAccentable()
                 Text(entry.kana.romaji)
-                    .font(.system(size: 12, weight: .medium))
+                    .font(.system(size: 12, weight: .black, design: .rounded))
             }
         }
     }
 
     var accessoryRectangularView: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: 10) {
             Text(entry.kana.character)
-                .font(.system(size: 32, weight: .bold, design: .serif))
+                .font(.system(size: 34, weight: .black, design: .rounded))
+                .widgetAccentable()
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(entry.kana.romaji)
-                    .font(.system(size: 14, weight: .semibold))
+                    .font(.system(size: 16, weight: .black, design: .rounded))
                 Text(entry.kana.kanaType == .hiragana ? "Hiragana" : "Katakana")
-                    .font(.system(size: 10))
+                    .font(.system(size: 10, weight: .bold, design: .rounded))
                     .foregroundStyle(.secondary)
             }
         }

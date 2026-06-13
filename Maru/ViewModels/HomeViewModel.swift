@@ -8,12 +8,18 @@ final class HomeViewModel: ObservableObject {
     @Published var wordCloud: [SharedWord] = []
     @Published var currentDateJapanese: String = ""
     @Published var currentTimeJapanese: String = ""
+    @Published var hiraganaProgress: Double = 0
+    @Published var katakanaProgress: Double = 0
+    @Published var nextHiraganaRow: KanaLearningPath.Row?
+    @Published var nextKatakanaRow: KanaLearningPath.Row?
 
     private let repository = KanaRepository.shared
     private let audioService = AudioService.shared
+    private let database = SharedDatabase.shared
 
     init() {
         loadWordCloud()
+        loadLearningProgress()
         updateDateTime()
     }
 
@@ -53,6 +59,37 @@ final class HomeViewModel: ObservableObject {
 
     func refreshWordCloud() {
         loadWordCloud()
+        loadLearningProgress()
         setExpression(.happy)
+    }
+
+    func loadLearningProgress() {
+        let progressMap = Dictionary(
+            uniqueKeysWithValues: ((try? database.getAllProgress()) ?? []).map { ($0.id, $0) }
+        )
+        let allKana = repository.getAllKana()
+        let hiraganaRows = KanaLearningPath.rows(for: allKana, type: .hiragana)
+        let katakanaRows = KanaLearningPath.rows(for: allKana, type: .katakana)
+
+        hiraganaProgress = masteredFraction(rows: hiraganaRows, progressMap: progressMap)
+        katakanaProgress = masteredFraction(rows: katakanaRows, progressMap: progressMap)
+        nextHiraganaRow = firstActiveRow(rows: hiraganaRows, progressMap: progressMap)
+        nextKatakanaRow = firstActiveRow(rows: katakanaRows, progressMap: progressMap)
+    }
+
+    private func masteredFraction(rows: [KanaLearningPath.Row], progressMap: [String: SharedProgress]) -> Double {
+        let kana = rows.flatMap(\.kana)
+        guard !kana.isEmpty else { return 0 }
+
+        let masteredCount = kana.filter { progressMap[$0.id]?.masteryLevel == .mastered }.count
+        return Double(masteredCount) / Double(kana.count)
+    }
+
+    private func firstActiveRow(rows: [KanaLearningPath.Row], progressMap: [String: SharedProgress]) -> KanaLearningPath.Row? {
+        let statuses = KanaLearningPath.status(for: rows, progressMap: progressMap)
+        return rows.first { row in
+            let status = statuses[row.id] ?? .locked
+            return status == .unlocked || status == .learning
+        } ?? rows.first
     }
 }

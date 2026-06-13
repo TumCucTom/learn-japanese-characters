@@ -5,6 +5,7 @@ import SwiftUI
 final class PracticeViewModel: ObservableObject {
     @Published var currentKana: SharedKana?
     @Published var options: [String] = []
+    @Published var choices: [PracticeChoice] = []
     @Published var selectedAnswer: String?
     @Published var isCorrect: Bool?
     @Published var score: Int = 0
@@ -14,16 +15,25 @@ final class PracticeViewModel: ObservableObject {
     @Published var currentIndex: Int = 0
     @Published var isSessionComplete: Bool = false
     @Published var exerciseType: ExerciseType = .multipleChoice
+    @Published var typedAnswer: String = ""
 
     private let repository = KanaRepository.shared
     private let audioService = AudioService.shared
     private let database = SharedDatabase.shared
 
     enum ExerciseType: String, CaseIterable {
-        case multipleChoice = "Multiple Choice"
+        case multipleChoice = "Choose"
         case listening = "Listening"
         case reading = "Reading"
-        case spelling = "Spelling"
+        case spelling = "Typing"
+    }
+
+    struct PracticeChoice: Identifiable, Hashable {
+        let id: String
+        let label: String
+        let sublabel: String?
+        let answer: String
+        let usesSpeakerIcon: Bool
     }
 
     @Published var mascotExpression: MascotExpression = .thinking
@@ -34,7 +44,8 @@ final class PracticeViewModel: ObservableObject {
         let kanaList: [SharedKana]
 
         if focusOnWeak {
-            kanaList = repository.getWeakKana(limit: 20)
+            let weakKana = repository.getWeakKana(limit: 20)
+            kanaList = weakKana.isEmpty ? repository.getRandomKana(limit: 15) : weakKana
         } else if let type = kanaType {
             kanaList = repository.getKana(byType: type)
         } else {
@@ -58,25 +69,67 @@ final class PracticeViewModel: ObservableObject {
         }
 
         currentKana = practiceSession[currentIndex]
+        exerciseType = ExerciseType.allCases[currentIndex % ExerciseType.allCases.count]
         generateOptions()
         selectedAnswer = nil
         isCorrect = nil
+        typedAnswer = ""
         mascotExpression = .neutral
+
+        if exerciseType == .listening {
+            playCurrentKana()
+        }
     }
 
     private func generateOptions() {
         guard let current = currentKana else { return }
 
         let allKana = repository.getAllKana()
-        let otherKana = allKana.filter { $0.id != current.id }
+        let otherKana = allKana.filter { $0.id != current.id && $0.romaji != current.romaji }
 
-        var wrongOptions = otherKana.shuffled().prefix(3).map { $0.romaji }
-        wrongOptions.append(current.romaji)
-        options = wrongOptions.shuffled()
+        let optionKana = (Array(otherKana.shuffled().prefix(3)) + [current]).shuffled()
+
+        switch exerciseType {
+        case .multipleChoice:
+            choices = optionKana.map { kana in
+                PracticeChoice(
+                    id: kana.id,
+                    label: kana.romaji,
+                    sublabel: kana.character,
+                    answer: kana.romaji,
+                    usesSpeakerIcon: false
+                )
+            }
+        case .listening:
+            choices = optionKana.map { kana in
+                PracticeChoice(
+                    id: kana.id,
+                    label: kana.character,
+                    sublabel: kana.romaji,
+                    answer: kana.romaji,
+                    usesSpeakerIcon: false
+                )
+            }
+        case .reading:
+            choices = optionKana.map { kana in
+                PracticeChoice(
+                    id: kana.id,
+                    label: kana.character,
+                    sublabel: kana.romaji,
+                    answer: kana.romaji,
+                    usesSpeakerIcon: false
+                )
+            }
+        case .spelling:
+            choices = []
+        }
+
+        options = choices.map(\.answer)
     }
 
     func selectAnswer(_ answer: String) {
         guard let current = currentKana else { return }
+        guard selectedAnswer == nil else { return }
 
         selectedAnswer = answer
         totalQuestions += 1
@@ -92,6 +145,10 @@ final class PracticeViewModel: ObservableObject {
             mascotExpression = .sad
             updateProgress(for: current, correct: false)
         }
+    }
+
+    func submitTypedAnswer() {
+        selectAnswer(typedAnswer.trimmingCharacters(in: .whitespacesAndNewlines).lowercased())
     }
 
     private func updateProgress(for kana: SharedKana, correct: Bool) {

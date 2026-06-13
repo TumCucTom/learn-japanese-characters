@@ -55,6 +55,20 @@ targets:
       - package: SQLite.swift
         product: SQLite
 
+  MaruTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: MaruTests
+        excludes:
+          - "**/.DS_Store"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.maru.app.tests
+        GENERATE_INFOPLIST_FILE: YES
+    dependencies:
+      - target: Maru
+
 packages:
   SQLite.swift:
     url: https://github.com/stephencelis/SQLite.swift

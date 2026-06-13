@@ -13,26 +13,27 @@ struct MaruMascot: View {
 
     var body: some View {
         ZStack {
-            // Body with radial gradient
-            Circle()
+            DomeShape()
                 .fill(
-                    RadialGradient(
-                        gradient: Gradient(colors: [
-                            Color(hex: "FFB6C1"), // light pink
-                            Color(hex: "FF69B4")  // hot pink
-                        ]),
-                        center: .topLeading,
-                        startRadius: size * 0.1,
-                        endRadius: size * 0.8
+                    LinearGradient(
+                        colors: [LearningTheme.red.opacity(0.94), LearningTheme.red],
+                        startPoint: .top,
+                        endPoint: .bottom
                     )
                 )
-                .frame(width: size, height: size)
-                .shadow(color: Color(hex: "FF69B4").opacity(0.3), radius: 8, x: 0, y: 4)
+                .overlay(
+                    DomeShape()
+                        .stroke(LearningTheme.line, lineWidth: max(2, size * 0.035))
+                )
+                .frame(width: size, height: size * 0.74)
+                .shadow(color: LearningTheme.ink.opacity(0.14), radius: 0, x: 0, y: size * 0.045)
 
-            // Face
             faceView
-                .frame(width: size * 0.7, height: size * 0.5)
+                .frame(width: size * 0.72, height: size * 0.34)
+                .offset(y: size * 0.08)
         }
+        .frame(width: size, height: size * 0.82)
+        .accessibilityLabel("Learning mascot")
     }
 
     @ViewBuilder
@@ -52,173 +53,184 @@ struct MaruMascot: View {
     }
 
     private var happyFace: some View {
-        VStack(spacing: size * 0.08) {
-            // Happy curved eyes
-            HStack(spacing: size * 0.25) {
-                eye(.happy)
-                eye(.happy)
+        VStack(spacing: size * 0.04) {
+            HStack(spacing: size * 0.22) {
+                dotEye
+                dotEye
             }
-
-            // Big smile
-            MouthShape.smile
-                .stroke(Color(hex: "4A4A4A"), lineWidth: 2)
-                .frame(width: size * 0.3, height: size * 0.15)
+            CatSmile()
+                .stroke(LearningTheme.ink, style: StrokeStyle(lineWidth: max(2, size * 0.032), lineCap: .round, lineJoin: .round))
+                .frame(width: size * 0.28, height: size * 0.13)
         }
+        .overlay(blush, alignment: .bottom)
     }
 
     private var thinkingFace: some View {
-        VStack(spacing: size * 0.08) {
-            // One eye open, one closed
-            HStack(spacing: size * 0.25) {
-                eye(.happy) // closed happy eye
-                Circle()
-                    .fill(Color(hex: "4A4A4A"))
-                    .frame(width: size * 0.08, height: size * 0.08)
+        VStack(spacing: size * 0.05) {
+            HStack(spacing: size * 0.22) {
+                WinkEye()
+                    .stroke(LearningTheme.ink, style: StrokeStyle(lineWidth: max(2, size * 0.03), lineCap: .round))
+                    .frame(width: size * 0.1, height: size * 0.05)
+                dotEye
             }
 
-            // Small 'o' mouth
-            MouthShape.oh
-                .stroke(Color(hex: "4A4A4A"), lineWidth: 2)
-                .frame(width: size * 0.12, height: size * 0.12)
+            Circle()
+                .stroke(LearningTheme.ink, lineWidth: max(2, size * 0.028))
+                .frame(width: size * 0.11, height: size * 0.11)
         }
+        .overlay(blush, alignment: .bottom)
     }
 
     private var celebratingFace: some View {
-        VStack(spacing: size * 0.08) {
-            // Star eyes
-            HStack(spacing: size * 0.25) {
-                StarShape()
-                    .fill(Color(hex: "FFD700"))
+        VStack(spacing: size * 0.05) {
+            HStack(spacing: size * 0.2) {
+                SparkEye()
+                    .fill(LearningTheme.yellow)
+                    .overlay(SparkEye().stroke(LearningTheme.ink, lineWidth: max(1.5, size * 0.018)))
                     .frame(width: size * 0.12, height: size * 0.12)
-                StarShape()
-                    .fill(Color(hex: "FFD700"))
+                SparkEye()
+                    .fill(LearningTheme.yellow)
+                    .overlay(SparkEye().stroke(LearningTheme.ink, lineWidth: max(1.5, size * 0.018)))
                     .frame(width: size * 0.12, height: size * 0.12)
             }
 
-            // Open celebrating mouth
-            MouthShape.celebrating
-                .fill(Color(hex: "4A4A4A"))
-                .frame(width: size * 0.25, height: size * 0.15)
+            Capsule()
+                .fill(LearningTheme.ink)
+                .frame(width: size * 0.26, height: size * 0.13)
         }
+        .overlay(blush, alignment: .bottom)
     }
 
     private var neutralFace: some View {
-        VStack(spacing: size * 0.08) {
-            // Simple dot eyes
-            HStack(spacing: size * 0.25) {
-                Circle()
-                    .fill(Color(hex: "4A4A4A"))
-                    .frame(width: size * 0.06, height: size * 0.06)
-                Circle()
-                    .fill(Color(hex: "4A4A4A"))
-                    .frame(width: size * 0.06, height: size * 0.06)
+        VStack(spacing: size * 0.07) {
+            HStack(spacing: size * 0.22) {
+                dotEye
+                dotEye
             }
 
-            // Straight line mouth
-            MouthShape.neutral
-                .stroke(Color(hex: "4A4A4A"), lineWidth: 2)
-                .frame(width: size * 0.2, height: size * 0.05)
+            Capsule()
+                .fill(LearningTheme.ink)
+                .frame(width: size * 0.2, height: max(2, size * 0.024))
         }
     }
 
     private var sadFace: some View {
-        VStack(spacing: size * 0.08) {
-            // Downturned eyes
-            HStack(spacing: size * 0.25) {
-                eye(.sad)
-                eye(.sad)
+        VStack(spacing: size * 0.05) {
+            HStack(spacing: size * 0.2) {
+                SadEye()
+                    .stroke(LearningTheme.ink, style: StrokeStyle(lineWidth: max(2, size * 0.028), lineCap: .round))
+                    .frame(width: size * 0.1, height: size * 0.05)
+                SadEye()
+                    .stroke(LearningTheme.ink, style: StrokeStyle(lineWidth: max(2, size * 0.028), lineCap: .round))
+                    .frame(width: size * 0.1, height: size * 0.05)
             }
 
-            // Sad mouth
-            MouthShape.sad
-                .stroke(Color(hex: "4A4A4A"), lineWidth: 2)
-                .frame(width: size * 0.2, height: size * 0.1)
+            Frown()
+                .stroke(LearningTheme.ink, style: StrokeStyle(lineWidth: max(2, size * 0.03), lineCap: .round))
+                .frame(width: size * 0.22, height: size * 0.1)
         }
     }
 
-    private func eye(_ type: EyeType) -> some View {
-        Group {
-            switch type {
-            case .happy:
-                Circle()
-                    .fill(Color(hex: "4A4A4A"))
-                    .frame(width: size * 0.06, height: size * 0.06)
-            case .sad:
-                Circle()
-                    .fill(Color(hex: "4A4A4A"))
-                    .frame(width: size * 0.06, height: size * 0.06)
-            }
-        }
+    private var dotEye: some View {
+        Circle()
+            .fill(LearningTheme.ink)
+            .frame(width: size * 0.105, height: size * 0.105)
     }
 
-    enum EyeType {
-        case happy
-        case sad
+    private var blush: some View {
+        HStack(spacing: size * 0.36) {
+            BlushMark()
+            BlushMark()
+        }
+        .foregroundColor(Color.white.opacity(0.5))
+        .frame(height: size * 0.1)
+        .offset(y: size * 0.06)
     }
 }
 
 // MARK: - Supporting Shapes
 
-private struct MouthShape {
-    static var smile: some Shape {
-        Path { path in
-            path.move(to: CGPoint(x: 0, y: 0))
-            path.addQuadCurve(
-                to: CGPoint(x: 1, y: 0),
-                control: CGPoint(x: 0.5, y: 1)
-            )
-        }
-    }
-
-    static var oh: some Shape {
-        Circle()
-    }
-
-    static var celebrating: some Shape {
-        Capsule()
-    }
-
-    static var neutral: some Shape {
-        Rectangle()
-    }
-
-    static var sad: some Shape {
-        Path { path in
-            path.move(to: CGPoint(x: 0, y: 1))
-            path.addQuadCurve(
-                to: CGPoint(x: 1, y: 1),
-                control: CGPoint(x: 0.5, y: 0)
-            )
-        }
+private struct DomeShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: rect.minX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.midY))
+        path.addQuadCurve(
+            to: CGPoint(x: rect.maxX, y: rect.midY),
+            control: CGPoint(x: rect.midX, y: rect.minY - rect.height * 0.12)
+        )
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+        path.closeSubpath()
+        return path
     }
 }
 
-private struct StarShape: Shape {
+private struct CatSmile: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let mid = CGPoint(x: rect.midX, y: rect.midY)
+        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
+        path.addLine(to: mid)
+        path.addQuadCurve(to: CGPoint(x: rect.minX, y: rect.midY), control: CGPoint(x: rect.width * 0.28, y: rect.maxY))
+        path.move(to: mid)
+        path.addQuadCurve(to: CGPoint(x: rect.maxX, y: rect.midY), control: CGPoint(x: rect.width * 0.72, y: rect.maxY))
+        return path
+    }
+}
+
+private struct WinkEye: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: rect.minX, y: rect.midY))
+        path.addQuadCurve(to: CGPoint(x: rect.maxX, y: rect.midY), control: CGPoint(x: rect.midX, y: rect.maxY))
+        return path
+    }
+}
+
+private struct SadEye: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: rect.minX, y: rect.maxY))
+        path.addQuadCurve(to: CGPoint(x: rect.maxX, y: rect.maxY), control: CGPoint(x: rect.midX, y: rect.minY))
+        return path
+    }
+}
+
+private struct Frown: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: rect.minX, y: rect.maxY))
+        path.addQuadCurve(to: CGPoint(x: rect.maxX, y: rect.maxY), control: CGPoint(x: rect.midX, y: rect.minY))
+        return path
+    }
+}
+
+private struct SparkEye: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
         let center = CGPoint(x: rect.midX, y: rect.midY)
-        let points = 4
         let outerRadius = min(rect.width, rect.height) / 2
-        let innerRadius = outerRadius * 0.4
+        let innerRadius = outerRadius * 0.42
 
-        for i in 0..<(points * 2) {
-            let radius = i % 2 == 0 ? outerRadius : innerRadius
-            let angle = (CGFloat(i) * .pi / CGFloat(points)) - .pi / 2
-
-            let point = CGPoint(
-                x: center.x + radius * cos(angle),
-                y: center.y + radius * sin(angle)
-            )
-
-            if i == 0 {
-                path.move(to: point)
-            } else {
-                path.addLine(to: point)
-            }
+        for index in 0..<8 {
+            let radius = index.isMultiple(of: 2) ? outerRadius : innerRadius
+            let angle = CGFloat(index) * .pi / 4 - .pi / 2
+            let point = CGPoint(x: center.x + cos(angle) * radius, y: center.y + sin(angle) * radius)
+            index == 0 ? path.move(to: point) : path.addLine(to: point)
         }
 
         path.closeSubpath()
         return path
+    }
+}
+
+private struct BlushMark: View {
+    var body: some View {
+        HStack(spacing: 2) {
+            Capsule().frame(width: 4, height: 11).rotationEffect(.degrees(28))
+            Capsule().frame(width: 4, height: 11).rotationEffect(.degrees(28))
+            Capsule().frame(width: 4, height: 11).rotationEffect(.degrees(28))
+        }
     }
 }
 
@@ -231,11 +243,11 @@ extension Color {
         Scanner(string: hex).scanHexInt64(&int)
         let a, r, g, b: UInt64
         switch hex.count {
-        case 3: // RGB (12-bit)
+        case 3:
             (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-        case 6: // RGB (24-bit)
+        case 6:
             (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8: // ARGB (32-bit)
+        case 8:
             (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
         default:
             (a, r, g, b) = (255, 0, 0, 0)
@@ -252,20 +264,12 @@ extension Color {
 
 // MARK: - Previews
 
-#Preview("MaruMascot - Happy") {
-    MaruMascot(expression: .happy)
-        .padding()
-}
-
-#Preview("MaruMascot - All Expressions") {
-    HStack(spacing: 20) {
+#Preview("Learning Mascot") {
+    VStack(spacing: 28) {
         ForEach(MascotExpression.allCases, id: \.self) { expression in
-            VStack {
-                MaruMascot(expression: expression, size: 80)
-                Text(expression.rawValue.capitalized)
-                    .font(.caption)
-            }
+            MaruMascot(expression: expression, size: 120)
         }
     }
     .padding()
+    .background(LearningTheme.cream)
 }

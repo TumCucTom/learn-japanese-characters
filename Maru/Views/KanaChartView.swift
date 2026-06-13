@@ -5,6 +5,7 @@ import SwiftUI
 struct KanaChartView: View {
     @StateObject private var viewModel = KanaChartViewModel()
     @State private var showDetail = false
+    @State private var showPractice = false
 
     private let columns = [
         GridItem(.adaptive(minimum: 70, maximum: 90), spacing: 12)
@@ -12,53 +13,23 @@ struct KanaChartView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 16) {
-                // Hiragana/Katakana picker
-                Picker("Kana Type", selection: $viewModel.selectedType) {
-                    ForEach(AppConstants.KanaType.allCases, id: \.self) { type in
-                        Text(type.rawValue.capitalized)
-                            .tag(type)
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 18) {
+                    typePicker
+                    categoryChips
+
+                    if viewModel.selectedCategory == "basic" {
+                        rowList
+                    } else {
+                        kanaGrid
                     }
                 }
-                .pickerStyle(.segmented)
                 .padding(.horizontal, 16)
-                .onChange(of: viewModel.selectedType) { _, newValue in
-                    viewModel.selectType(newValue)
-                }
-
-                // Category chips
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 12) {
-                        ForEach(viewModel.categories, id: \.self) { category in
-                            CategoryChip(
-                                title: category.capitalized,
-                                isSelected: viewModel.selectedCategory == category
-                            ) {
-                                viewModel.selectCategory(category)
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 16)
-                }
-
-                // LazyVGrid of KanaChartCell
-                ScrollView {
-                    LazyVGrid(columns: columns, spacing: 12) {
-                        ForEach(viewModel.kanaGrid) { kana in
-                            KanaChartCell(
-                                kana: kana,
-                                progress: viewModel.getProgress(for: kana)
-                            ) {
-                                viewModel.selectKana(kana)
-                                showDetail = true
-                            }
-                        }
-                    }
-                    .padding(16)
-                }
+                .padding(.top, 16)
+                .padding(.bottom, 128)
             }
-            .background(Color(hex: "f7f5f1"))
-            .navigationTitle("Kana Chart")
+            .background(LearningTheme.cream.ignoresSafeArea())
+            .navigationTitle("Kana Rows")
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showDetail) {
                 if let selectedKana = viewModel.selectedKana {
@@ -68,7 +39,77 @@ struct KanaChartView: View {
                     )
                 }
             }
+            .navigationDestination(isPresented: $showPractice) {
+                PracticeView()
+            }
+            .onAppear {
+                viewModel.loadProgress()
+                viewModel.loadKanaGrid()
+            }
         }
+    }
+
+    private var typePicker: some View {
+        Picker("Kana Type", selection: $viewModel.selectedType) {
+            ForEach(AppConstants.KanaType.allCases, id: \.self) { type in
+                Text(type.rawValue.capitalized)
+                    .tag(type)
+            }
+        }
+        .pickerStyle(.segmented)
+        .onChange(of: viewModel.selectedType) { _, newValue in
+            viewModel.selectType(newValue)
+        }
+    }
+
+    private var categoryChips: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 10) {
+                ForEach(viewModel.categories, id: \.self) { category in
+                    CategoryChip(
+                        title: category.capitalized,
+                        isSelected: viewModel.selectedCategory == category
+                    ) {
+                        viewModel.selectCategory(category)
+                    }
+                }
+            }
+            .padding(.vertical, 4)
+        }
+    }
+
+    private var rowList: some View {
+        VStack(spacing: 16) {
+            ForEach(viewModel.rows) { row in
+                KanaRowCard(
+                    row: row,
+                    status: viewModel.status(for: row),
+                    progress: viewModel.practicedFraction(for: row),
+                    onKanaTap: { kana in
+                        viewModel.selectKana(kana)
+                        showDetail = true
+                    },
+                    onDrill: {
+                        showPractice = true
+                    }
+                )
+            }
+        }
+    }
+
+    private var kanaGrid: some View {
+        LazyVGrid(columns: columns, spacing: 12) {
+            ForEach(viewModel.kanaGrid) { kana in
+                KanaChartCell(
+                    kana: kana,
+                    progress: viewModel.getProgress(for: kana)
+                ) {
+                    viewModel.selectKana(kana)
+                    showDetail = true
+                }
+            }
+        }
+        .padding(.top, 4)
     }
 }
 
@@ -82,17 +123,126 @@ private struct CategoryChip: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.system(size: 14, weight: .medium))
-                .foregroundColor(isSelected ? .white : Color(hex: "5b554d"))
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
-                .background(isSelected ? Color(hex: "8B5CF6") : Color(hex: "faf8f4"))
-                .cornerRadius(20)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(isSelected ? Color.clear : Color(hex: "e4ded4"), lineWidth: 1)
-                )
+                .font(.system(size: 14, weight: .black, design: .rounded))
+                .foregroundColor(isSelected ? .white : LearningTheme.ink)
+                .padding(.horizontal, 15)
+                .padding(.vertical, 9)
         }
+        .buttonStyle(
+            LearningOutlinedButtonStyle(
+                fill: isSelected ? LearningTheme.red : .white,
+                pressedFill: isSelected ? LearningTheme.redDark : LearningTheme.yellowSoft
+            )
+        )
+    }
+}
+
+// MARK: - KanaRowCard
+
+private struct KanaRowCard: View {
+    let row: KanaLearningPath.Row
+    let status: KanaLearningPath.RowStatus
+    let progress: Double
+    let onKanaTap: (SharedKana) -> Void
+    let onDrill: () -> Void
+
+    private var isLocked: Bool { status == .locked }
+
+    var body: some View {
+        VStack(spacing: 14) {
+            HStack(alignment: .center) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("\(row.romajiPrefix.uppercased()) Row")
+                        .font(.system(size: 23, weight: .black, design: .rounded))
+                        .foregroundColor(isLocked ? LearningTheme.softInk : LearningTheme.ink)
+
+                    Text(statusLabel)
+                        .font(.system(size: 12, weight: .black, design: .rounded))
+                        .foregroundColor(statusColor)
+                }
+
+                Spacer()
+
+                if isLocked {
+                    Image(systemName: "lock.fill")
+                        .font(.system(size: 20, weight: .black))
+                        .foregroundColor(LearningTheme.softInk)
+                } else {
+                    Button(action: onDrill) {
+                        Text("Drill")
+                            .font(.system(size: 15, weight: .black, design: .rounded))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 18)
+                            .padding(.vertical, 9)
+                    }
+                    .buttonStyle(LearningOutlinedButtonStyle(fill: LearningTheme.red, pressedFill: LearningTheme.redDark))
+                }
+            }
+
+            HStack(spacing: 9) {
+                ForEach(row.kana) { kana in
+                    KanaCard(
+                        kana: kana,
+                        fill: cardFill(for: kana),
+                        isLocked: isLocked
+                    ) {
+                        onKanaTap(kana)
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .opacity(isLocked ? 0.62 : 1)
+
+            GeometryReader { proxy in
+                ZStack(alignment: .leading) {
+                    Capsule()
+                        .fill(LearningTheme.locked)
+                    Capsule()
+                        .fill(statusColor)
+                        .frame(width: proxy.size.width * progress)
+                }
+            }
+            .frame(height: 8)
+            .overlay(Capsule().stroke(LearningTheme.line, lineWidth: 1.5))
+        }
+        .padding(14)
+        .background(isLocked ? LearningTheme.locked.opacity(0.75) : .white)
+        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 18, style: .continuous)
+                .stroke(LearningTheme.line, lineWidth: LearningTheme.heavyLine)
+        )
+    }
+
+    private var statusLabel: String {
+        switch status {
+        case .locked:
+            return "Unlock after the previous row"
+        case .unlocked:
+            return "Ready"
+        case .learning:
+            return "In progress"
+        case .mastered:
+            return "Mastered"
+        }
+    }
+
+    private var statusColor: Color {
+        switch status {
+        case .locked:
+            return LearningTheme.softInk
+        case .unlocked:
+            return LearningTheme.red
+        case .learning:
+            return LearningTheme.yellow
+        case .mastered:
+            return LearningTheme.green
+        }
+    }
+
+    private func cardFill(for kana: SharedKana) -> Color {
+        guard !isLocked else { return LearningTheme.locked }
+        return kana.id.hashValue.isMultiple(of: 3) ? LearningTheme.redSoft : .white
     }
 }
 
@@ -104,44 +254,21 @@ private struct KanaChartCell: View {
     let action: () -> Void
 
     var body: some View {
-        Button(action: action) {
-            VStack(spacing: 6) {
-                Text(kana.character)
-                    .font(.system(size: 32, weight: .medium, design: .serif))
-                    .foregroundColor(Color(hex: "22211F"))
-
-                Text(kana.romaji)
-                    .font(.system(size: 12, weight: .regular))
-                    .foregroundColor(Color(hex: "8c867d"))
-
-                // Mastery indicator
-                if let progress = progress {
-                    Circle()
-                        .fill(masteryColor(for: progress.masteryLevel))
-                        .frame(width: 8, height: 8)
-                }
-            }
-            .frame(width: 70, height: 80)
-            .background(Color(hex: "faf8f4"))
-            .cornerRadius(12)
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color(hex: "e4ded4"), lineWidth: 1)
-            )
+        KanaCard(kana: kana, fill: masteryFill) {
+            action()
         }
-        .buttonStyle(ScaleButtonStyle())
     }
 
-    private func masteryColor(for level: AppConstants.MasteryLevel) -> Color {
-        switch level {
-        case .new:
-            return Color.gray.opacity(0.3)
-        case .learning:
-            return Color(hex: "FF7A1A").opacity(0.6)
-        case .familiar:
-            return Color(hex: "FF7A1A")
+    private var masteryFill: Color {
+        switch progress?.masteryLevel {
         case .mastered:
-            return Color(hex: "34D399")
+            return LearningTheme.greenSoft
+        case .familiar:
+            return LearningTheme.redSoft
+        case .learning:
+            return LearningTheme.yellowSoft
+        case .new, .none:
+            return .white
         }
     }
 }
@@ -155,47 +282,48 @@ struct KanaDetailSheet: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 24) {
-                // Large kana display
-                Text(kana.character)
-                    .font(.system(size: 120, weight: .medium, design: .serif))
-                    .foregroundColor(Color(hex: "22211F"))
+            VStack(spacing: 26) {
+                LargeKanaCard(
+                    kana: kana,
+                    masteryLevel: progress?.masteryLevel ?? .new
+                ) {}
 
-                // Romaji
-                Text(kana.romaji)
-                    .font(.system(size: 24, weight: .medium))
-                    .foregroundColor(Color(hex: "5b554d"))
+                VStack(spacing: 6) {
+                    Text(kana.kanaType.rawValue.capitalized)
+                        .font(.system(size: 16, weight: .black, design: .rounded))
+                        .foregroundColor(LearningTheme.mutedInk)
 
-                // Mastery badge
-                if let progress = progress {
-                    MasteryBadge(level: progress.masteryLevel)
-                } else {
-                    MasteryBadge(level: .new)
+                    Text(kana.category.capitalized)
+                        .font(.system(size: 22, weight: .black, design: .rounded))
+                        .foregroundColor(LearningTheme.ink)
                 }
 
-                // Stats
-                if let progress = progress {
+                MasteryBadge(level: progress?.masteryLevel ?? .new)
+
+                if let progress {
                     HStack(spacing: 32) {
                         DetailStatItem(title: "Correct", value: "\(progress.correctCount)")
                         DetailStatItem(title: "Mistakes", value: "\(progress.mistakeCount)")
                         DetailStatItem(title: "Accuracy", value: "\(Int(progress.accuracy * 100))%")
                     }
-                    .padding(.top, 8)
+                    .padding(.top, 6)
                 }
 
                 Spacer()
             }
-            .padding(.top, 40)
+            .padding(.top, 44)
+            .padding(.horizontal, 20)
             .frame(maxWidth: .infinity)
-            .background(Color(hex: "f7f5f1"))
-            .navigationTitle(kana.kanaType.rawValue.capitalized)
+            .background(LearningTheme.cream)
+            .navigationTitle(kana.romaji)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button("Done") {
                         dismiss()
                     }
-                    .foregroundColor(Color(hex: "8B5CF6"))
+                    .font(.system(size: 16, weight: .black, design: .rounded))
+                    .foregroundColor(LearningTheme.red)
                 }
             }
         }
@@ -211,12 +339,12 @@ private struct DetailStatItem: View {
     var body: some View {
         VStack(spacing: 4) {
             Text(value)
-                .font(.system(size: 20, weight: .semibold))
-                .foregroundColor(Color(hex: "22211F"))
+                .font(.system(size: 23, weight: .black, design: .rounded))
+                .foregroundColor(LearningTheme.ink)
 
             Text(title)
-                .font(.system(size: 12, weight: .regular))
-                .foregroundColor(Color(hex: "8c867d"))
+                .font(.system(size: 12, weight: .black, design: .rounded))
+                .foregroundColor(LearningTheme.softInk)
         }
     }
 }

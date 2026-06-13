@@ -4,29 +4,26 @@ import SwiftUI
 
 struct KanaCard: View {
     let kana: SharedKana
+    var fill: Color = LearningTheme.card
+    var isLocked: Bool = false
     let onTap: () -> Void
 
     var body: some View {
         Button(action: onTap) {
-            VStack(spacing: 8) {
+            VStack(spacing: 4) {
                 Text(kana.character)
-                    .font(.system(size: 48, weight: .medium, design: .serif))
-                    .foregroundColor(Color(hex: "22211F"))
+                    .font(.system(size: 33, weight: .black, design: .rounded))
+                    .foregroundColor(isLocked ? LearningTheme.softInk.opacity(0.35) : LearningTheme.ink)
 
                 Text(kana.romaji)
-                    .font(.system(size: 16, weight: .regular))
-                    .foregroundColor(Color(hex: "5b554d"))
+                    .font(.system(size: 12, weight: .bold, design: .rounded))
+                    .foregroundColor(isLocked ? LearningTheme.softInk.opacity(0.35) : LearningTheme.mutedInk)
             }
-            .frame(width: 80, height: 100)
-            .background(Color(hex: "faf8f4"))
-            .cornerRadius(16)
-            .shadow(color: Color(hex: "22211f").opacity(0.04), radius: 4, x: 0, y: 2)
-            .overlay(
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color(hex: "e4ded4"), lineWidth: 1)
-            )
+            .frame(width: 58, height: 70)
+            .opacity(isLocked ? 0.65 : 1)
         }
-        .buttonStyle(ScaleButtonStyle())
+        .buttonStyle(LearningOutlinedButtonStyle(fill: isLocked ? LearningTheme.locked.opacity(0.7) : fill))
+        .disabled(isLocked)
     }
 }
 
@@ -39,38 +36,37 @@ struct LargeKanaCard: View {
 
     var body: some View {
         Button(action: onTap) {
-            ZStack {
-                // Background with mastery level color
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(backgroundColor)
-                    .shadow(color: Color(hex: "22211f").opacity(0.06), radius: 6, x: 0, y: 3)
+            VStack(spacing: 10) {
+                Text(kana.character)
+                    .font(.system(size: 88, weight: .black, design: .rounded))
+                    .foregroundColor(LearningTheme.ink)
 
-                VStack(spacing: 12) {
-                    Text(kana.character)
-                        .font(.system(size: 72, weight: .medium, design: .serif))
-                        .foregroundColor(Color(hex: "22211F"))
-
-                    Text(kana.romaji)
-                        .font(.system(size: 20, weight: .regular))
-                        .foregroundColor(Color(hex: "5b554d"))
-                }
-                .padding(24)
+                Text(kana.romaji)
+                    .font(.system(size: 22, weight: .black, design: .rounded))
+                    .foregroundColor(LearningTheme.mutedInk)
             }
-            .frame(width: 160, height: 200)
+            .frame(width: 170, height: 205)
+            .overlay(alignment: .topTrailing) {
+                Circle()
+                    .fill(backgroundColor)
+                    .overlay(Circle().stroke(LearningTheme.line, lineWidth: 2))
+                    .frame(width: 22, height: 22)
+                    .padding(10)
+            }
         }
-        .buttonStyle(ScaleButtonStyle())
+        .buttonStyle(LearningOutlinedButtonStyle(fill: LearningTheme.card))
     }
 
     private var backgroundColor: Color {
         switch masteryLevel {
         case .new:
-            return Color(hex: "f7f5f1")
+            return LearningTheme.locked
         case .learning:
-            return Color(hex: "e8dff5") // purple tint
+            return LearningTheme.yellow
         case .familiar:
-            return Color(hex: "fff3e8") // orange tint
+            return LearningTheme.redSoft
         case .mastered:
-            return Color(hex: "f2f7ef") // success background
+            return LearningTheme.green
         }
     }
 }
@@ -96,30 +92,10 @@ struct ScaleButtonStyle: ButtonStyle {
         category: "basic"
     )
 
-    KanaCard(kana: sampleKana) {
-        print("Tapped!")
+    VStack {
+        KanaCard(kana: sampleKana) {}
+        LargeKanaCard(kana: sampleKana, masteryLevel: .learning) {}
     }
     .padding()
-}
-
-#Preview("LargeKanaCard") {
-    let sampleKana = SharedKana(
-        id: "a",
-        character: "あ",
-        romaji: "a",
-        kanaType: .hiragana,
-        category: "basic"
-    )
-
-    VStack(spacing: 20) {
-        ForEach([AppConstants.MasteryLevel.new, .learning, .familiar, .mastered], id: \.self) { level in
-            LargeKanaCard(
-                kana: sampleKana,
-                masteryLevel: level
-            ) {
-                print("Tapped!")
-            }
-        }
-    }
-    .padding()
+    .background(LearningTheme.cream)
 }

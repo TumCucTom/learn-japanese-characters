@@ -8,6 +8,8 @@ final class KanaChartViewModel: ObservableObject {
     @Published var kanaGrid: [SharedKana] = []
     @Published var selectedKana: SharedKana?
     @Published var progressMap: [String: SharedProgress] = [:]
+    @Published var rows: [KanaLearningPath.Row] = []
+    @Published var rowStatuses: [String: KanaLearningPath.RowStatus] = [:]
 
     private let repository = KanaRepository.shared
     private let audioService = AudioService.shared
@@ -16,8 +18,8 @@ final class KanaChartViewModel: ObservableObject {
     let categories = ["basic", "dakuten", "combination"]
 
     init() {
-        loadKanaGrid()
         loadProgress()
+        loadKanaGrid()
     }
 
     func loadKanaGrid() {
@@ -25,11 +27,14 @@ final class KanaChartViewModel: ObservableObject {
             $0.kanaType == selectedType && $0.category == selectedCategory
         }
         kanaGrid = filtered
+        rows = KanaLearningPath.rows(for: repository.getAllKana(), type: selectedType)
+        rowStatuses = KanaLearningPath.status(for: rows, progressMap: progressMap)
     }
 
     func loadProgress() {
         let allProgress = (try? database.getAllProgress()) ?? []
         progressMap = Dictionary(uniqueKeysWithValues: allProgress.map { ($0.id, $0) })
+        rowStatuses = KanaLearningPath.status(for: rows, progressMap: progressMap)
     }
 
     func selectType(_ type: AppConstants.KanaType) {
@@ -49,6 +54,14 @@ final class KanaChartViewModel: ObservableObject {
 
     func getProgress(for kana: SharedKana) -> SharedProgress? {
         return progressMap[kana.id]
+    }
+
+    func status(for row: KanaLearningPath.Row) -> KanaLearningPath.RowStatus {
+        return rowStatuses[row.id] ?? .locked
+    }
+
+    func practicedFraction(for row: KanaLearningPath.Row) -> Double {
+        return KanaLearningPath.practicedFraction(for: row, progressMap: progressMap)
     }
 
     func getMasteryColor(for kana: SharedKana) -> Color {
