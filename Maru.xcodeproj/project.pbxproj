@@ -72,6 +72,7 @@
 		5E7C8580CCAE4DA2C6B5B5F5 /* kana_native_hyo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 655F39D655564327BA9FF296 /* kana_native_hyo.mp3 */; };
 		60D763E52300E4E20591CD29 /* kana_native_bya.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4B3D2B769A8D35D01972C6A /* kana_native_bya.mp3 */; };
 		635E45AA297FF6BA56AD97AB /* LearningTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445E14370D96EDAD869FD7B5 /* LearningTheme.swift */; };
+		63E9AE4C7C124F99A1AC6A73 /* LearningMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEB5C60456446288F2D2438 /* LearningMotion.swift */; };
 		65F476C58E1026AD4C68ECEE /* kana_native_su.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2E8E8CADBC347EC4986049E3 /* kana_native_su.mp3 */; };
 		71EB22A34DBF64884BB737C4 /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8609ABC732E9DC196BB038 /* PracticeView.swift */; };
 		7262C31E74ECFFBDB43F1242 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7CB7CEAC8612317C100185 /* Constants.swift */; };
@@ -105,6 +106,7 @@
 		992E787949341EC1DEE8E25B /* kana_native_ga.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0B3A74852B0FC82C37DBD08C /* kana_native_ga.mp3 */; };
 		9933E8A8114ECEDA28B5A07E /* kana_native_de.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BCFCE430081A81C898B91933 /* kana_native_de.mp3 */; };
 		9A3B3C495DE13E37B02BAE6E /* SharedDatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EED84EE8FE4E2376FB41F7E /* SharedDatabaseTests.swift */; };
+		9C7C61B68DCA4B03974A7EB4 /* HapticServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6E5D3595C94A37A894CD7D /* HapticServiceTests.swift */; };
 		9F6A4A9C8B3D6C1B05AADAD6 /* KanaAudioAssetResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B2DFFD926FE6E0649316B /* KanaAudioAssetResolver.swift */; };
 		9FD171C45BB70C201C9EBD64 /* AudioSourceManifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 7041D459C0968514F6DA8E5A /* AudioSourceManifest.json */; };
 		A09F27AE378239B3C5ACB94F /* kana_native_me.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 871BBAFBA1F0240C57F300B2 /* kana_native_me.mp3 */; };
@@ -217,6 +219,7 @@
 		22C8B7C44BFBA093F95F3C43 /* kana_native_wo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = kana_native_wo.mp3; sourceTree = "<group>"; };
 		259FAB74FBDD4BB3A01B58A6 /* MaruWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MaruWidget.entitlements; sourceTree = "<group>"; };
 		275012408ADBE402573968C9 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
+		2E6E5D3595C94A37A894CD7D /* HapticServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticServiceTests.swift; sourceTree = "<group>"; };
 		2C0B2E2530478C7E3293765E /* kana_native_tsu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = kana_native_tsu.mp3; sourceTree = "<group>"; };
 		2E8E8CADBC347EC4986049E3 /* kana_native_su.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = kana_native_su.mp3; sourceTree = "<group>"; };
 		3078EAFB27E004B61EFC44EF /* kana_native_kyo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = kana_native_kyo.mp3; sourceTree = "<group>"; };
@@ -235,6 +238,7 @@
 		40D7458B2681F5A72F1DDF33 /* kana_native_ke.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = kana_native_ke.mp3; sourceTree = "<group>"; };
 		440613EA36663C0D4C756E06 /* words_data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words_data.json; sourceTree = "<group>"; };
 		445E14370D96EDAD869FD7B5 /* LearningTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningTheme.swift; sourceTree = "<group>"; };
+		6DEB5C60456446288F2D2438 /* LearningMotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningMotion.swift; sourceTree = "<group>"; };
 		448FA5E8AF75A50880296079 /* kana_native_pi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = kana_native_pi.mp3; sourceTree = "<group>"; };
 		4852398EB3A666C312D39E78 /* LockScreenWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenWidget.swift; sourceTree = "<group>"; };
 		4A33CB6F2F20856AC8FC73C0 /* MaruWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaruWidget.swift; sourceTree = "<group>"; };
@@ -557,6 +561,7 @@
 			children = (
 				EC839A8B58C5B648464CEC38 /* KanaCard.swift */,
 				445E14370D96EDAD869FD7B5 /* LearningTheme.swift */,
+				6DEB5C60456446288F2D2438 /* LearningMotion.swift */,
 				C730957966D24B0F85A3CF0A /* MaruMascot.swift */,
 				0847985F6667288AA00890FD /* ProgressRing.swift */,
 				3735DC709926ABC2B1764EE0 /* WordCloud.swift */,
@@ -591,6 +596,7 @@
 			isa = PBXGroup;
 			children = (
 				FCDCF4385043DFC26E2A260F /* AudioServiceTests.swift */,
+				2E6E5D3595C94A37A894CD7D /* HapticServiceTests.swift */,
 				9F84D2CB545FC5B021C89948 /* KanaAudioAssetResolverTests.swift */,
 				686D5BCA66E3DA9382EA0BD8 /* KanaDataCompletenessTests.swift */,
 				089DAAB3FCE7F81319B4F6FC /* KanaLearningPathTests.swift */,
@@ -865,6 +871,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				36A1C3F27F236DCCB946F2AD /* AudioServiceTests.swift in Sources */,
+				9C7C61B68DCA4B03974A7EB4 /* HapticServiceTests.swift in Sources */,
 				50298D5AE513782BE659AB4C /* KanaAudioAssetResolverTests.swift in Sources */,
 				FD4F0592F0C6288753BE86A2 /* KanaDataCompletenessTests.swift in Sources */,
 				828458C6A1AFB68F2E73E894 /* KanaLearningPathTests.swift in Sources */,
@@ -909,6 +916,7 @@
 				7B2678640283C8EBD3F1FAF5 /* KanaLearningPath.swift in Sources */,
 				0121ADAAAA8F71D19D399215 /* KanaRepository.swift in Sources */,
 				635E45AA297FF6BA56AD97AB /* LearningTheme.swift in Sources */,
+				63E9AE4C7C124F99A1AC6A73 /* LearningMotion.swift in Sources */,
 				AD7BB9A609D8DAD2BF93393A /* MaruApp.swift in Sources */,
 				A389C8358907ECD393086876 /* MaruMascot.swift in Sources */,
 				71EB22A34DBF64884BB737C4 /* PracticeView.swift in Sources */,

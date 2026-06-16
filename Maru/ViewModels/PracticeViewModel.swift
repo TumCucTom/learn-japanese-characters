@@ -45,6 +45,14 @@ final class PracticeViewModel: ObservableObject {
         let usesSpeakerIcon: Bool
     }
 
+    struct AnswerFeedback: Equatable {
+        let id: Int
+        let selectedAnswer: String
+        let correctAnswer: String
+        let isCorrect: Bool
+    }
+
+    @Published var answerFeedback: AnswerFeedback?
     @Published var mascotExpression: MascotExpression = .thinking
 
     init() {}
@@ -103,6 +111,7 @@ final class PracticeViewModel: ObservableObject {
     func loadCurrentQuestion() {
         guard currentIndex < practiceSession.count else {
             isSessionComplete = true
+            hapticService.sessionCompleted()
             return
         }
 
@@ -111,6 +120,7 @@ final class PracticeViewModel: ObservableObject {
         generateOptions()
         selectedAnswer = nil
         isCorrect = nil
+        answerFeedback = nil
         typedAnswer = ""
         withAnimation(.spring(response: 0.28, dampingFraction: 0.74)) {
             mascotExpression = .neutral
@@ -195,14 +205,23 @@ final class PracticeViewModel: ObservableObject {
         guard let current = currentKana else { return }
         guard selectedAnswer == nil else { return }
 
+        let isAnswerCorrect = answer == current.romaji
+
         withAnimation(.spring(response: 0.26, dampingFraction: 0.72)) {
             selectedAnswer = answer
             totalQuestions += 1
             answerFeedbackID += 1
+            answerFeedback = AnswerFeedback(
+                id: answerFeedbackID,
+                selectedAnswer: answer,
+                correctAnswer: current.romaji,
+                isCorrect: isAnswerCorrect
+            )
         }
 
-        if answer == current.romaji {
-            hapticService.success()
+        hapticService.answerSubmitted(correct: isAnswerCorrect)
+
+        if isAnswerCorrect {
             score += 1
             withAnimation(.spring(response: 0.32, dampingFraction: 0.66)) {
                 isCorrect = true
@@ -210,7 +229,6 @@ final class PracticeViewModel: ObservableObject {
             }
             updateProgress(for: current, correct: true)
         } else {
-            hapticService.error()
             mistakeCount += 1
             withAnimation(.spring(response: 0.32, dampingFraction: 0.66)) {
                 isCorrect = false
@@ -266,7 +284,7 @@ final class PracticeViewModel: ObservableObject {
 
     func playCurrentKana() {
         guard let kana = currentKana else { return }
-        hapticService.impact(.light)
+        hapticService.audioPlaybackRequested()
         audioService.playKana(kana)
     }
 
@@ -284,6 +302,7 @@ final class PracticeViewModel: ObservableObject {
         choices = []
         selectedAnswer = nil
         isCorrect = nil
+        answerFeedback = nil
         score = 0
         totalQuestions = 0
         mistakeCount = 0

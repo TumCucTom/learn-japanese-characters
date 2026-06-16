@@ -275,20 +275,25 @@ private struct ModeButton: View {
 // MARK: - PracticeContentView
 
 struct PracticeContentView: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @ObservedObject var viewModel: PracticeViewModel
     let onClose: () -> Void
+    @State private var speakerPulseID = 0
 
     var body: some View {
         VStack(spacing: 14) {
             progressHeader
 
             MaruMascot(expression: viewModel.mascotExpression, size: 72)
-                .scaleEffect(viewModel.mascotExpression == .celebrating ? 1.08 : 1)
-                .rotationEffect(.degrees(viewModel.mascotExpression == .sad ? -3 : 0))
-                .animation(.spring(response: 0.28, dampingFraction: 0.58), value: viewModel.mascotExpression)
+                .scaleEffect(!reduceMotion && viewModel.mascotExpression == .celebrating ? 1.08 : 1)
+                .rotationEffect(.degrees(!reduceMotion && viewModel.mascotExpression == .sad ? -3 : 0))
+                .pulseOnChange(viewModel.answerFeedback?.id ?? 0, scale: 1.04)
+                .animation(LearningMotion.animation(reduceMotion: reduceMotion, spring: LearningMotion.feedbackSpring), value: viewModel.mascotExpression)
 
             if let kana = viewModel.currentKana {
                 promptCard(for: kana)
+                    .id(kana.id)
+                    .transition(.scale(scale: reduceMotion ? 1 : 0.97).combined(with: .opacity))
             }
 
             if viewModel.exerciseType == .spelling {
@@ -317,7 +322,8 @@ struct PracticeContentView: View {
                 .overlay(LearningPattern().opacity(0.14))
                 .ignoresSafeArea()
         )
-        .animation(.spring(response: 0.28, dampingFraction: 0.74), value: viewModel.answerFeedbackID)
+        .animation(LearningMotion.animation(reduceMotion: reduceMotion, spring: LearningMotion.quickSpring), value: viewModel.answerFeedbackID)
+        .animation(LearningMotion.animation(reduceMotion: reduceMotion, spring: LearningMotion.gentleSpring), value: viewModel.currentKana?.id)
     }
 
     private var progressHeader: some View {
@@ -342,6 +348,7 @@ struct PracticeContentView: View {
                         Capsule()
                             .fill(LearningTheme.red)
                             .frame(width: proxy.size.width * progressFraction)
+                            .animation(LearningMotion.animation(reduceMotion: reduceMotion, spring: LearningMotion.gentleSpring), value: progressFraction)
                     }
                 }
                 .frame(height: 9)
@@ -372,12 +379,14 @@ struct PracticeContentView: View {
                     .foregroundColor(LearningTheme.ink)
 
                 Button {
+                    speakerPulseID += 1
                     viewModel.playCurrentKana()
                 } label: {
                     Image(systemName: "speaker.wave.2.fill")
                         .font(.system(size: 46, weight: .black))
                         .foregroundColor(LearningTheme.ink)
                         .frame(width: 118, height: 92)
+                        .pulseOnChange(speakerPulseID, scale: 1.08)
                 }
                 .buttonStyle(LearningOutlinedButtonStyle(fill: LearningTheme.yellow))
             case .spelling:
@@ -410,12 +419,14 @@ struct PracticeContentView: View {
                     .foregroundColor(LearningTheme.ink)
 
                 Button {
+                    speakerPulseID += 1
                     viewModel.playCurrentKana()
                 } label: {
                     Image(systemName: "speaker.wave.2.fill")
                         .font(.system(size: 22, weight: .black))
                         .foregroundColor(LearningTheme.ink)
                         .frame(width: 62, height: 48)
+                        .pulseOnChange(speakerPulseID, scale: 1.08)
                 }
                 .buttonStyle(LearningOutlinedButtonStyle(fill: LearningTheme.yellow))
             }
@@ -436,13 +447,14 @@ struct PracticeContentView: View {
                 ChoiceTile(
                     choice: choice,
                     selectedAnswer: viewModel.selectedAnswer,
-                    correctAnswer: viewModel.currentKana?.romaji
+                    correctAnswer: viewModel.currentKana?.romaji,
+                    answerFeedback: viewModel.answerFeedback
                 ) {
                     viewModel.selectAnswer(choice.answer)
                 }
             }
         }
-        .animation(.spring(response: 0.24, dampingFraction: 0.72), value: viewModel.answerFeedbackID)
+        .animation(LearningMotion.animation(reduceMotion: reduceMotion, spring: LearningMotion.quickSpring), value: viewModel.answerFeedbackID)
     }
 
     private var typingPanel: some View {
@@ -535,6 +547,7 @@ private struct ChoiceTile: View {
     let choice: PracticeViewModel.PracticeChoice
     let selectedAnswer: String?
     let correctAnswer: String?
+    let answerFeedback: PracticeViewModel.AnswerFeedback?
     let action: () -> Void
 
     var body: some View {
@@ -565,6 +578,16 @@ private struct ChoiceTile: View {
         }
         .buttonStyle(LearningOutlinedButtonStyle(fill: fillColor))
         .disabled(selectedAnswer != nil)
+        .pulseOnChange(answerFeedback?.id ?? 0, scale: shouldPopCorrect ? 1.05 : 1)
+        .shakeOnChange(answerFeedback?.id ?? 0, isActive: isSelectedWrong)
+    }
+
+    private var isSelectedWrong: Bool {
+        answerFeedback?.selectedAnswer == choice.answer && answerFeedback?.isCorrect == false
+    }
+
+    private var shouldPopCorrect: Bool {
+        answerFeedback?.correctAnswer == choice.answer && answerFeedback?.isCorrect == true
     }
 
     private var fillColor: Color {
@@ -601,6 +624,7 @@ private struct KanaTracePad: View {
     let kana: SharedKana
     @State private var strokes: [[CGPoint]] = []
     @State private var currentStroke: [CGPoint] = []
+    @State private var hasStartedCurrentStroke = false
 
     var body: some View {
         ZStack {
@@ -639,6 +663,7 @@ private struct KanaTracePad: View {
                         HapticService.shared.selection()
                         strokes.removeAll()
                         currentStroke.removeAll()
+                        hasStartedCurrentStroke = false
                     } label: {
                         Image(systemName: "arrow.counterclockwise")
                             .font(.system(size: 15, weight: .black))
@@ -655,13 +680,19 @@ private struct KanaTracePad: View {
         .gesture(
             DragGesture(minimumDistance: 0)
                 .onChanged { value in
+                    if !hasStartedCurrentStroke {
+                        HapticService.shared.traceStrokeStarted()
+                        hasStartedCurrentStroke = true
+                    }
                     currentStroke.append(value.location)
                 }
                 .onEnded { _ in
                     if !currentStroke.isEmpty {
                         strokes.append(currentStroke)
+                        HapticService.shared.traceStrokeCompleted()
                     }
                     currentStroke.removeAll()
+                    hasStartedCurrentStroke = false
                 }
         )
     }

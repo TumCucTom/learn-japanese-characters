@@ -44,6 +44,35 @@ final class PracticeViewModelTests: XCTestCase {
         XCTAssertTrue(viewModel.answerFeedbackID > 0)
     }
 
+    func testAnswerFeedbackEventCapturesSelectedAndCorrectAnswer() throws {
+        let rowKana = sampleHiraganaRow()
+        let viewModel = PracticeViewModel()
+        viewModel.startPracticeSession(kana: rowKana, exerciseType: .multipleChoice)
+        let current = try XCTUnwrap(viewModel.currentKana)
+        let wrongAnswer = try XCTUnwrap(viewModel.choices.first { $0.answer != current.romaji }?.answer)
+
+        viewModel.selectAnswer(wrongAnswer)
+
+        XCTAssertEqual(viewModel.answerFeedback?.selectedAnswer, wrongAnswer)
+        XCTAssertEqual(viewModel.answerFeedback?.correctAnswer, current.romaji)
+        XCTAssertEqual(viewModel.answerFeedback?.isCorrect, false)
+        XCTAssertEqual(viewModel.answerFeedback?.id, viewModel.answerFeedbackID)
+    }
+
+    func testAnswerFeedbackClearsWhenNextQuestionLoads() throws {
+        let rowKana = sampleHiraganaRow()
+        let viewModel = PracticeViewModel()
+        viewModel.startPracticeSession(kana: rowKana, exerciseType: .multipleChoice)
+        let current = try XCTUnwrap(viewModel.currentKana)
+
+        viewModel.selectAnswer(current.romaji)
+        XCTAssertNotNil(viewModel.answerFeedback)
+
+        viewModel.nextQuestion()
+
+        XCTAssertNil(viewModel.answerFeedback)
+    }
+
     func testMultipleChoiceDoesNotRevealPromptCharacterInChoiceSubtitle() {
         let rowKana = sampleHiraganaRow()
         let viewModel = PracticeViewModel()

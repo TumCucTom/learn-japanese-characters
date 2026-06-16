@@ -3,8 +3,10 @@ import SwiftUI
 // MARK: - HomeView
 
 struct HomeView: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @StateObject private var viewModel = HomeViewModel()
     @State private var showPractice = false
+    @State private var refreshPulseID = 0
 
     var body: some View {
         NavigationStack {
@@ -78,12 +80,14 @@ struct HomeView: View {
                 value: viewModel.hiraganaProgress,
                 row: viewModel.nextHiraganaRow
             )
+            .animation(LearningMotion.animation(reduceMotion: reduceMotion, spring: LearningMotion.gentleSpring), value: viewModel.hiraganaProgress)
 
             LearningProgressStrip(
                 title: "Katakana",
                 value: viewModel.katakanaProgress,
                 row: viewModel.nextKatakanaRow
             )
+            .animation(LearningMotion.animation(reduceMotion: reduceMotion, spring: LearningMotion.gentleSpring), value: viewModel.katakanaProgress)
         }
     }
 
@@ -98,12 +102,17 @@ struct HomeView: View {
 
                 Spacer()
 
-                Button(action: viewModel.refreshWordCloud) {
+                Button {
+                    HapticService.shared.selection()
+                    refreshPulseID += 1
+                    viewModel.refreshWordCloud()
+                } label: {
                     Image(systemName: "arrow.clockwise")
                         .font(.system(size: 17, weight: .black))
                         .foregroundColor(LearningTheme.red)
                         .frame(width: 36, height: 32)
                         .contentShape(Rectangle())
+                        .pulseOnChange(refreshPulseID, scale: 1.12)
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel("Refresh words")
@@ -112,6 +121,7 @@ struct HomeView: View {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 96), spacing: 10)], spacing: 10) {
                 ForEach(viewModel.wordCloud.prefix(9)) { word in
                     Button {
+                        HapticService.shared.audioPlaybackRequested()
                         viewModel.playWord(word)
                     } label: {
                         VStack(spacing: 4) {
