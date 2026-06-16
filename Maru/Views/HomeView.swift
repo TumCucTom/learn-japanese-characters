@@ -9,40 +9,27 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
-                VStack(spacing: 24) {
+                VStack(spacing: 16) {
                     hero
                     progressSection
-                    Color.clear.frame(height: 32)
-                    wordSection
                     practiceButton
+                    wordSection
                 }
                 .padding(.horizontal, 18)
-                .padding(.top, 18)
-                .padding(.bottom, 128)
+                .padding(.top, 12)
+                .padding(.bottom, 28)
             }
             .background(
                 LearningTheme.cream
-                    .overlay(LearningPattern().opacity(0.38))
+                    .overlay(LearningPattern().opacity(0.16))
                     .ignoresSafeArea()
             )
-            .navigationTitle("")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: viewModel.refreshWordCloud) {
-                        Image(systemName: "arrow.clockwise")
-                            .font(.system(size: 16, weight: .black))
-                            .foregroundColor(LearningTheme.ink)
-                            .frame(width: 38, height: 38)
-                            .background(.white)
-                            .clipShape(Circle())
-                            .overlay(Circle().stroke(LearningTheme.line, lineWidth: 2))
-                    }
-                    .accessibilityLabel("Refresh words")
-                }
+            .safeAreaInset(edge: .bottom) {
+                Color.clear.frame(height: 84)
             }
+            .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(isPresented: $showPractice) {
-                PracticeView()
+                PracticeView(hidesTabBar: true)
             }
             .onAppear {
                 viewModel.loadLearningProgress()
@@ -51,43 +38,41 @@ struct HomeView: View {
     }
 
     private var hero: some View {
-        VStack(spacing: 16) {
-            HStack(alignment: .firstTextBaseline, spacing: 8) {
-                Text("Learn Kana")
-                    .font(.system(size: 36, weight: .black, design: .rounded))
-                    .foregroundColor(LearningTheme.ink)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.8)
+        HStack(alignment: .center, spacing: 14) {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Text("Learn Kana")
+                        .font(.system(size: 31, weight: .black, design: .rounded))
+                        .foregroundColor(LearningTheme.ink)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.72)
 
-                LearningBadge(text: "Daily", color: LearningTheme.red)
+                    LearningBadge(text: "Daily", color: LearningTheme.red)
+                }
+
+                DailyDateRow(
+                    dateText: viewModel.currentDateJapanese,
+                    timeText: viewModel.currentTimeJapanese
+                )
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
 
-            TimeLearningPanel(
-                dateText: viewModel.currentDateJapanese,
-                timeText: viewModel.currentTimeJapanese
-            )
+            Spacer(minLength: 4)
 
-            ZStack {
-                FloatingLabel(text: "あした", subtitle: "tomorrow", rotation: -9)
-                    .offset(x: -118, y: -38)
-                FloatingLabel(text: "おかね", subtitle: "money", rotation: 8, fill: LearningTheme.greenSoft)
-                    .offset(x: 116, y: -22)
-                FloatingLabel(text: "ベスト", subtitle: "best", rotation: 10)
-                    .offset(x: 116, y: 54)
-                FloatingLabel(text: "いち", subtitle: "one", rotation: -6, fill: LearningTheme.yellowSoft)
-                    .offset(x: -100, y: 88)
-
-                MaruMascot(expression: viewModel.mascotExpression, size: 188)
-                    .padding(.top, 18)
-                    .accessibilityHidden(true)
-            }
-            .frame(height: 232)
+            MaruMascot(expression: viewModel.mascotExpression, size: 92)
+                .accessibilityHidden(true)
         }
+        .padding(.horizontal, 14)
+        .padding(.vertical, 12)
+        .background(.white)
+        .clipShape(RoundedRectangle(cornerRadius: LearningTheme.cardRadius, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: LearningTheme.cardRadius, style: .continuous)
+                .stroke(LearningTheme.line, lineWidth: LearningTheme.heavyLine)
+        )
     }
 
     private var progressSection: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 10) {
             LearningProgressStrip(
                 title: "Hiragana",
                 value: viewModel.hiraganaProgress,
@@ -103,17 +88,25 @@ struct HomeView: View {
     }
 
     private var wordSection: some View {
-        VStack(alignment: .leading, spacing: 14) {
+        VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Text("Tap a word")
-                    .font(.system(size: 22, weight: .black, design: .rounded))
+                    .font(.system(size: 20, weight: .black, design: .rounded))
                     .foregroundColor(LearningTheme.ink)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
 
                 Spacer()
 
-                Image(systemName: "speaker.wave.2.fill")
-                    .font(.system(size: 18, weight: .black))
-                    .foregroundColor(LearningTheme.red)
+                Button(action: viewModel.refreshWordCloud) {
+                    Image(systemName: "arrow.clockwise")
+                        .font(.system(size: 17, weight: .black))
+                        .foregroundColor(LearningTheme.red)
+                        .frame(width: 36, height: 32)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Refresh words")
             }
 
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 96), spacing: 10)], spacing: 10) {
@@ -134,7 +127,7 @@ struct HomeView: View {
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.7)
                         }
-                        .frame(maxWidth: .infinity, minHeight: 70)
+                        .frame(maxWidth: .infinity, minHeight: 62)
                         .padding(.horizontal, 8)
                     }
                     .buttonStyle(LearningOutlinedButtonStyle(fill: word.id.hashValue.isMultiple(of: 2) ? .white : LearningTheme.yellowSoft))
@@ -154,11 +147,13 @@ struct HomeView: View {
                     .font(.system(size: 18, weight: .black))
 
                 Text("Start Drill")
-                    .font(.system(size: 22, weight: .black, design: .rounded))
+                    .font(.system(size: 20, weight: .black, design: .rounded))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
             }
             .foregroundColor(.white)
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 18)
+            .padding(.vertical, 15)
         }
         .buttonStyle(LearningOutlinedButtonStyle(fill: LearningTheme.red, pressedFill: LearningTheme.redDark))
     }
@@ -166,32 +161,28 @@ struct HomeView: View {
 
 // MARK: - Supporting Views
 
-private struct TimeLearningPanel: View {
+private struct DailyDateRow: View {
     let dateText: String
     let timeText: String
 
     var body: some View {
-        VStack(spacing: 6) {
+        HStack(spacing: 6) {
+            Image(systemName: "sun.max.fill")
+                .font(.system(size: 12, weight: .black))
+                .foregroundColor(LearningTheme.yellow)
+
             Text(dateText)
-                .font(.system(size: 18, weight: .black, design: .rounded))
-                .foregroundColor(LearningTheme.ink)
+                .font(.system(size: 13, weight: .black, design: .rounded))
+                .foregroundColor(LearningTheme.mutedInk)
+                .lineLimit(1)
+                .minimumScaleFactor(0.75)
 
             Text(timeText)
-                .font(.system(size: 34, weight: .black, design: .rounded))
-                .foregroundColor(LearningTheme.ink)
-
-            Text("いま")
                 .font(.system(size: 15, weight: .black, design: .rounded))
-                .foregroundColor(LearningTheme.mutedInk)
+                .foregroundColor(LearningTheme.ink)
+                .lineLimit(1)
+                .minimumScaleFactor(0.75)
         }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 16)
-        .background(.white)
-        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
-        .overlay(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .stroke(LearningTheme.line, lineWidth: LearningTheme.heavyLine)
-        )
     }
 }
 
@@ -204,14 +195,16 @@ private struct LearningProgressStrip: View {
         VStack(spacing: 10) {
             HStack {
                 Text(title)
-                    .font(.system(size: 18, weight: .black, design: .rounded))
+                    .font(.system(size: 17, weight: .black, design: .rounded))
                     .foregroundColor(LearningTheme.ink)
+                    .lineLimit(1)
 
                 Spacer()
 
                 Text("\(Int(value * 100))%")
-                    .font(.system(size: 15, weight: .black, design: .rounded))
+                    .font(.system(size: 14, weight: .black, design: .rounded))
                     .foregroundColor(LearningTheme.red)
+                    .lineLimit(1)
             }
 
             GeometryReader { proxy in
@@ -224,60 +217,35 @@ private struct LearningProgressStrip: View {
                         .frame(width: max(8, proxy.size.width * value))
                 }
             }
-            .frame(height: 10)
-            .overlay(Capsule().stroke(LearningTheme.line, lineWidth: 2))
+            .frame(height: 8)
+            .overlay(Capsule().stroke(LearningTheme.line, lineWidth: 1.5))
 
             if let row {
-                HStack(spacing: 8) {
-                    Text("Next row")
-                        .font(.system(size: 12, weight: .black, design: .rounded))
+                HStack(spacing: 6) {
+                    Text("Next")
+                        .font(.system(size: 11, weight: .black, design: .rounded))
                         .foregroundColor(LearningTheme.mutedInk)
+                        .lineLimit(1)
 
                     ForEach(row.kana.prefix(5)) { kana in
                         Text(kana.character)
-                            .font(.system(size: 18, weight: .black, design: .rounded))
+                            .font(.system(size: 17, weight: .black, design: .rounded))
                             .foregroundColor(LearningTheme.ink)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.75)
                     }
 
                     Spacer()
                 }
             }
         }
-        .padding(16)
+        .padding(12)
         .background(.white)
-        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: LearningTheme.cardRadius, style: .continuous))
         .overlay(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
+            RoundedRectangle(cornerRadius: LearningTheme.cardRadius, style: .continuous)
                 .stroke(LearningTheme.line, lineWidth: LearningTheme.heavyLine)
         )
-    }
-}
-
-private struct FloatingLabel: View {
-    let text: String
-    let subtitle: String
-    let rotation: Double
-    var fill: Color = .white
-
-    var body: some View {
-        VStack(spacing: 1) {
-            Text(text)
-                .font(.system(size: 21, weight: .black, design: .rounded))
-                .foregroundColor(LearningTheme.ink)
-
-            Text(subtitle)
-                .font(.system(size: 9, weight: .bold, design: .rounded))
-                .foregroundColor(LearningTheme.mutedInk)
-        }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .background(fill)
-        .clipShape(RoundedRectangle(cornerRadius: 9, style: .continuous))
-        .overlay(
-            RoundedRectangle(cornerRadius: 9, style: .continuous)
-                .stroke(LearningTheme.line, lineWidth: 2.5)
-        )
-        .rotationEffect(.degrees(rotation))
     }
 }
 

@@ -13,14 +13,17 @@ struct WordsView: View {
                     wordGrid
                 }
                 .padding(.horizontal, 18)
-                .padding(.top, 18)
-                .padding(.bottom, 128)
+                .padding(.top, 14)
+                .padding(.bottom, 28)
             }
             .background(
                 LearningTheme.cream
-                    .overlay(LearningPattern().opacity(0.25))
+                    .overlay(LearningPattern().opacity(0.14))
                     .ignoresSafeArea()
             )
+            .safeAreaInset(edge: .bottom) {
+                Color.clear.frame(height: 84)
+            }
             .navigationTitle("Words")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -39,17 +42,19 @@ struct WordsView: View {
     }
 
     private var hero: some View {
-        HStack(spacing: 16) {
-            MaruMascot(expression: viewModel.mascotExpression, size: 106)
+        HStack(spacing: 14) {
+            MaruMascot(expression: viewModel.mascotExpression, size: 88)
 
             VStack(alignment: .leading, spacing: 8) {
                 Text("Word Cards")
-                    .font(.system(size: 30, weight: .black, design: .rounded))
+                    .font(.system(size: 26, weight: .black, design: .rounded))
                     .foregroundColor(LearningTheme.ink)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
 
                 if let featuredWord = viewModel.featuredWord {
                     Text(featuredWord.word)
-                        .font(.system(size: 34, weight: .black, design: .rounded))
+                        .font(.system(size: 29, weight: .black, design: .rounded))
                         .foregroundColor(LearningTheme.red)
                         .lineLimit(1)
                         .minimumScaleFactor(0.6)
@@ -63,25 +68,25 @@ struct WordsView: View {
 
             Spacer(minLength: 0)
         }
-        .padding(16)
+        .padding(14)
         .background(.white)
-        .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: LearningTheme.cardRadius, style: .continuous))
         .overlay(
-            RoundedRectangle(cornerRadius: 22, style: .continuous)
+            RoundedRectangle(cornerRadius: LearningTheme.cardRadius, style: .continuous)
                 .stroke(LearningTheme.line, lineWidth: LearningTheme.heavyLine)
         )
     }
 
     private var wordGrid: some View {
-        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
+        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
             ForEach(viewModel.words) { word in
                 Button {
                     viewModel.playWord(word)
                 } label: {
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 7) {
                         HStack(alignment: .top) {
                             Text(word.word)
-                                .font(.system(size: 28, weight: .black, design: .rounded))
+                                .font(.system(size: 25, weight: .black, design: .rounded))
                                 .foregroundColor(LearningTheme.ink)
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.55)
@@ -94,7 +99,7 @@ struct WordsView: View {
                         }
 
                         Text(word.romaji)
-                            .font(.system(size: 14, weight: .black, design: .rounded))
+                            .font(.system(size: 13, weight: .black, design: .rounded))
                             .foregroundColor(LearningTheme.red)
                             .lineLimit(1)
                             .minimumScaleFactor(0.65)
@@ -107,8 +112,8 @@ struct WordsView: View {
 
                         Spacer(minLength: 0)
                     }
-                    .frame(maxWidth: .infinity, minHeight: 128, alignment: .topLeading)
-                    .padding(14)
+                    .frame(maxWidth: .infinity, minHeight: 116, alignment: .topLeading)
+                    .padding(12)
                 }
                 .buttonStyle(LearningOutlinedButtonStyle(fill: word.id.hashValue.isMultiple(of: 2) ? .white : LearningTheme.yellowSoft))
             }

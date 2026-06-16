@@ -18,8 +18,8 @@ enum LearningTheme {
     static let locked = Color(hex: "ECE7DC")
     static let purple = Color(hex: "8B5CF6")
 
-    static let heavyLine: CGFloat = 3
-    static let cardRadius: CGFloat = 12
+    static let heavyLine: CGFloat = 2
+    static let cardRadius: CGFloat = 10
 }
 
 struct LearningOutlinedButtonStyle: ButtonStyle {
@@ -34,8 +34,8 @@ struct LearningOutlinedButtonStyle: ButtonStyle {
                 RoundedRectangle(cornerRadius: LearningTheme.cardRadius, style: .continuous)
                     .stroke(LearningTheme.line, lineWidth: LearningTheme.heavyLine)
             )
-            .shadow(color: LearningTheme.ink.opacity(configuration.isPressed ? 0 : 0.12), radius: 0, x: 0, y: configuration.isPressed ? 0 : 4)
-            .offset(y: configuration.isPressed ? 3 : 0)
+            .shadow(color: LearningTheme.ink.opacity(configuration.isPressed ? 0 : 0.09), radius: 0, x: 0, y: configuration.isPressed ? 0 : 2)
+            .offset(y: configuration.isPressed ? 2 : 0)
             .animation(.spring(response: 0.2, dampingFraction: 0.72), value: configuration.isPressed)
     }
 }
@@ -46,12 +46,14 @@ struct LearningBadge: View {
 
     var body: some View {
         Text(text)
-            .font(.system(size: 18, weight: .black, design: .rounded))
+            .font(.system(size: 15, weight: .black, design: .rounded))
             .foregroundColor(.white)
-            .padding(.horizontal, 10)
+            .lineLimit(1)
+            .minimumScaleFactor(0.75)
+            .padding(.horizontal, 9)
             .padding(.vertical, 4)
             .background(color)
-            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: 7, style: .continuous))
     }
 }
 
@@ -60,9 +62,9 @@ struct LearningPattern: View {
 
     var body: some View {
         GeometryReader { proxy in
-            ForEach(0..<18, id: \.self) { index in
+            ForEach(0..<14, id: \.self) { index in
                 Text(symbols[index % symbols.count])
-                    .font(.system(size: CGFloat(28 + (index % 4) * 8), weight: .black, design: .rounded))
+                    .font(.system(size: CGFloat(22 + (index % 4) * 7), weight: .black, design: .rounded))
                     .foregroundColor(LearningTheme.locked)
                     .rotationEffect(.degrees(Double((index * 29) % 42) - 21))
                     .position(

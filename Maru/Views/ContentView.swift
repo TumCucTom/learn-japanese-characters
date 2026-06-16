@@ -59,7 +59,7 @@ struct ContentView: View {
                 }
                 .tag(Tab.settings)
         }
-        .tint(Color(hex: "8B5CF6"))
+        .tint(LearningTheme.red)
         .onChange(of: selectedTab) { _, _ in
             HapticService.shared.selection()
         }

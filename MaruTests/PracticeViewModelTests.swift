@@ -3,6 +3,16 @@ import XCTest
 
 @MainActor
 final class PracticeViewModelTests: XCTestCase {
+    private func sampleHiraganaRow() -> [SharedKana] {
+        [
+            SharedKana(id: "h_basic_1", character: "あ", romaji: "a", kanaType: .hiragana, category: "basic"),
+            SharedKana(id: "h_basic_2", character: "い", romaji: "i", kanaType: .hiragana, category: "basic"),
+            SharedKana(id: "h_basic_3", character: "う", romaji: "u", kanaType: .hiragana, category: "basic"),
+            SharedKana(id: "h_basic_4", character: "え", romaji: "e", kanaType: .hiragana, category: "basic"),
+            SharedKana(id: "h_basic_5", character: "お", romaji: "o", kanaType: .hiragana, category: "basic")
+        ]
+    }
+
     func testStartsRowSpecificPracticeWithProvidedKanaAndMode() {
         let rowKana = [
             SharedKana(id: "h_basic_1", character: "あ", romaji: "a", kanaType: .hiragana, category: "basic"),
@@ -32,5 +42,60 @@ final class PracticeViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.totalQuestions, 1)
         XCTAssertEqual(viewModel.mascotExpression, .celebrating)
         XCTAssertTrue(viewModel.answerFeedbackID > 0)
+    }
+
+    func testMultipleChoiceDoesNotRevealPromptCharacterInChoiceSubtitle() {
+        let rowKana = sampleHiraganaRow()
+        let viewModel = PracticeViewModel()
+
+        viewModel.startPracticeSession(kana: rowKana, exerciseType: .multipleChoice)
+
+        XCTAssertFalse(viewModel.choices.contains { $0.sublabel == viewModel.currentKana?.character })
+    }
+
+    func testReadingDoesNotRevealRomajiInChoiceSubtitle() {
+        let rowKana = sampleHiraganaRow()
+        let viewModel = PracticeViewModel()
+
+        viewModel.startPracticeSession(kana: rowKana, exerciseType: .reading)
+
+        XCTAssertFalse(viewModel.choices.contains { $0.sublabel == viewModel.currentKana?.romaji })
+    }
+
+    func testRowSpecificPracticeUsesProvidedKanaAsChoicePool() {
+        let rowKana = sampleHiraganaRow()
+        let viewModel = PracticeViewModel()
+
+        viewModel.startPracticeSession(kana: rowKana, exerciseType: .reading)
+
+        XCTAssertEqual(viewModel.choices.count, 4)
+        XCTAssertTrue(Set(viewModel.choices.map(\.id)).isSubset(of: Set(rowKana.map(\.id))))
+    }
+
+    func testSmallFocusedChoicePoolPadsDistractorsFromFallbackPool() {
+        let rowKana = sampleHiraganaRow()
+        let viewModel = PracticeViewModel()
+
+        viewModel.startPracticeSession(
+            kana: [rowKana[0]],
+            exerciseType: .multipleChoice,
+            fallbackChoicePool: rowKana
+        )
+
+        XCTAssertEqual(viewModel.choices.count, 4)
+        XCTAssertEqual(viewModel.choices.filter { $0.answer == rowKana[0].romaji }.count, 1)
+        XCTAssertTrue(Set(viewModel.choices.map(\.id)).isSubset(of: Set(rowKana.map(\.id))))
+    }
+
+    func testMixedModeExcludesTracePractice() {
+        let rowKana = sampleHiraganaRow()
+        let viewModel = PracticeViewModel()
+
+        viewModel.startPracticeSession(kana: rowKana)
+
+        for _ in rowKana.indices {
+            XCTAssertNotEqual(viewModel.exerciseType, .writing)
+            viewModel.nextQuestion()
+        }
     }
 }

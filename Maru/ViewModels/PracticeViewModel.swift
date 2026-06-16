@@ -23,13 +23,18 @@ final class PracticeViewModel: ObservableObject {
     private let hapticService = HapticService.shared
     private let database = SharedDatabase.shared
     private var fixedExerciseType: ExerciseType?
+    private let standardSessionLength = 15
+    private let focusedSessionLength = 12
+    private let mixedExerciseTypes: [ExerciseType] = [.multipleChoice, .listening, .reading, .spelling]
+    private var activeChoicePool: [SharedKana] = []
+    private var fallbackChoicePool: [SharedKana] = []
 
     enum ExerciseType: String, CaseIterable {
         case multipleChoice = "Choose"
         case listening = "Listening"
         case reading = "Reading"
         case spelling = "Typing"
-        case writing = "Writing"
+        case writing = "Trace"
     }
 
     struct PracticeChoice: Identifiable, Hashable {
@@ -51,16 +56,22 @@ final class PracticeViewModel: ObservableObject {
     ) {
         fixedExerciseType = exerciseType
         let kanaList: [SharedKana]
+        let fallbackChoices: [SharedKana]
 
         if focusOnWeak {
-            let weakKana = repository.getWeakKana(limit: 20)
-            kanaList = weakKana.isEmpty ? repository.getRandomKana(limit: 15) : weakKana
+            let weakKana = repository.getWeakKana(limit: focusedSessionLength)
+            kanaList = weakKana.isEmpty ? repository.getRandomKana(limit: standardSessionLength) : weakKana
+            fallbackChoices = weakKana.isEmpty ? [] : repository.getAllKana()
         } else if let type = kanaType {
-            kanaList = repository.getKana(byType: type)
+            kanaList = Array(repository.getKana(byType: type).shuffled().prefix(standardSessionLength))
+            fallbackChoices = []
         } else {
-            kanaList = repository.getRandomKana(limit: 15)
+            kanaList = repository.getRandomKana(limit: standardSessionLength)
+            fallbackChoices = []
         }
 
+        activeChoicePool = kanaList
+        fallbackChoicePool = fallbackChoices
         practiceSession = kanaList.shuffled()
         currentIndex = 0
         score = 0
@@ -71,8 +82,14 @@ final class PracticeViewModel: ObservableObject {
         loadCurrentQuestion()
     }
 
-    func startPracticeSession(kana: [SharedKana], exerciseType: ExerciseType? = nil) {
+    func startPracticeSession(
+        kana: [SharedKana],
+        exerciseType: ExerciseType? = nil,
+        fallbackChoicePool: [SharedKana] = []
+    ) {
         fixedExerciseType = exerciseType
+        activeChoicePool = kana
+        self.fallbackChoicePool = fallbackChoicePool
         practiceSession = kana.shuffled()
         currentIndex = 0
         score = 0
@@ -90,7 +107,7 @@ final class PracticeViewModel: ObservableObject {
         }
 
         currentKana = practiceSession[currentIndex]
-        exerciseType = fixedExerciseType ?? ExerciseType.allCases[currentIndex % ExerciseType.allCases.count]
+        exerciseType = fixedExerciseType ?? mixedExerciseTypes[currentIndex % mixedExerciseTypes.count]
         generateOptions()
         selectedAnswer = nil
         isCorrect = nil
@@ -107,9 +124,8 @@ final class PracticeViewModel: ObservableObject {
     private func generateOptions() {
         guard let current = currentKana else { return }
 
-        let allKana = repository.getAllKana()
-        let otherKana = allKana.filter { $0.id != current.id && $0.romaji != current.romaji }
-
+        let choicePool = expandedChoicePool(for: current)
+        let otherKana = choicePool.filter { $0.id != current.id && $0.romaji != current.romaji }
         let optionKana = (Array(otherKana.shuffled().prefix(3)) + [current]).shuffled()
 
         switch exerciseType {
@@ -118,7 +134,7 @@ final class PracticeViewModel: ObservableObject {
                 PracticeChoice(
                     id: kana.id,
                     label: kana.romaji,
-                    sublabel: kana.character,
+                    sublabel: nil,
                     answer: kana.romaji,
                     usesSpeakerIcon: false
                 )
@@ -128,7 +144,7 @@ final class PracticeViewModel: ObservableObject {
                 PracticeChoice(
                     id: kana.id,
                     label: kana.character,
-                    sublabel: kana.romaji,
+                    sublabel: nil,
                     answer: kana.romaji,
                     usesSpeakerIcon: false
                 )
@@ -138,7 +154,7 @@ final class PracticeViewModel: ObservableObject {
                 PracticeChoice(
                     id: kana.id,
                     label: kana.character,
-                    sublabel: kana.romaji,
+                    sublabel: nil,
                     answer: kana.romaji,
                     usesSpeakerIcon: false
                 )
@@ -148,6 +164,31 @@ final class PracticeViewModel: ObservableObject {
         }
 
         options = choices.map(\.answer)
+    }
+
+    private func expandedChoicePool(for current: SharedKana) -> [SharedKana] {
+        let primaryPool = activeChoicePool.isEmpty ? practiceSession : activeChoicePool
+        let primaryChoices = uniqueByRomaji(primaryPool)
+        let availableDistractors = primaryChoices.filter { $0.romaji != current.romaji }.count
+
+        guard availableDistractors < 3, !fallbackChoicePool.isEmpty else {
+            return primaryChoices
+        }
+
+        let sameTypeFallback = fallbackChoicePool.filter { $0.kanaType == current.kanaType }
+        let sameTypeChoices = uniqueByRomaji(primaryPool + sameTypeFallback)
+        if sameTypeChoices.filter({ $0.romaji != current.romaji }).count >= 3 {
+            return sameTypeChoices
+        }
+
+        return uniqueByRomaji(primaryPool + fallbackChoicePool)
+    }
+
+    private func uniqueByRomaji(_ kanaList: [SharedKana]) -> [SharedKana] {
+        var seenRomaji: Set<String> = []
+        return kanaList.filter { kana in
+            seenRomaji.insert(kana.romaji).inserted
+        }
     }
 
     func selectAnswer(_ answer: String) {
@@ -231,9 +272,29 @@ final class PracticeViewModel: ObservableObject {
 
     func restartSession() {
         if !practiceSession.isEmpty {
-            startPracticeSession(kana: practiceSession, exerciseType: fixedExerciseType)
+            startPracticeSession(kana: practiceSession, exerciseType: fixedExerciseType, fallbackChoicePool: fallbackChoicePool)
         } else {
             startPracticeSession()
         }
+    }
+
+    func resetSession() {
+        currentKana = nil
+        options = []
+        choices = []
+        selectedAnswer = nil
+        isCorrect = nil
+        score = 0
+        totalQuestions = 0
+        mistakeCount = 0
+        practiceSession = []
+        currentIndex = 0
+        isSessionComplete = false
+        exerciseType = .multipleChoice
+        typedAnswer = ""
+        fixedExerciseType = nil
+        activeChoicePool = []
+        fallbackChoicePool = []
+        mascotExpression = .thinking
     }
 }

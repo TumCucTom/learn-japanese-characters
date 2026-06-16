@@ -12,14 +12,18 @@ struct KanaCard: View {
         Button(action: onTap) {
             VStack(spacing: 4) {
                 Text(kana.character)
-                    .font(.system(size: 33, weight: .black, design: .rounded))
+                    .font(.system(size: 30, weight: .black, design: .rounded))
                     .foregroundColor(isLocked ? LearningTheme.softInk.opacity(0.35) : LearningTheme.ink)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
 
                 Text(kana.romaji)
-                    .font(.system(size: 12, weight: .bold, design: .rounded))
+                    .font(.system(size: 11, weight: .bold, design: .rounded))
                     .foregroundColor(isLocked ? LearningTheme.softInk.opacity(0.35) : LearningTheme.mutedInk)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
             }
-            .frame(width: 58, height: 70)
+            .frame(width: 54, height: 64)
             .opacity(isLocked ? 0.65 : 1)
         }
         .buttonStyle(LearningOutlinedButtonStyle(fill: isLocked ? LearningTheme.locked.opacity(0.7) : fill))
@@ -38,20 +42,24 @@ struct LargeKanaCard: View {
         Button(action: onTap) {
             VStack(spacing: 10) {
                 Text(kana.character)
-                    .font(.system(size: 88, weight: .black, design: .rounded))
+                    .font(.system(size: 80, weight: .black, design: .rounded))
                     .foregroundColor(LearningTheme.ink)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
 
                 Text(kana.romaji)
-                    .font(.system(size: 22, weight: .black, design: .rounded))
+                    .font(.system(size: 20, weight: .black, design: .rounded))
                     .foregroundColor(LearningTheme.mutedInk)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
             }
-            .frame(width: 170, height: 205)
+            .frame(width: 158, height: 188)
             .overlay(alignment: .topTrailing) {
                 Circle()
                     .fill(backgroundColor)
                     .overlay(Circle().stroke(LearningTheme.line, lineWidth: 2))
-                    .frame(width: 22, height: 22)
-                    .padding(10)
+                    .frame(width: 20, height: 20)
+                    .padding(9)
             }
         }
         .buttonStyle(LearningOutlinedButtonStyle(fill: LearningTheme.card))

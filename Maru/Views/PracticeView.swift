@@ -3,6 +3,7 @@ import SwiftUI
 // MARK: - PracticeView
 
 struct PracticeView: View {
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = PracticeViewModel()
     @State private var selectedKanaType: AppConstants.KanaType? = .hiragana
     @State private var selectedExerciseType: PracticeViewModel.ExerciseType?
@@ -10,10 +11,16 @@ struct PracticeView: View {
     @State private var hasStarted = false
     private let initialKana: [SharedKana]?
     private let initialExerciseType: PracticeViewModel.ExerciseType?
+    private let hidesTabBar: Bool
 
-    init(initialKana: [SharedKana]? = nil, initialExerciseType: PracticeViewModel.ExerciseType? = nil) {
+    init(
+        initialKana: [SharedKana]? = nil,
+        initialExerciseType: PracticeViewModel.ExerciseType? = nil,
+        hidesTabBar: Bool = false
+    ) {
         self.initialKana = initialKana
         self.initialExerciseType = initialExerciseType
+        self.hidesTabBar = hidesTabBar
         _hasStarted = State(initialValue: initialKana != nil)
         _selectedKanaType = State(initialValue: initialKana?.first?.kanaType ?? .hiragana)
     }
@@ -22,12 +29,17 @@ struct PracticeView: View {
         NavigationStack {
             Group {
                 if viewModel.isSessionComplete {
-                    SessionCompleteView(viewModel: viewModel) {
-                        hasStarted = false
-                        viewModel.restartSession()
-                    }
+                    SessionCompleteView(
+                        viewModel: viewModel,
+                        doneTitle: shouldDismissRoute ? "Done" : "Back to Practice",
+                        onRestart: {
+                            viewModel.restartSession()
+                            hasStarted = true
+                        },
+                        onDone: closePractice
+                    )
                 } else if hasStarted {
-                    PracticeContentView(viewModel: viewModel)
+                    PracticeContentView(viewModel: viewModel, onClose: closePractice)
                 } else {
                     StartPracticeView(
                         selectedKanaType: $selectedKanaType,
@@ -35,11 +47,7 @@ struct PracticeView: View {
                         focusOnWeak: $focusOnWeak,
                         onStart: {
                             HapticService.shared.selection()
-                            viewModel.startPracticeSession(
-                                kanaType: selectedKanaType,
-                                focusOnWeak: focusOnWeak,
-                                exerciseType: selectedExerciseType
-                            )
+                            viewModel.startPracticeSession(kanaType: selectedKanaType, focusOnWeak: focusOnWeak, exerciseType: selectedExerciseType)
                             hasStarted = true
                         }
                     )
@@ -48,10 +56,29 @@ struct PracticeView: View {
             .background(LearningTheme.cream.ignoresSafeArea())
             .navigationTitle("Drill")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar(shouldHideTabBar ? .hidden : .visible, for: .tabBar)
             .onAppear {
                 guard let initialKana, viewModel.practiceSession.isEmpty else { return }
                 viewModel.startPracticeSession(kana: initialKana, exerciseType: initialExerciseType)
             }
+        }
+    }
+
+    private var shouldHideTabBar: Bool {
+        hidesTabBar || (hasStarted && !viewModel.isSessionComplete)
+    }
+
+    private var shouldDismissRoute: Bool {
+        hidesTabBar || initialKana != nil
+    }
+
+    private func closePractice() {
+        HapticService.shared.selection()
+        if shouldDismissRoute {
+            dismiss()
+        } else {
+            viewModel.resetSession()
+            hasStarted = false
         }
     }
 }
@@ -66,23 +93,25 @@ struct StartPracticeView: View {
 
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(spacing: 26) {
-                MaruMascot(expression: .happy, size: 150)
-                    .padding(.top, 24)
+            VStack(spacing: 18) {
+                MaruMascot(expression: .happy, size: 112)
+                    .padding(.top, 8)
 
                 VStack(spacing: 8) {
                     Text("Practice")
-                        .font(.system(size: 42, weight: .black, design: .rounded))
+                        .font(.system(size: 34, weight: .black, design: .rounded))
                         .foregroundColor(LearningTheme.ink)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.75)
 
                     HStack(spacing: 8) {
                         LearningBadge(text: "Listening", color: LearningTheme.red)
-                        LearningBadge(text: "Typing", color: LearningTheme.yellow)
+                        LearningBadge(text: "Trace", color: LearningTheme.yellow)
                             .foregroundStyle(LearningTheme.ink)
                     }
                 }
 
-                VStack(alignment: .leading, spacing: 14) {
+                VStack(alignment: .leading, spacing: 10) {
                     Text("Kana Set")
                         .font(.system(size: 15, weight: .black, design: .rounded))
                         .foregroundColor(LearningTheme.mutedInk)
@@ -104,7 +133,7 @@ struct StartPracticeView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-                VStack(alignment: .leading, spacing: 14) {
+                VStack(alignment: .leading, spacing: 10) {
                     Text("Exercise")
                         .font(.system(size: 15, weight: .black, design: .rounded))
                         .foregroundColor(LearningTheme.mutedInk)
@@ -148,25 +177,28 @@ struct StartPracticeView: View {
                 .onChange(of: focusOnWeak) { _, _ in
                     HapticService.shared.selection()
                 }
-                .padding(16)
+                .padding(14)
                 .background(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: LearningTheme.cardRadius, style: .continuous))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    RoundedRectangle(cornerRadius: LearningTheme.cardRadius, style: .continuous)
                         .stroke(LearningTheme.line, lineWidth: LearningTheme.heavyLine)
                 )
 
                 Button(action: onStart) {
                     Text("Start Learning")
-                        .font(.system(size: 24, weight: .black, design: .rounded))
+                        .font(.system(size: 22, weight: .black, design: .rounded))
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 18)
+                        .padding(.vertical, 15)
                 }
                 .buttonStyle(LearningOutlinedButtonStyle(fill: LearningTheme.red, pressedFill: LearningTheme.redDark))
             }
             .padding(.horizontal, 18)
-            .padding(.bottom, 128)
+            .padding(.bottom, 32)
+        }
+        .safeAreaInset(edge: .bottom) {
+            Color.clear.frame(height: 84)
         }
     }
 
@@ -244,16 +276,16 @@ private struct ModeButton: View {
 
 struct PracticeContentView: View {
     @ObservedObject var viewModel: PracticeViewModel
+    let onClose: () -> Void
 
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 14) {
             progressHeader
 
-            MaruMascot(expression: viewModel.mascotExpression, size: 86)
+            MaruMascot(expression: viewModel.mascotExpression, size: 72)
                 .scaleEffect(viewModel.mascotExpression == .celebrating ? 1.08 : 1)
                 .rotationEffect(.degrees(viewModel.mascotExpression == .sad ? -3 : 0))
                 .animation(.spring(response: 0.28, dampingFraction: 0.58), value: viewModel.mascotExpression)
-                .padding(.top, 4)
 
             if let kana = viewModel.currentKana {
                 promptCard(for: kana)
@@ -268,6 +300,9 @@ struct PracticeContentView: View {
             }
 
             if viewModel.selectedAnswer != nil {
+                feedbackText
+                    .transition(.scale(scale: 0.92).combined(with: .opacity))
+
                 nextButton
                     .transition(.move(edge: .bottom).combined(with: .opacity))
             }
@@ -275,11 +310,11 @@ struct PracticeContentView: View {
             Spacer(minLength: 10)
         }
         .padding(.horizontal, 18)
-        .padding(.top, 12)
+        .padding(.top, 88)
         .padding(.bottom, 96)
         .background(
             LearningTheme.cream
-                .overlay(LearningPattern().opacity(0.25))
+                .overlay(LearningPattern().opacity(0.14))
                 .ignoresSafeArea()
         )
         .animation(.spring(response: 0.28, dampingFraction: 0.74), value: viewModel.answerFeedbackID)
@@ -289,13 +324,16 @@ struct PracticeContentView: View {
         VStack(spacing: 10) {
             HStack {
                 Button {
-                    HapticService.shared.selection()
-                    viewModel.restartSession()
+                    onClose()
                 } label: {
                     Image(systemName: "xmark")
                         .font(.system(size: 18, weight: .black))
                         .foregroundColor(LearningTheme.ink)
+                        .frame(width: 44, height: 44)
+                        .contentShape(Rectangle())
                 }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Close practice")
 
                 GeometryReader { proxy in
                     ZStack(alignment: .leading) {
@@ -318,7 +356,7 @@ struct PracticeContentView: View {
             HStack {
                 LearningBadge(text: viewModel.exerciseType.rawValue, color: viewModel.exerciseType == .listening ? LearningTheme.yellow : LearningTheme.red)
                 Spacer()
-                Text("Question \(viewModel.currentIndex + 1)")
+                Text("Question \(viewModel.currentIndex + 1)/\(viewModel.practiceSession.count)")
                     .font(.system(size: 13, weight: .black, design: .rounded))
                     .foregroundColor(LearningTheme.mutedInk)
             }
@@ -330,7 +368,7 @@ struct PracticeContentView: View {
             switch viewModel.exerciseType {
             case .listening:
                 Text("Listen")
-                    .font(.system(size: 26, weight: .black, design: .rounded))
+                    .font(.system(size: 24, weight: .black, design: .rounded))
                     .foregroundColor(LearningTheme.ink)
 
                 Button {
@@ -344,7 +382,7 @@ struct PracticeContentView: View {
                 .buttonStyle(LearningOutlinedButtonStyle(fill: LearningTheme.yellow))
             case .spelling:
                 Text(kana.character)
-                    .font(.system(size: 102, weight: .black, design: .rounded))
+                    .font(.system(size: 92, weight: .black, design: .rounded))
                     .foregroundColor(LearningTheme.ink)
 
                 Text("Type the sound")
@@ -352,15 +390,15 @@ struct PracticeContentView: View {
                     .foregroundColor(LearningTheme.mutedInk)
             case .writing:
                 Text(kana.character)
-                    .font(.system(size: 108, weight: .black, design: .rounded))
+                    .font(.system(size: 92, weight: .black, design: .rounded))
                     .foregroundColor(LearningTheme.ink)
 
-                Text("Trace the kana")
+                Text("Trace practice")
                     .font(.system(size: 18, weight: .black, design: .rounded))
                     .foregroundColor(LearningTheme.mutedInk)
             case .reading:
                 Text(kana.romaji)
-                    .font(.system(size: 96, weight: .black, design: .rounded))
+                    .font(.system(size: 84, weight: .black, design: .rounded))
                     .foregroundColor(LearningTheme.ink)
 
                 Text("Choose the kana")
@@ -368,7 +406,7 @@ struct PracticeContentView: View {
                     .foregroundColor(LearningTheme.mutedInk)
             case .multipleChoice:
                 Text(kana.character)
-                    .font(.system(size: 112, weight: .black, design: .rounded))
+                    .font(.system(size: 96, weight: .black, design: .rounded))
                     .foregroundColor(LearningTheme.ink)
 
                 Button {
@@ -382,12 +420,12 @@ struct PracticeContentView: View {
                 .buttonStyle(LearningOutlinedButtonStyle(fill: LearningTheme.yellow))
             }
         }
-        .frame(maxWidth: .infinity, minHeight: 220)
-        .padding(.vertical, 20)
+        .frame(maxWidth: .infinity, minHeight: 184)
+        .padding(.vertical, 16)
         .background(.white)
-        .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: LearningTheme.cardRadius, style: .continuous))
         .overlay(
-            RoundedRectangle(cornerRadius: 22, style: .continuous)
+            RoundedRectangle(cornerRadius: LearningTheme.cardRadius, style: .continuous)
                 .stroke(LearningTheme.line, lineWidth: LearningTheme.heavyLine)
         )
     }
@@ -427,7 +465,7 @@ struct PracticeContentView: View {
             Button {
                 viewModel.submitTypedAnswer()
             } label: {
-                Text("Check answers")
+                Text("Check answer")
                     .font(.system(size: 19, weight: .black, design: .rounded))
                     .foregroundColor(LearningTheme.ink)
                     .frame(maxWidth: .infinity)
@@ -436,14 +474,6 @@ struct PracticeContentView: View {
             .buttonStyle(LearningOutlinedButtonStyle(fill: LearningTheme.yellow))
             .disabled(viewModel.selectedAnswer != nil || viewModel.typedAnswer.isEmpty)
 
-            if let selectedAnswer = viewModel.selectedAnswer,
-               let correctAnswer = viewModel.currentKana?.romaji {
-                Text(selectedAnswer == correctAnswer ? "Correct" : "Answer: \(correctAnswer)")
-                    .font(.system(size: 18, weight: .black, design: .rounded))
-                    .foregroundColor(selectedAnswer == correctAnswer ? LearningTheme.green : LearningTheme.red)
-                    .id(viewModel.answerFeedbackID)
-                    .transition(.scale(scale: 0.88).combined(with: .opacity))
-            }
         }
     }
 
@@ -456,7 +486,7 @@ struct PracticeContentView: View {
             Button {
                 viewModel.completeWritingPractice()
             } label: {
-                Text(viewModel.selectedAnswer == nil ? "I traced it" : "Traced")
+                Text(viewModel.selectedAnswer == nil ? "Mark traced" : "Traced")
                     .font(.system(size: 19, weight: .black, design: .rounded))
                     .foregroundColor(LearningTheme.ink)
                     .frame(maxWidth: .infinity)
@@ -483,7 +513,19 @@ struct PracticeContentView: View {
 
     private var progressFraction: Double {
         guard !viewModel.practiceSession.isEmpty else { return 0 }
-        return Double(viewModel.currentIndex) / Double(viewModel.practiceSession.count)
+        return Double(viewModel.currentIndex + 1) / Double(viewModel.practiceSession.count)
+    }
+
+    @ViewBuilder
+    private var feedbackText: some View {
+        if let kana = viewModel.currentKana, let selectedAnswer = viewModel.selectedAnswer {
+            Text(selectedAnswer == kana.romaji ? "Correct" : "Answer: \(kana.character) = \(kana.romaji)")
+                .font(.system(size: 17, weight: .black, design: .rounded))
+                .foregroundColor(selectedAnswer == kana.romaji ? LearningTheme.green : LearningTheme.red)
+                .lineLimit(1)
+                .minimumScaleFactor(0.75)
+                .id(viewModel.answerFeedbackID)
+        }
     }
 }
 
@@ -562,10 +604,10 @@ private struct KanaTracePad: View {
 
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 22, style: .continuous)
+            RoundedRectangle(cornerRadius: LearningTheme.cardRadius, style: .continuous)
                 .fill(.white)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 22, style: .continuous)
+                    RoundedRectangle(cornerRadius: LearningTheme.cardRadius, style: .continuous)
                         .stroke(LearningTheme.line, lineWidth: LearningTheme.heavyLine)
                 )
 
@@ -585,7 +627,7 @@ private struct KanaTracePad: View {
                 append(stroke: currentStroke, to: &path)
                 context.stroke(path, with: .color(LearningTheme.red), style: StrokeStyle(lineWidth: 9, lineCap: .round, lineJoin: .round))
             }
-            .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: LearningTheme.cardRadius, style: .continuous))
 
             VStack {
                 HStack {
@@ -609,7 +651,7 @@ private struct KanaTracePad: View {
             }
             .padding(16)
         }
-        .frame(height: 210)
+        .frame(height: 188)
         .gesture(
             DragGesture(minimumDistance: 0)
                 .onChanged { value in
@@ -648,7 +690,9 @@ private struct TraceGuide: Shape {
 
 struct SessionCompleteView: View {
     @ObservedObject var viewModel: PracticeViewModel
+    let doneTitle: String
     let onRestart: () -> Void
+    let onDone: () -> Void
 
     var body: some View {
         VStack(spacing: 28) {
@@ -680,17 +724,30 @@ struct SessionCompleteView: View {
 
             Spacer()
 
-            Button {
-                HapticService.shared.selection()
-                onRestart()
-            } label: {
-                Text("Practice Again")
-                    .font(.system(size: 22, weight: .black, design: .rounded))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 17)
+            VStack(spacing: 12) {
+                Button {
+                    HapticService.shared.selection()
+                    onRestart()
+                } label: {
+                    Text("Practice Again")
+                        .font(.system(size: 22, weight: .black, design: .rounded))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 17)
+                }
+                .buttonStyle(LearningOutlinedButtonStyle(fill: LearningTheme.red, pressedFill: LearningTheme.redDark))
+
+                Button {
+                    onDone()
+                } label: {
+                    Text(doneTitle)
+                        .font(.system(size: 20, weight: .black, design: .rounded))
+                        .foregroundColor(LearningTheme.ink)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 15)
+                }
+                .buttonStyle(LearningOutlinedButtonStyle(fill: .white, pressedFill: LearningTheme.yellowSoft))
             }
-            .buttonStyle(LearningOutlinedButtonStyle(fill: LearningTheme.red, pressedFill: LearningTheme.redDark))
         }
         .padding(.horizontal, 18)
         .padding(.bottom, 128)
@@ -721,9 +778,9 @@ private struct StatItem: View {
         }
         .frame(width: 112, height: 92)
         .background(.white)
-        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: LearningTheme.cardRadius, style: .continuous))
         .overlay(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
+            RoundedRectangle(cornerRadius: LearningTheme.cardRadius, style: .continuous)
                 .stroke(LearningTheme.line, lineWidth: LearningTheme.heavyLine)
         )
     }

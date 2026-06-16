@@ -9,7 +9,7 @@ struct KanaChartView: View {
     @State private var selectedPracticeKana: [SharedKana] = []
 
     private let columns = [
-        GridItem(.adaptive(minimum: 70, maximum: 90), spacing: 12)
+        GridItem(.adaptive(minimum: 62, maximum: 78), spacing: 10)
     ]
 
     var body: some View {
@@ -27,9 +27,12 @@ struct KanaChartView: View {
                 }
                 .padding(.horizontal, 16)
                 .padding(.top, 16)
-                .padding(.bottom, 128)
+                .padding(.bottom, 28)
             }
             .background(LearningTheme.cream.ignoresSafeArea())
+            .safeAreaInset(edge: .bottom) {
+                Color.clear.frame(height: 84)
+            }
             .navigationTitle("Kana Rows")
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showDetail) {
@@ -41,7 +44,7 @@ struct KanaChartView: View {
                 }
             }
             .navigationDestination(isPresented: $showPractice) {
-                PracticeView(initialKana: selectedPracticeKana, initialExerciseType: .multipleChoice)
+                PracticeView(initialKana: selectedPracticeKana, initialExerciseType: .multipleChoice, hidesTabBar: true)
             }
             .onAppear {
                 viewModel.loadProgress()
@@ -128,8 +131,10 @@ private struct CategoryChip: View {
             Text(title)
                 .font(.system(size: 14, weight: .black, design: .rounded))
                 .foregroundColor(isSelected ? .white : LearningTheme.ink)
-                .padding(.horizontal, 15)
-                .padding(.vertical, 9)
+                .lineLimit(1)
+                .minimumScaleFactor(0.75)
+                .padding(.horizontal, 13)
+                .padding(.vertical, 8)
         }
         .buttonStyle(
             LearningOutlinedButtonStyle(
@@ -152,16 +157,20 @@ private struct KanaRowCard: View {
     private var isLocked: Bool { status == .locked }
 
     var body: some View {
-        VStack(spacing: 14) {
+        VStack(spacing: 12) {
             HStack(alignment: .center) {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("\(row.romajiPrefix.uppercased()) Row")
-                        .font(.system(size: 23, weight: .black, design: .rounded))
+                        .font(.system(size: 21, weight: .black, design: .rounded))
                         .foregroundColor(isLocked ? LearningTheme.softInk : LearningTheme.ink)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.75)
 
                     Text(statusLabel)
                         .font(.system(size: 12, weight: .black, design: .rounded))
                         .foregroundColor(statusColor)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.75)
                 }
 
                 Spacer()
@@ -175,14 +184,16 @@ private struct KanaRowCard: View {
                         Text("Drill")
                             .font(.system(size: 15, weight: .black, design: .rounded))
                             .foregroundColor(.white)
-                            .padding(.horizontal, 18)
-                            .padding(.vertical, 9)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.75)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 8)
                     }
                     .buttonStyle(LearningOutlinedButtonStyle(fill: LearningTheme.red, pressedFill: LearningTheme.redDark))
                 }
             }
 
-            HStack(spacing: 9) {
+            HStack(spacing: 7) {
                 ForEach(row.kana) { kana in
                     KanaCard(
                         kana: kana,
@@ -206,13 +217,13 @@ private struct KanaRowCard: View {
                 }
             }
             .frame(height: 8)
-            .overlay(Capsule().stroke(LearningTheme.line, lineWidth: 1.5))
+            .overlay(Capsule().stroke(LearningTheme.line, lineWidth: 1.25))
         }
-        .padding(14)
+        .padding(12)
         .background(isLocked ? LearningTheme.locked.opacity(0.75) : .white)
-        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: LearningTheme.cardRadius, style: .continuous))
         .overlay(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
+            RoundedRectangle(cornerRadius: LearningTheme.cardRadius, style: .continuous)
                 .stroke(LearningTheme.line, lineWidth: LearningTheme.heavyLine)
         )
     }
@@ -342,12 +353,16 @@ private struct DetailStatItem: View {
     var body: some View {
         VStack(spacing: 4) {
             Text(value)
-                .font(.system(size: 23, weight: .black, design: .rounded))
+                .font(.system(size: 21, weight: .black, design: .rounded))
                 .foregroundColor(LearningTheme.ink)
+                .lineLimit(1)
+                .minimumScaleFactor(0.75)
 
             Text(title)
                 .font(.system(size: 12, weight: .black, design: .rounded))
                 .foregroundColor(LearningTheme.softInk)
+                .lineLimit(1)
+                .minimumScaleFactor(0.75)
         }
     }
 }
