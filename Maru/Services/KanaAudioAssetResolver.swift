@@ -2,8 +2,7 @@ import Foundation
 
 enum KanaAudioAssetResolver {
     static let fileExtension = "mp3"
-
-    private static let unsupportedRomaji: Set<String> = [
+    static let speechFallbackRomaji: Set<String> = [
         "d",
         "vu"
     ]
@@ -30,7 +29,7 @@ enum KanaAudioAssetResolver {
             .trimmingCharacters(in: .whitespacesAndNewlines)
             .lowercased()
 
-        guard !unsupportedRomaji.contains(normalizedRomaji) else {
+        guard !speechFallbackRomaji.contains(normalizedRomaji) else {
             return nil
         }
 

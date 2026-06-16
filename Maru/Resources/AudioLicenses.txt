@@ -3,26 +3,18 @@ Native Kana Audio Notices
 
 This app bundles native-speaker kana pronunciation audio for offline playback.
 
-Wikimedia Commons Public Domain Audio
--------------------------------------
-
-Most basic, dakuten, and handakuten kana audio files are public-domain MP3
-transcodes from Wikimedia Commons. The bundled files are derived from public
-domain OGG/OGA recordings by Hakatanoshio117117 and Doughaque.
-
-Representative sources:
-- https://commons.wikimedia.org/wiki/Category:Audio_files_of_hiragana_(set_by_Hakatanoshio117117)
-- https://commons.wikimedia.org/wiki/File:Ja-ka.ogg
-
-Per-file source URLs and hashes are recorded in AudioSourceManifest.json.
-
 Just Gojuon Audio
 -----------------
 
-Combination kana audio files that were not available from the public-domain
-Commons set are derived from Just Gojuon:
+Supported native kana audio files are derived from Just Gojuon:
 
 https://github.com/veardk/just-gojuon
+
+The bundled files use the upstream MP3 dataset published under:
+https://raw.githubusercontent.com/veardk/just-gojuon/main/public/sounds/index.json
+
+Per-file source URLs, byte counts, and hashes are recorded in
+AudioSourceManifest.json.
 
 MIT License
 
@@ -49,5 +41,5 @@ SOFTWARE.
 Fallback Audio
 --------------
 
-The rare kana sounds "d" and "vu" intentionally use the system Japanese
-speech voice when no native bundled recording is available.
+The rare kana sounds "d" (dakuten iteration mark) and "vu" intentionally use
+the system Japanese speech voice when no native bundled recording is available.
